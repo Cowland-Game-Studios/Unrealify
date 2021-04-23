@@ -22,7 +22,7 @@ def GetAllClasses() -> dict:
 
                 UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
                 Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
-                MapOfClassToLink[Key] = Value #adds new array elemetn thing
+                MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
             except:
                 continue #need try except in case .group(0) doesn't work
             

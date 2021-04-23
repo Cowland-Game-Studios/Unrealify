@@ -10,13 +10,13 @@ if __name__ == "__main__":
 
     while 1:
 
-        Query = input("Search For...\n")
+        Query = input("Search For... (type \"exit\" to terminate)\n").replace(" ", "").lower()
+
+        if Query == "exit":
+            break
 
         try:
             URL = LoadedClasses[Query]
-            print(BeautifulSoupHandler.GetClassInclude(URL))
+            print(f"\n\nPath Found!\n>>>{BeautifulSoupHandler.GetClassInclude(URL)}<<<\n\n")
         except:
             print(f"Keyword {Query} Not Found!")
-
-        if input("Exit? (Y/N)\n").lower() == "y":
-            break

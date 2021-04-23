@@ -59,5 +59,6 @@ def GetClassInclude(PageURL) -> str: #sends in URL of the class
 
 
 if __name__ == "__main__":
-    #print(GetAllClasses())
-    print(GetClassInclude("https://docs.unrealengine.com/en-US/API/Editor/GraphEditor/FZoomLevelsContainer/index.html"))
+  with open("text.txt", "w+") as f:
+    f.write(str(GetAllClasses()))
+    #print(GetClassInclude("https://docs.unrealengine.com/en-US/API/Editor/GraphEditor/FZoomLevelsContainer/index.html"))

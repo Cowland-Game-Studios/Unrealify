@@ -11,3 +11,4 @@ Fully automated "coding assistant" version coming soon with Tkinter GUI.
 - Requests
 - Re (regex)
 - Tkinter
+- Pynput

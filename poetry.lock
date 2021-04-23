@@ -1,0 +1,171 @@
+[[package]]
+category = "main"
+description = "Screen-scraping library"
+name = "beautifulsoup4"
+optional = false
+python-versions = "*"
+version = "4.9.3"
+
+[package.dependencies]
+[package.dependencies.soupsieve]
+python = ">=3.0"
+version = ">1.2"
+
+[package.extras]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
+category = "main"
+description = "Dummy package for Beautiful Soup"
+name = "bs4"
+optional = false
+python-versions = "*"
+version = "0.0.1"
+
+[package.dependencies]
+beautifulsoup4 = "*"
+
+[[package]]
+category = "main"
+description = "Bindings to the Linux input handling subsystem"
+marker = "sys_platform in \"linux\""
+name = "evdev"
+optional = false
+python-versions = "*"
+version = "1.4.0"
+
+[[package]]
+category = "main"
+description = "Monitor and control user input devices"
+name = "pynput"
+optional = false
+python-versions = "*"
+version = "1.7.3"
+
+[package.dependencies]
+evdev = ">=1.3"
+pyobjc-framework-Quartz = ">=7.0"
+python-xlib = ">=0.17"
+six = "*"
+
+[[package]]
+category = "main"
+description = "Python<->ObjC Interoperability Module"
+marker = "sys_platform == \"darwin\""
+name = "pyobjc-core"
+optional = false
+python-versions = ">=3.6"
+version = "7.1"
+
+[[package]]
+category = "main"
+description = "Wrappers for the Cocoa frameworks on macOS"
+marker = "sys_platform == \"darwin\""
+name = "pyobjc-framework-cocoa"
+optional = false
+python-versions = ">=3.6"
+version = "7.1"
+
+[package.dependencies]
+pyobjc-core = ">=7.1"
+
+[[package]]
+category = "main"
+description = "Wrappers for the Quartz frameworks on macOS"
+marker = "sys_platform == \"darwin\""
+name = "pyobjc-framework-quartz"
+optional = false
+python-versions = ">=3.6"
+version = "7.1"
+
+[package.dependencies]
+pyobjc-core = ">=7.1"
+pyobjc-framework-Cocoa = ">=7.1"
+
+[[package]]
+category = "main"
+description = "Python X Library"
+marker = "sys_platform in \"linux\""
+name = "python-xlib"
+optional = false
+python-versions = "*"
+version = "0.29"
+
+[package.dependencies]
+six = ">=1.10.0"
+
+[[package]]
+category = "main"
+description = "Python 2 and 3 compatibility utilities"
+name = "six"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+version = "1.15.0"
+
+[[package]]
+category = "main"
+description = "A modern CSS selector implementation for Beautiful Soup."
+marker = "python_version >= \"3.0\""
+name = "soupsieve"
+optional = false
+python-versions = ">=3.6"
+version = "2.2.1"
+
+[metadata]
+content-hash = "86260b66110d6819a335b9aeae28eb8d928d53b6f83cfced0fef9a59d6d37c84"
+python-versions = "^3.8"
+
+[metadata.files]
+beautifulsoup4 = [
+    {file = "beautifulsoup4-4.9.3-py2-none-any.whl", hash = "sha256:4c98143716ef1cb40bf7f39a8e3eec8f8b009509e74904ba3a7b315431577e35"},
+    {file = "beautifulsoup4-4.9.3-py3-none-any.whl", hash = "sha256:fff47e031e34ec82bf17e00da8f592fe7de69aeea38be00523c04623c04fb666"},
+    {file = "beautifulsoup4-4.9.3.tar.gz", hash = "sha256:84729e322ad1d5b4d25f805bfa05b902dd96450f43842c4e99067d5e1369eb25"},
+]
+bs4 = [
+    {file = "bs4-0.0.1.tar.gz", hash = "sha256:36ecea1fd7cc5c0c6e4a1ff075df26d50da647b75376626cc186e2212886dd3a"},
+]
+evdev = [
+    {file = "evdev-1.4.0.tar.gz", hash = "sha256:8782740eb1a86b187334c07feb5127d3faa0b236e113206dfe3ae8f77fb1aaf1"},
+]
+pynput = [
+    {file = "pynput-1.7.3-py2.py3-none-any.whl", hash = "sha256:fea5777454f896bd79d35393088cd29a089f3b2da166f0848a922b1d5a807d4f"},
+    {file = "pynput-1.7.3-py3.8.egg", hash = "sha256:6626e8ea9ca482bb5628a7169e1193824e382c4ad3053e40f4f24f41ee7b41c9"},
+    {file = "pynput-1.7.3.tar.gz", hash = "sha256:4e50b1a0ab86847e87e58f6d1993688b9a44f9f4c88d4712315ea8eb552ef828"},
+]
+pyobjc-core = [
+    {file = "pyobjc-core-7.1.tar.gz", hash = "sha256:a0616d5d816b4471f8f782c3a9a8923d2cc85014d88ad4f7fec694be9e6ea349"},
+    {file = "pyobjc_core-7.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f9fb45c9916f2a03ecd6b9ecde4c35d1d0f1a590ae2ea2372f9d9a360226ac1d"},
+    {file = "pyobjc_core-7.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:fff8e87358c6195a2937004f279050cce3d4c02cd77acd73c5ad367307def855"},
+    {file = "pyobjc_core-7.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:afb38efd3f2960eb49eb78552d465cfd025a9d6efa06cd4cd8694dafbe7c6e06"},
+    {file = "pyobjc_core-7.1-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:7cb329c4119044fe83bcb3c5d4794d636c706ff0cb7c1c77d36ef5c373100082"},
+    {file = "pyobjc_core-7.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:7913d7b20217c294900537faf58e5cc15942ed7af277bf05db25667d18255114"},
+]
+pyobjc-framework-cocoa = [
+    {file = "pyobjc-framework-Cocoa-7.1.tar.gz", hash = "sha256:67966152b3d38a0225176fceca2e9f56d849c8e7445548da09a00cb13155ec3e"},
+    {file = "pyobjc_framework_Cocoa-7.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:bef77eafaac5eaf1d91d479d5483fd02216caa3edc27e8f5adc9af0b3fecdac3"},
+    {file = "pyobjc_framework_Cocoa-7.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:b2ea3582c456827dc20e648c905fdbcf8d3dfae89434f981e9b761cd07262049"},
+    {file = "pyobjc_framework_Cocoa-7.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:1a4050f2d776f40c2409a151c6f7896420e936934b3bdbfabedf91509637ed9b"},
+    {file = "pyobjc_framework_Cocoa-7.1-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:3f68f022f1f6d5985c418e10c6608c562fcf4bfe3714ec64fd10ce3dc6221bd4"},
+    {file = "pyobjc_framework_Cocoa-7.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:ecfefd4c48dae42275c18679c69f6f2fff970e711097515a0a8732fc10194018"},
+]
+pyobjc-framework-quartz = [
+    {file = "pyobjc-framework-Quartz-7.1.tar.gz", hash = "sha256:73102c9f4dbfa13275621014785ab3b684cf03ce93a4b0b270500c795349bea9"},
+    {file = "pyobjc_framework_Quartz-7.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:7207a26244f02d4534ebb007fa55a9dc7c1b7fbb490d1e89e0d62cfd175e20f3"},
+    {file = "pyobjc_framework_Quartz-7.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:5bc7a4fb3ea80b5af6910cc27729a0774a96327a69583fcf28057cb2ffce33ac"},
+    {file = "pyobjc_framework_Quartz-7.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:c0469d60d4a79fc252f74adaa8177d2c680621d858c1b8ef19c411e903e2c892"},
+    {file = "pyobjc_framework_Quartz-7.1-cp39-cp39-macosx_10_9_universal2.whl", hash = "sha256:04953c031fc35020682bd4613b9b5a9688bdb9eab7ed76fd8dcf028783568b4f"},
+    {file = "pyobjc_framework_Quartz-7.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d8e0c086faf649f86386d0ed99194c6d0704b602576e2b258532b635b510b790"},
+]
+python-xlib = [
+    {file = "python-xlib-0.29.tar.gz", hash = "sha256:e4bcb756f4aa05be7b82ee21de0ba04d73414018727b42ebd9fbcf409ea75d13"},
+    {file = "python_xlib-0.29-py2.py3-none-any.whl", hash = "sha256:044095d1b1a5eab5a79f8d0b66f811a9ac6acd038dd3bae00cb3dbe90b32a7e3"},
+]
+six = [
+    {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
+    {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
+]
+soupsieve = [
+    {file = "soupsieve-2.2.1-py3-none-any.whl", hash = "sha256:c2c1c2d44f158cdbddab7824a9af8c4f83c76b1e23e049479aa432feb6c4c23b"},
+    {file = "soupsieve-2.2.1.tar.gz", hash = "sha256:052774848f448cf19c7e959adf5566904d525f33a3f8b6ba6f6f8f26ec7de0cc"},
+]

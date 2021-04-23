@@ -23,11 +23,16 @@ def ProcessStrokes(Key):
   
   Keys.append(Key.replace("\'", "")) #add character into Keys
   
-  if "".join(Keys) in list(UnrealClassesDict.keys()): #code if in statement
+  print(Keys)
+  
+  if "".join(Keys) in list(UnrealClassesDict.keys()): 
     print(UnrealClassesDict["".join(Keys)])
     Keys = []
+    
+def MakeKeyHandler():
+  with Listener(on_press = ProcessStrokes) as listener:   
+      listener.join()
   
-  print(Keys)
   
 
 if __name__ == "__main__":
@@ -38,5 +43,10 @@ if __name__ == "__main__":
   
   print("Classes loaded \n\n")
   
-  with Listener(on_press = ProcessStrokes) as listener:   
-      listener.join()
+  '''
+  Keys = ["a", "a", "c", "t", "o"]
+  ProcessStrokes("r")
+  #test code for if you can't use keyboard input thing
+  '''
+  
+  MakeKeyHandler()

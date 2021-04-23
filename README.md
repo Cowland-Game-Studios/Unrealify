@@ -12,3 +12,4 @@ Fully automated "coding assistant" version coming soon with Tkinter GUI.
 - Re (regex)
 - Tkinter
 - Pynput
+- Threading (to run tkinter alongside keylogger)

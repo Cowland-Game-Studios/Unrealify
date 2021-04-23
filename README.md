@@ -11,5 +11,9 @@ Fully automated "coding assistant" version coming soon with Tkinter GUI.
 - Requests
 - Re (regex)
 - Tkinter
+- TTK (Tkinter)
 - Pynput
 - Threading (to run tkinter alongside keylogger)
+- (Events)[https://pypi.org/project/Events/]
+- Webbrowser (to open links)
+- Time

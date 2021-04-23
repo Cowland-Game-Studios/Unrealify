@@ -1,52 +1,65 @@
-#dangerous code below, can be modified easily to a keylogger!!!
 
 from pynput.keyboard import Key, Listener
 import re
+from Handlers import BeautifulSoupHandler
+from events import Events
 
-Keys = []
-UnrealClassesDict = {}
+KeyIgnores = [
+  "key.enter",
+  "key.space",
+  "key.backspace"
+]
 
-def IsNotCharacter(Key):
-  if "key" in Key.lower(): #to rid key.space, key.backspace
-    return True
-  return False
+class KeyHandler():
 
-def ProcessStrokes(Key):
-  
-  global Keys, UnrealClassesDict
-  
-  Key = str(Key)
-  
-  if IsNotCharacter(Key): #on space pressed flush characters
-    Keys = []
-    return
-  
-  Keys.append(Key.replace("\'", "")) #add character into Keys
-  
-  print(Keys)
-  
-  if "".join(Keys) in list(UnrealClassesDict.keys()): 
-    print(UnrealClassesDict["".join(Keys)])
-    Keys = []
+  #optional parameters, event params are just for what functions to call when matched, the dictionairy can be parsed in to save recalling of a latent function
+  def __init__(self, AEventParams = [], AClassDict = BeautifulSoupHandler.GetAllClasses()) -> None:
     
-def MakeKeyHandler():
-  with Listener(on_press = ProcessStrokes) as listener:   
-      listener.join()
-  
-  
+    print("Unreal Classes Loaded")
+
+    self.Keys = []
+    self.UnrealClassesDict = AClassDict
+
+    self.EventHandler = Events()
+    if len(AEventParams) == 0:
+      self.EventHandler.on_change += self.DummyEvent
+    else:
+      for Event in AEventParams:
+        self.EventHandler.on_change += Event
+
+    with Listener(on_press = self.ProcessStrokes) as listener:   
+        listener.join()
+
+  def IsNotBlackListedKeys(self, Key) -> bool:
+    return Key.lower() in KeyIgnores #to rid key.space, key.backspace
+
+  def IsNotCharacter(self, Key) -> bool:
+    return "key" in Key.lower() #to rid key.anything
+
+  def DummyEvent(self, Keyword, URL, Include) -> None: #dummy event if no event is put in the EventParams
+    print("%s %s %s" % (Keyword, URL, Include))
+
+  def ProcessStrokes(self, Key) -> None:
+    
+    Key = str(Key).replace("\'", "")
+    if self.IsNotBlackListedKeys(Key): #on blacklisted key pressed flush characters
+      self.Keys = []
+      return
+
+    if self.IsNotCharacter(Key):#ignore shift keys
+      return
+    
+    self.Keys.append(Key) #add character into Keys
+
+    Joined = "".join(self.Keys).lower()
+    
+    if Joined in list(self.UnrealClassesDict.keys()): 
+      self.EventHandler.on_change(
+        Joined,
+         self.UnrealClassesDict[Joined],
+          BeautifulSoupHandler.GetClassInclude(self.UnrealClassesDict[Joined])
+          ) #event dispatches
+      self.Keys = [] #last
 
 if __name__ == "__main__":
-  
-  import BeautifulSoupHandler
-  
-  UnrealClassesDict = BeautifulSoupHandler.GetAllClasses()
-  
-  print("Classes loaded \n\n")
-  
-  '''
-  Keys = ["a", "a", "c", "t", "o"]
-  ProcessStrokes("r")
-  #test code for if you can't use keyboard input thing
-  '''
-  
-  MakeKeyHandler()
+  K = KeyHandler()

@@ -8,22 +8,32 @@ If anyone has a more optomized solution file a PR. Thanks
 from bs4 import BeautifulSoup #to process page
 import requests #to get page
 import re #to replace html stuff
+import math
 
-def GetAllClasses() -> dict:
+def GetAllClasses(ProgressBar = None) -> dict:
 
     def RemoveHTML(ListOfHTML) -> dict: #nested fucntion tsk tsk
 
         MapOfClassToLink = {}
 
-        for HTMLElement in ListOfHTML:
+        for i in range(len(ListOfHTML)):
             try:
-                Elem = str(HTMLElement)
-                Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
+               
+                Elem = str(ListOfHTML[i])
 
+                if "#idx_" in Elem: #remove table of contents tags
+                    continue
+
+                if ProgressBar != None:
+                    ProgressValue = round(i / len(ListOfHTML) * 100)
+                    ProgressBar.Update(ProgressValue)
+                
+                Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
                 UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
                 Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
                 MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
-            except:
+            except Exception as e:
+                print(e)
                 continue #need try except in case .group(0) doesn't work
             
             #regex from https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string/11230103

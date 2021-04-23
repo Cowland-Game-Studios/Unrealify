@@ -6,5 +6,7 @@ Warning: This "AutoBackgroundMain.py" script does contain a key-press-logger. Ho
 
 ## Dependencies
 -BeautifulSoup4
+
 -Requests
+
 -Re (regex)

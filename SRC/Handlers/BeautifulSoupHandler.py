@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup #to process page
 import requests #to get page
 import re #to replace html stuff
 import math
+import threading
 
 def GetAllClasses(ProgressBar = None) -> dict:
 
@@ -24,14 +25,15 @@ def GetAllClasses(ProgressBar = None) -> dict:
                 if "#idx_" in Elem: #remove table of contents tags
                     continue
 
-                if ProgressBar != None:
-                    ProgressValue = round(i / len(ListOfHTML) * 100)
-                    ProgressBar.Update(ProgressValue)
-                
                 Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
                 UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
                 Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
                 MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
+            
+                if ProgressBar != None:
+                    t = threading.Thread(target=lambda:[ProgressBar.Update(round(i / len(ListOfHTML) * 100))])
+                    t.start()  
+                
             except Exception as e:
                 print(e)
                 continue #need try except in case .group(0) doesn't work
@@ -66,7 +68,6 @@ def GetClassInclude(PageURL) -> str: #sends in URL of the class
         return IncludeHeader
     except:
         return f"Error, \"{PageURL}\" not found!"
-
 
 if __name__ == "__main__":
   with open("text.txt", "w+") as f:

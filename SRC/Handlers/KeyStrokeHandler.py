@@ -51,6 +51,8 @@ class KeyHandler():
     
     self.Keys.append(Key) #add character into Keys
 
+    print(self.Keys)
+
     Joined = "".join(self.Keys).lower()
     
     if Joined in list(self.UnrealClassesDict.keys()): 
@@ -62,4 +64,5 @@ class KeyHandler():
       self.Keys = [] #last
 
 if __name__ == "__main__":
+  import BeautifulSoupHandler
   K = KeyHandler()

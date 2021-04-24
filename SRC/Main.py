@@ -29,6 +29,6 @@ def LoadingProgressMenu():
 if __name__ == "__main__":
   LoadingProgressMenu()
   while ProgressBarToParse == None: #wait for thing to load
-    time.sleep(1)
-  Classes = BeautifulSoupHandler.GetAllClasses(ProgressBarToParse)
-  KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], Classes)
+    time.sleep(0.5)
+  AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
+  KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)

@@ -6,8 +6,7 @@ from events import Events
 
 KeyIgnores = [
   "key.enter",
-  "key.space",
-  "key.backspace"
+  "key.space"
 ]
 
 class KeyHandler():
@@ -42,6 +41,11 @@ class KeyHandler():
   def ProcessStrokes(self, Key) -> None:
     
     Key = str(Key).replace("\'", "")
+
+    if Key.lower() == "key.backspace" and len(self.Keys) > 0:
+      self.Keys.pop()
+      return
+
     if self.IsNotBlackListedKeys(Key): #on blacklisted key pressed flush characters
       self.Keys = []
       return
@@ -61,8 +65,7 @@ class KeyHandler():
          self.UnrealClassesDict[Joined],
           BeautifulSoupHandler.GetClassInclude(self.UnrealClassesDict[Joined])
           ) #event dispatches
-      self.Keys = [] #last
 
 if __name__ == "__main__":
   import BeautifulSoupHandler
-  K = KeyHandler()
+  K = KeyHandler([], BeautifulSoupHandler.GetAllClasses())

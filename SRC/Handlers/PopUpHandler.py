@@ -48,4 +48,4 @@ class PopUp():
     
 
 if __name__ == "__main__":
-    a2 = PopUp("uassetcompon", "__CLOSE__", "XDasdf")
+    a2 = PopUp("uassetcompon", "__CLOSE__", "fdjkladsfjasjdhkfhjkfdhjhjkafdhjkhafkdshasfdhjafdshjdsfjafadsjkdsaf")

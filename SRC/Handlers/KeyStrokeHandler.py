@@ -57,7 +57,7 @@ class KeyHandler():
 
     print(self.Keys)
 
-    Joined = "".join(self.Keys).lower()
+    Joined = "".join(self.Keys).lower().replace(";", "")
     
     if Joined in list(self.UnrealClassesDict.keys()): 
       self.EventHandler.on_change(

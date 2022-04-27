@@ -27,7 +27,7 @@ def GetAllClasses(ProgressBar = None) -> dict:
 
                 Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
                 UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
-                Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
+                Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/5.0/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
                 MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
             
                 if ProgressBar != None:

@@ -1,4 +1,5 @@
 import tkinter as tk
+from Handlers.PopUpHandler import PopUp
 from tkinter.ttk import Progressbar
 import webbrowser
 import pyperclip
@@ -15,11 +16,11 @@ class Progress():
     def SetUpUI(self) -> None:
         self.window = tk.Tk()
         self.window.geometry("300x100")
-        self.window["bg"] = "#005593"
+        self.window["bg"] = "#292929"
         self.window.title("Unreal Import Assistant")
         self.window.resizable(False, False)
 
-        self.HeaderLabel = tk.Label(master=self.window, text="Loading", bg="#005593", font=("Courier", 30), foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text="Loading Unreal Classes", bg="#292929", font=("Courier", 15), foreground="white")
         self.HeaderLabel.pack()
         
         self.Bar = Progressbar(self.window, length = 100)
@@ -30,7 +31,7 @@ class Progress():
             self.Bar["value"] = Value
         
         if Value == 100:
-             self.window.destroy()
+            self.window.destroy()
             
 
 if __name__ == "__main__":

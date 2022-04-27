@@ -6,8 +6,6 @@ import threading
 import time
 from events import Events
 
-ProgressBarToParse = None
-
 def PopUpAssistant(Keyword, URL, Include):
   def MakePopUp():
     PopUpHandler.PopUp(Keyword, URL, Include)
@@ -15,20 +13,33 @@ def PopUpAssistant(Keyword, URL, Include):
   NewWindow = threading.Thread(target=MakePopUp)
   NewWindow.start()
 
-def LoadingProgressMenu():
+AllClasses = {}
+if __name__ == "__main__":
+  ProgressBarToParse = ProgressHandler.Progress()
 
-  def MakeProgressBar():
-    global ProgressBarToParse
+  def LoopProgress():
+    global AllClasses
 
-    ProgressBarToParse = ProgressHandler.Progress()
-    ProgressBarToParse.Loop()
-  
-  NewWindow = threading.Thread(target=MakeProgressBar)
+    ProgressBarToParse.Update(0)
+
+    ProgressBarToParse.Update(50)
+
+    time.sleep(0.1)
+
+    AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
+
+    ProgressBarToParse.Update(99)
+
+    time.sleep(0.1)
+
+    ProgressBarToParse.Update(100)
+
+
+  NewWindow = threading.Thread(target=LoopProgress)
   NewWindow.start()
 
-if __name__ == "__main__":
-  LoadingProgressMenu()
-  while ProgressBarToParse == None: #wait for thing to load
-    time.sleep(0.5)
-  AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
+  ProgressBarToParse.Loop()
+
+  PopUpHandler.PopUp(":)", ":)", "Unreal Classes Loaded Succesfully!")
+
   KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)

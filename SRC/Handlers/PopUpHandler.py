@@ -4,16 +4,19 @@ import pyperclip
 
 class PopUp():
   
-    def __init__(self, Header, Description, TextToCopy):
-        self.SetUpUI(Header, Description, TextToCopy)
+    def __init__(self, Header, Link, TextToCopy):
+        self.SetUpUI(Header, Link, TextToCopy)
         self.window.focus_force()
 
         self.window.mainloop()
     
     def OpenLink(self, link):
-        webbrowser.open_new_tab(link)
+        if (link == "__CLOSE__"):
+            self.window.destroy()
+        else:
+            webbrowser.open_new_tab(link)
 
-    def SetUpUI(self, Header, Description, TextToCopy) -> None:
+    def SetUpUI(self, Header, Link, TextToCopy) -> None:
         self.window = tk.Tk()
         self.window.geometry("300x150")
         self.window["bg"] = "#292929"
@@ -30,7 +33,11 @@ class PopUp():
         self.LinkButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#adf7eb", foreground="white", borderwidth=0)
         self.LinkButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
         
-        self.LinkButton = tk.Button(master=self.window, text="Show In Browser", command=lambda: [self.OpenLink(Description)], bg="#adf7eb", foreground="white", borderwidth=0)
+        LinkButtonText = "Show In Browser"
+        if (Link == "__CLOSE__"):
+            LinkButtonText = "Close"
+
+        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#adf7eb", foreground="white", borderwidth=0)
         self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
     
 

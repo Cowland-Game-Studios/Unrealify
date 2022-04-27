@@ -40,6 +40,6 @@ if __name__ == "__main__":
 
   ProgressBarToParse.Loop()
 
-  PopUpHandler.PopUp(":)", ":)", "Unreal Classes Loaded Succesfully!")
+  PopUpHandler.PopUp(":)", "__CLOSE__", "Unreal Classes Loaded Succesfully!")
 
   KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)

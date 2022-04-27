@@ -1,45 +1,47 @@
-from Handlers import KeyStrokeHandler
 from Handlers import PopUpHandler
 from Handlers import ProgressHandler
-from Handlers import BeautifulSoupHandler
-import threading
-import time
-from events import Events
 
-def PopUpAssistant(Keyword, URL, Include):
-  def MakePopUp():
-    PopUpHandler.PopUp(Keyword, URL, Include)
+try:
+  from Handlers import KeyStrokeHandler
+  from Handlers import BeautifulSoupHandler
+  import threading
+  import time
+  from events import Events
 
-  NewWindow = threading.Thread(target=MakePopUp)
-  NewWindow.start()
+  def PopUpAssistant(Keyword, URL, Include):
+    def MakePopUp():
+      PopUpHandler.PopUp(Keyword, URL, Include)
 
-AllClasses = {}
-if __name__ == "__main__":
-  ProgressBarToParse = ProgressHandler.Progress()
+    NewWindow = threading.Thread(target=MakePopUp)
+    NewWindow.start()
 
-  def LoopProgress():
-    global AllClasses
+  AllClasses = {}
+  if __name__ == "__main__":
+    ProgressBarToParse = ProgressHandler.Progress()
 
-    ProgressBarToParse.Update(0)
+    def LoopProgress():
+      global AllClasses
 
-    ProgressBarToParse.Update(50)
+      ProgressBarToParse.Update(0)
 
-    time.sleep(0.1)
+      for i in range(0, 99):
+        ProgressBarToParse.Update(i)
+        time.sleep(0.01)
 
-    AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
+      AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
 
-    ProgressBarToParse.Update(99)
+      time.sleep(0.1)
 
-    time.sleep(0.1)
-
-    ProgressBarToParse.Update(100)
+      ProgressBarToParse.Update(100)
 
 
-  NewWindow = threading.Thread(target=LoopProgress)
-  NewWindow.start()
+    NewWindow = threading.Thread(target=LoopProgress)
+    NewWindow.start()
 
-  ProgressBarToParse.Loop()
+    ProgressBarToParse.Loop()
 
-  PopUpHandler.PopUp(":)", "__CLOSE__", "Unreal Classes Loaded Succesfully!")
+    PopUpHandler.PopUp(":)", "__CLOSE__", "Unreal Classes Loaded Succesfully!", False)
 
-  KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)
+    KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)
+except Exception as e:
+  PopUpHandler.PopUp(":(", "__CLOSE__", "Error: " + str(e), False)

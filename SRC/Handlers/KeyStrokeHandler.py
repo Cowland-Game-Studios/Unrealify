@@ -30,7 +30,7 @@ class KeyHandler():
         listener.join()
 
   def IsNotBlackListedKeys(self, Key) -> bool:
-    return Key.lower() in KeyIgnores #to rid key.space, key.backspace
+    return Key.lower() in KeyIgnores or "\\" in Key.lower() #to rid key.space, key.backspace
 
   def IsNotCharacter(self, Key) -> bool:
     return "key" in Key.lower() #to rid key.anything

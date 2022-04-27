@@ -28,7 +28,7 @@ class PopUp():
 
         #self.window.iconphoto(False, tk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo.png"))
 
-        self.HeaderLabel = tk.Label(master=self.window, text=Header, bg="#292929", font=("Courier", 30), foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text=Header, bg="#292929", font=("Courier", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
         self.HeaderLabel.pack()
         
         self.DescriptionLabel = tk.Text(master=self.window, bg="#585858", foreground="white", font=("Courier", 15), borderwidth=0)
@@ -48,5 +48,4 @@ class PopUp():
     
 
 if __name__ == "__main__":
-    a2 = PopUp("Test", "Lol", "XD")
-    a2 = PopUp("Testasdfasd", "__CLOSE__", "XDasdf")
+    a2 = PopUp("uassetcompon", "__CLOSE__", "XDasdf")

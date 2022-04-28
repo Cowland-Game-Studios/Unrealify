@@ -24,12 +24,12 @@ class PopUp():
         self.window = tk.Tk()
         self.window.geometry("300x150")
         self.window["bg"] = "#292929"
-        self.window.title("Unreal Import Assistant")
+        self.window.title("Unreal Coding Assistant")
         self.window.resizable(False, False)
 
         #self.window.iconphoto(False, tk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo.png"))
 
-        self.HeaderLabel = tk.Label(master=self.window, text=Header, bg="#292929", font=("Courier", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#292929", font=("Helvetica", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
         self.HeaderLabel.pack()
         
         self.DescriptionLabel = tk.Text(master=self.window, bg="#585858", foreground="white", font=("Courier", 10), borderwidth=0)

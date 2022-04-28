@@ -46,7 +46,12 @@ try:
 
     ProgressBarToParse.Loop()
 
-    KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)
+    KeyHandler = threading.Thread(target = lambda: [KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)]) 
+    KeyHandler.start()
+
+    print("hello")
+
+    exit()
 except Exception as e:
   import traceback
   PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

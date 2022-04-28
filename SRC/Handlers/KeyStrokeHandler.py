@@ -14,7 +14,7 @@ class KeyHandler():
   #optional parameters, event params are just for what functions to call when matched, the dictionairy can be parsed in to save recalling of a latent function
   def __init__(self, AEventParams = [], AClassDict = BeautifulSoupHandler.GetAllClasses()) -> None:
     
-    print("Unreal Classes Loaded")
+    print("Tracking Started (Exit terminal to stop)")
 
     self.Keys = []
     self.UnrealClassesDict = AClassDict

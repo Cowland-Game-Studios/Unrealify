@@ -50,8 +50,14 @@ class Progress():
             self.Bar["value"] = Value
         
         if Value > 100:
-            self.window.destroy()
+            self.Bar.destroy()
+            self.HeaderLabel["text"] = "Loading Success! :)"
+            #self.CopyrightLabel["text"] = "The application will now track what you type."
+            #self.CopyrightLabel["font"] = ("Courier", 7)
+            self.LinkButton = tk.Button(master=self.window, text="Start Tracking!", command=lambda: [self.window.destroy()], bg="#0070e0", foreground="white", borderwidth=0)
+            self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
 
 if __name__ == "__main__":
     a = Progress()
+    a.Update(101)
     a.Loop()

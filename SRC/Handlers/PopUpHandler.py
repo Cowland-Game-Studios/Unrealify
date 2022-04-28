@@ -37,8 +37,8 @@ class PopUp():
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 
         if (CanCopy):
-            self.LinkButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#0070e0", foreground="white", borderwidth=0)
-            self.LinkButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
+            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#0070e0", foreground="white", borderwidth=0)
+            self.CopyButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
         
         LinkButtonText = "Show In Browser"
         if (Link == "__CLOSE__"):

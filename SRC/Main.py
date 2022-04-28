@@ -46,8 +46,6 @@ try:
 
     ProgressBarToParse.Loop()
 
-    PopUpHandler.PopUp(":)", "__CLOSE__", "Unreal Classes Loaded Succesfully!", False)
-
     KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)
 except Exception as e:
   PopUpHandler.PopUp(":(", "__CLOSE__", "Error: " + str(e), False)

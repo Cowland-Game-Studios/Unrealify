@@ -24,12 +24,11 @@ class Progress():
         self.window["bg"] = "#292929"
         self.window.title("Unreal Import Assistant")
         self.window.resizable(False, False)
-
-        self.window.iconphoto(True, tk.PhotoImage(file = Progress.DirectoryAbove + "/Image/Logo.png"))
+        self.window.focus_force()
 
         tk.Label(text="", font=("Helvetica", 5), bg="#292929").pack()
 
-        img = ImageTk.PhotoImage( Image.open(Progress.DirectoryAbove + "/Image/Splash.png").resize((200, 200), Image.ANTIALIAS))
+        img = ImageTk.PhotoImage(Image.open(Progress.DirectoryAbove + "/Image/Splash.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
         self.IntroImage.image = img
         self.IntroImage.pack()
@@ -47,6 +46,8 @@ class Progress():
         self.Bar = Progressbar(self.window, length = 100)
         self.Bar.place(relx = 0.5, rely = 0.975, width = 400, height = 25, anchor="center")
 
+        ProgressBarFormatter = tk.Frame(width=self.Width, height=self.Height, bg="#292929")
+
     def Update(self, Value):
         if Value != self.Bar["value"]:
             self.Bar["value"] = Value
@@ -62,5 +63,5 @@ class Progress():
 
 if __name__ == "__main__":
     a = Progress()
-    a.Update(101)
+    a.Update(40)
     a.Loop()

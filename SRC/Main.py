@@ -48,4 +48,5 @@ try:
 
     KeyHandler = KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)
 except Exception as e:
-  PopUpHandler.PopUp(":(", "__CLOSE__", "Error: " + str(e), False)
+  import traceback
+  PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

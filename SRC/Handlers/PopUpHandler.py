@@ -32,7 +32,7 @@ class PopUp():
         self.HeaderLabel = tk.Label(master=self.window, text=Header, bg="#292929", font=("Courier", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
         self.HeaderLabel.pack()
         
-        self.DescriptionLabel = tk.Text(master=self.window, bg="#585858", foreground="white", font=("Courier", 15), borderwidth=0)
+        self.DescriptionLabel = tk.Text(master=self.window, bg="#585858", foreground="white", font=("Courier", 10), borderwidth=0)
         self.DescriptionLabel.insert(tk.INSERT, TextToCopy)
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 

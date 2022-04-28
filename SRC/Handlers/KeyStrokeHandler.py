@@ -3,6 +3,9 @@ from pynput.keyboard import Key, Listener
 import re
 from Handlers import BeautifulSoupHandler
 from events import Events
+import datetime
+import time
+import threading
 
 KeyIgnores = [
   "key.enter",
@@ -18,6 +21,7 @@ class KeyHandler():
 
     self.Keys = []
     self.UnrealClassesDict = AClassDict
+    self.TriggeredStamp = datetime.datetime.now().timestamp()
 
     self.EventHandler = Events()
     if len(AEventParams) == 0:
@@ -26,8 +30,11 @@ class KeyHandler():
       for Event in AEventParams:
         self.EventHandler.on_change += Event
 
+    Checker = threading.Thread(target=self.CheckStrokes)
+    Checker.start()
+
     with Listener(on_press = self.ProcessStrokes) as listener:   
-        listener.join()
+      listener.join()
 
   def IsNotBlackListedKeys(self, Key) -> bool:
     return Key.lower() in KeyIgnores or "\\" in Key.lower() #to rid key.space, key.backspace
@@ -54,17 +61,29 @@ class KeyHandler():
       return
     
     self.Keys.append(Key) #add character into Keys
+    TriggeredStamp = datetime.datetime.now().timestamp()
 
     print(self.Keys)
 
-    Joined = "".join(self.Keys).lower().replace(";", "")
-    
-    if Joined in list(self.UnrealClassesDict.keys()): 
-      self.EventHandler.on_change(
-        Joined,
-         self.UnrealClassesDict[Joined],
-          BeautifulSoupHandler.GetClassInclude(self.UnrealClassesDict[Joined])
-          ) #event dispatches
+  def CheckStrokes(self):
+
+    Delay = 0.5
+
+    while True:
+
+      time.sleep(Delay)
+
+      if (datetime.datetime.now().timestamp() - self.TriggeredStamp > Delay / 2):
+        Joined = "".join(self.Keys).lower().replace(";", "")
+              
+        if Joined in list(self.UnrealClassesDict.keys()): 
+          self.EventHandler.on_change(
+            Joined,
+            self.UnrealClassesDict[Joined],
+              BeautifulSoupHandler.GetClassInclude(self.UnrealClassesDict[Joined])
+              ) #event dispatches
+
+          self.Keys = []
 
 if __name__ == "__main__":
   import BeautifulSoupHandler

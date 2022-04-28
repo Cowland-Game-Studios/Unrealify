@@ -24,16 +24,22 @@ try:
 
       ProgressBarToParse.Update(0)
 
-      for i in range(0, 99):
-        ProgressBarToParse.Update(i)
-        time.sleep(0.01)
+      def UpdateFakeBar():
+        for i in range(0, 100):
+          ProgressBarToParse.Update(i)
+          time.sleep(0.01)
+
+      FakeUpdate = threading.Thread(target=UpdateFakeBar)
+      FakeUpdate.start()
 
       AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
 
-      time.sleep(0.1)
-
+      FakeUpdate.join()
       ProgressBarToParse.Update(100)
 
+      time.sleep(1)
+
+      ProgressBarToParse.Update(101)
 
     NewWindow = threading.Thread(target=LoopProgress)
     NewWindow.start()

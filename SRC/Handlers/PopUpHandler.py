@@ -10,6 +10,7 @@ class PopUp():
     def __init__(self, Header, Link, TextToCopy, CanCopy = True):
         self.SetUpUI(Header, Link, TextToCopy, CanCopy)
         self.window.focus_force()
+        #self.window.overrideredirect(True)
 
         self.window.mainloop()
     

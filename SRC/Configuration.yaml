@@ -12,5 +12,6 @@ C++:
     AutoCloseAfter: -1
     Enabled: true
   Type:
+    DelayBetweenCharacters: 1
     Enabled: true
     LogTypeHistory: true

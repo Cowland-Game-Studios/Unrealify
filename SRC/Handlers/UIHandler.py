@@ -23,7 +23,11 @@ class App():
     self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((50, 50), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings.png").resize((50, 50), Image.ANTIALIAS))
     
+    self.AllWidgets = []
+
     self.SetUpUI()
+    self.SetUpSettings()
+
     self.window.focus_force()
 
   def Loop(self):
@@ -41,6 +45,21 @@ class App():
 
     self.SettingButton = tk.Button(self.SideBar, image=self.SettingImage, highlightbackground="#585858", borderwidth=0)
     self.SettingButton.place(x = 5, y = self.Height - 5, anchor = "sw", width=50, height=50)
+
+  def Clear():
+    for Widget in self.AllWidgets:
+      if Widget is not None:
+        Widget.destroy()
+    self.AllWidgets = []
+
+  def SetUpSettings(self):
+    pass
+
+  def SetUpBlueprintsMenu(self):
+    pass
+
+  def SetUpCPPMenu(self):
+    pass
 
   def SetUpUI(self):
     self.SetUpSideBar()

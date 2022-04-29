@@ -16,7 +16,7 @@ class PopUp():
         self.window.mainloop()
     
     def OpenLink(self, link):
-        if (link == "__CLOSE__"):
+        if (link == "__CLOSE__"): 
             self.window.destroy()
         else:
             webbrowser.open_new_tab(link)

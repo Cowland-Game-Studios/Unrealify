@@ -46,7 +46,8 @@ class Progress():
         self.Bar = Progressbar(self.window, length = 100)
         self.Bar.place(relx = 0.5, rely = 0.975, width = 400, height = 25, anchor="center")
 
-        ProgressBarFormatter = tk.Frame(width=self.Width, height=self.Height, bg="#292929")
+        ProgressBarFormatter = tk.Frame(self.window, bg="#292929")
+        ProgressBarFormatter.place(relx = 0.5, rely = 0.95, width=1000, height=15, anchor="center")
 
     def Update(self, Value):
         if Value != self.Bar["value"]:

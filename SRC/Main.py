@@ -6,7 +6,6 @@ AllWindows = []
 ProgressBarToParse = None
 
 try:
-  from Handlers import KeyStrokeHandler
   from Handlers import BeautifulSoupHandler
   from Handlers import UIHandler
   import threading
@@ -14,14 +13,7 @@ try:
   from events import Events
   import tkinter as tk
 
-  def PopUpAssistant(Keyword, URL, Include):
-    def MakePopUp():
-      PopUpHandler.PopUp(Keyword, URL, Include)
-
-    NewWindow = threading.Thread(target=MakePopUp)
-    NewWindow.start()
-
-  AllClasses = {}
+  AllCPPClasses = {}
   if __name__ == "__main__":
     ProgressBarToParse = ProgressHandler.Progress()
     AllWindows.append(ProgressBarToParse)
@@ -40,7 +32,7 @@ try:
       FakeUpdate.start()
       AllThreads.append(FakeUpdate)
 
-      AllClasses = BeautifulSoupHandler.GetAllClasses() #ProgressBarToParse
+      AllCPPClasses = BeautifulSoupHandler.GetAllCPPClasses()
 
       FakeUpdate.join()
       ProgressBarToParse.Update(100)
@@ -49,11 +41,7 @@ try:
 
       ProgressBarToParse.Update(101)
 
-      KeyHandler = threading.Thread(target = lambda: [KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)]) 
-      KeyHandler.start()
-      AllThreads.append(KeyHandler)
-
-      MainWindow = UIHandler.App(ProgressBarToParse.window)
+      MainWindow = UIHandler.App(ProgressBarToParse.window, AllCPPClasses)
       AllWindows.append(MainWindow)
 
     NewWindow = threading.Thread(target=LoopProgress)

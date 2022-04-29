@@ -1,59 +1,88 @@
 import tkinter as tk
 import os
 from PIL import ImageTk, Image
+import threading
+
+if __name__ == '__main__':
+  from SettingsHandler import YamlParser
+  from KeyStrokeWrapper import KeyStrokeWrapper
+else:
+  from Handlers.SettingsHandler import YamlParser
+  from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
 
 class App():
 
   DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
   
-  def __init__(self, SplashRef):
+  def __init__(self, SplashRef, AllCPPClasses):
     self.window = SplashRef
+    self.Width = 500
     self.Height = 300
-    self.Width = 400
+    self.AllWidgets = []
+
+    #Setup window
     self.window.geometry(f"{self.Width}x{self.Height}")
     self.window["bg"] = "#292929"
     self.window.title("Unreal Coding Assistant - Dashboard")
     self.window.resizable(False, False)
     self.window.focus_force()
-
     self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Logo.png"))
 
     #Load images
     self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp.png").resize((50, 50), Image.ANTIALIAS))
     self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((50, 50), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings.png").resize((50, 50), Image.ANTIALIAS))
-    
-    self.AllWidgets = []
 
-    self.SetUpUI()
-    self.SetUpSettings()
-    #self.SetUpSelection()
+    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp_Held.png").resize((50, 50), Image.ANTIALIAS))
+    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint_Held.png").resize((50, 50), Image.ANTIALIAS))
+    self.SettingImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings_Held.png").resize((50, 50), Image.ANTIALIAS))
 
+    #Handlers
+    self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
+    self.Settings = self.SettingsHandler.GetAllData()
+
+    #Startup windows & processes
+    self.__CPPKeyHandler(AllCPPClasses)
+    self.__ContinueLastLeft()
+
+    #Last
     self.window.focus_force()
+
+  def __CPPKeyHandler(self, AllCPPClasses):
+    self.KeyHandler = None
+    if (not self.Settings["C++"]["Type"]["Enabled"]):
+      return
+    
+    self.KeyHandler = KeyStrokeWrapper(AllCPPClasses)
+
+  def __ContinueLastLeft(self):
+    if (self.Settings["App"]["LastLeft"] == "Blueprints"):
+      self.SetUpBlueprintsMenu()
+    elif (self.Settings["App"]["LastLeft"] == "C++"):
+      self.SetUpCPPMenu()
+    elif (self.Settings["App"]["LastLeft"] == "Settings"):
+      self.SetUpSettingsMenu()
+    else:
+      self.SetUpUI()
 
   def Loop(self):
     self.window.mainloop()
-
-  def SetUpSelection(self):
-    self.CPPButton = tk.Button(self.window, image=self.CPPImage, highlightbackground="#585858", borderwidth=0, command=lambda:[self.SetUpCPPMenu()])
-    self.CPPButton.place(relx = 0.27, rely = 0.5, anchor = "center", width=150, height=150)
-    self.AllWidgets.append(self.CPPButton)
-
-    self.BlueprintButton = tk.Button(self.window, image=self.BlueprintImage, highlightbackground="#585858", borderwidth=0, command=lambda:[self.SetUpBlueprintsMenu()])
-    self.BlueprintButton.place(relx = 0.73, rely = 0.5, anchor = "center", width=150, height=150)
-    self.AllWidgets.append(self.BlueprintButton)
     
   def SetUpSideBar(self):
-    self.SideBar = tk.Frame(width=60, height=self.Height, bg="#585858")
+    self.SideBar = tk.Frame(width=55, height=self.Height, bg="#606060")
     self.SideBar.place(x = 0, y = 0, anchor = "nw")
 
-    self.CPPButton = tk.Button(self.SideBar, image=self.CPPImage, highlightbackground="#585858", borderwidth=0)
+    #using tklabels because buttons shift down
+    self.CPPButton = tk.Label(self.SideBar, image=self.CPPImage, relief=tk.FLAT, borderwidth=0)
+    self.CPPButton.bind("<1>", lambda x: [self.SetUpCPPMenu()])
     self.CPPButton.place(x = 5, y = 10, anchor = "nw", width=50, height=50)
 
-    self.BlueprintButton = tk.Button(self.SideBar, image=self.BlueprintImage, highlightbackground="#585858", borderwidth=0)
+    self.BlueprintButton = tk.Label(self.SideBar, image=self.BlueprintImage, relief=tk.FLAT, borderwidth=0)
+    self.BlueprintButton.bind("<1>", lambda x: [self.SetUpBlueprintsMenu()])
     self.BlueprintButton.place(x = 5, y = 70, anchor = "nw", width=50, height=50)
 
-    self.SettingButton = tk.Button(self.SideBar, image=self.SettingImage, highlightbackground="#585858", borderwidth=0)
+    self.SettingButton = tk.Label(self.SideBar, image=self.SettingImage, relief=tk.FLAT, borderwidth=0)
+    self.SettingButton.bind("<1>", lambda x: [self.SetUpSettingsMenu()])
     self.SettingButton.place(x = 5, y = self.Height - 5, anchor = "sw", width=50, height=50)
 
   def Clear(self):
@@ -64,23 +93,40 @@ class App():
         Widget.destroy()
     self.AllWidgets = []
 
-  def SetUpSettings(self):
+  def __AddPadding(self, Parent, Size = 5):
+    tk.Label(Parent, text="", font=("Helvetica", Size), bg="#292929").pack()
+
+  def SetUpSettingsMenu(self):
     ContentPane = self.SetUpUI()
-    pass
+    self.SettingButton["image"] = self.SettingImageHeld
+    self.SettingsHandler.Write("App/LastLeft", "Settings")
 
   def SetUpBlueprintsMenu(self):
     ContentPane = self.SetUpUI()
-    pass
+    self.BlueprintButton["image"] = self.BlueprintImageHeld
+    self.SettingsHandler.Write("App/LastLeft", "Blueprints")
+
+    self.__AddPadding(ContentPane)
+    
+    Header = tk.Label(ContentPane, text="Blueprints", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header.pack()
+
 
   def SetUpCPPMenu(self):
     ContentPane = self.SetUpUI()
-    pass
+    self.CPPButton["image"] = self.CPPImageHeld
+    self.SettingsHandler.Write("App/LastLeft", "C++")
+
+    self.__AddPadding(ContentPane)
+    
+    Header = tk.Label(ContentPane, text="C++", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header.pack()
 
   def SetUpUI(self):
     self.Clear()
     self.SetUpSideBar()
 
-    ContentPane = tk.Frame(width=self.Width, height=self.Height, bg="#292929")
+    ContentPane = tk.Frame(width=self.Width - 75, height=self.Height, bg="#292929")
     ContentPane.place(x = 75, y = 0, anchor = "nw")
 
     self.AllWidgets.append(ContentPane)
@@ -88,4 +134,4 @@ class App():
     return ContentPane
 
 if __name__ == "__main__":
-  a = App().Loop()
+  a = App(tk.Tk()).Loop()

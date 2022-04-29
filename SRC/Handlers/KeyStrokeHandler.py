@@ -15,7 +15,10 @@ KeyIgnores = [
 class KeyHandler():
 
   #optional parameters, event params are just for what functions to call when matched, the dictionairy can be parsed in to save recalling of a latent function
-  def __init__(self, AEventParams = [], AClassDict = BeautifulSoupHandler.GetAllClasses()) -> None:
+  def __init__(self, AEventParams = [], AClassDict = {}) -> None:
+
+    if AClassDict == {}:
+      AClassDict = BeautifulSoupHandler.GetAllCPPClasses()
     
     print("Tracking Started (Exit terminal to stop)")
 
@@ -87,4 +90,4 @@ class KeyHandler():
 
 if __name__ == "__main__":
   import BeautifulSoupHandler
-  K = KeyHandler([], BeautifulSoupHandler.GetAllClasses())
+  K = KeyHandler([], BeautifulSoupHandler.GetAllCPPClasses())

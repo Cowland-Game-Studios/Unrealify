@@ -11,36 +11,36 @@ import re #to replace html stuff
 import math
 import threading
 
-def GetAllClasses(ProgressBar = None) -> dict:
+def RemoveHTML(ListOfHTML) -> dict: #nested fucntion tsk tsk
 
-    def RemoveHTML(ListOfHTML) -> dict: #nested fucntion tsk tsk
+    MapOfClassToLink = {}
 
-        MapOfClassToLink = {}
-
-        for i in range(len(ListOfHTML)):
-            try:
-               
-                Elem = str(ListOfHTML[i])
-
-                if "#idx_" in Elem: #remove table of contents tags
-                    continue
-
-                Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
-                UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
-                Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/5.0/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
-                MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
+    for i in range(len(ListOfHTML)):
+        try:
             
-                if ProgressBar != None:
-                    t = threading.Thread(target=lambda:[ProgressBar.Update(round(i / len(ListOfHTML) * 100))])
-                    t.start()  
-                
-            except Exception as e:
-                print(e)
-                continue #need try except in case .group(0) doesn't work
-            
-            #regex from https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string/11230103
+            Elem = str(ListOfHTML[i])
+
+            if "#idx_" in Elem: #remove table of contents tags
+                continue
+
+            Key = re.sub("<[^>]*>", "", Elem) #removes <a> tags
+            UnprocessedLink = re.search("href=\".*\"", Elem).group(0) #extracts stuff between href="here"
+            Value = re.sub("(href=|\")", "", UnprocessedLink).replace("id=content_link", "").replace("../", "https://docs.unrealengine.com/5.0/en-US/API/") #idk why id=contentlink has to be replaced, but im coding this at 10pm so just file a PR to remvoe this pls :)
+            MapOfClassToLink[Key.lower()] = Value #adds new array elemetn thing
         
-        return MapOfClassToLink
+            if ProgressBar != None:
+                t = threading.Thread(target=lambda:[ProgressBar.Update(round(i / len(ListOfHTML) * 100))])
+                t.start()  
+            
+        except Exception as e:
+            print(e)
+            continue #need try except in case .group(0) doesn't work
+        
+        #regex from https://stackoverflow.com/questions/11229831/regular-expression-to-remove-html-tags-from-a-string/11230103
+    
+    return MapOfClassToLink
+
+def GetAllCPPClasses(ProgressBar = None) -> dict:
 
     #Get stuff in url
     PageURL = "https://docs.unrealengine.com/en-US/API/Classes/index.html"
@@ -71,5 +71,5 @@ def GetClassInclude(PageURL) -> str: #sends in URL of the class
 
 if __name__ == "__main__":
   with open("text.txt", "w+") as f:
-    f.write(str(GetAllClasses()))
+    f.write(str(GetAllCPPClasses()))
     #print(GetClassInclude("https://docs.unrealengine.com/en-US/API/Editor/GraphEditor/FZoomLevelsContainer/index.html"))

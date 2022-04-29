@@ -1,0 +1,16 @@
+App:
+  LastLeft: Blueprints
+Blueprints:
+  Bites:
+    Enabled: true
+  Enabled: true
+C++:
+  Bites:
+    Enabled: true
+  Enabled: true
+  PopUps:
+    AutoCloseAfter: -1
+    Enabled: true
+  Type:
+    Enabled: true
+    LogTypeHistory: true

@@ -16,6 +16,7 @@ class Progress():
         self.window.title("Unreal Import Assistant")
         self.window.resizable(False, False)
         self.window.focus_force()
+        self.window.iconphoto(False, ImageTk.PhotoImage(file = Progress.DirectoryAbove + "/Image/Logo.png"))
 
         self.SetUpUI()
         self.window.focus_force()

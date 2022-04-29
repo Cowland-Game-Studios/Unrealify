@@ -11,7 +11,7 @@ class PopUp():
     def __init__(self, Header, Link, TextToCopy, CanCopy = True):
         self.SetUpUI(Header, Link, TextToCopy, CanCopy)
         self.window.focus_force()
-        self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo.png"))
+        #self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo.png"))
 
         self.window.mainloop()
     

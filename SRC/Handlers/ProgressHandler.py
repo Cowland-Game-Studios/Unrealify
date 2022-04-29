@@ -10,6 +10,13 @@ class Progress():
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
   
     def __init__(self):
+        self.window = tk.Tk()
+        self.window.geometry("300x300")
+        self.window["bg"] = "#292929"
+        self.window.title("Unreal Import Assistant")
+        self.window.resizable(False, False)
+        self.window.focus_force()
+
         self.SetUpUI()
         self.window.focus_force()
         self.window.overrideredirect(True)
@@ -19,12 +26,6 @@ class Progress():
         self.window.mainloop()
 
     def SetUpUI(self) -> None:
-        self.window = tk.Tk()
-        self.window.geometry("300x300")
-        self.window["bg"] = "#292929"
-        self.window.title("Unreal Import Assistant")
-        self.window.resizable(False, False)
-        self.window.focus_force()
 
         tk.Label(text="", font=("Helvetica", 5), bg="#292929").pack()
 
@@ -46,8 +47,16 @@ class Progress():
         self.Bar = Progressbar(self.window, length = 100)
         self.Bar.place(relx = 0.5, rely = 0.975, width = 400, height = 25, anchor="center")
 
-        ProgressBarFormatter = tk.Frame(self.window, bg="#292929")
-        ProgressBarFormatter.place(relx = 0.5, rely = 0.95, width=1000, height=15, anchor="center")
+        self.ProgressBarFormatter = tk.Frame(self.window, bg="#292929")
+        self.ProgressBarFormatter.place(relx = 0.5, rely = 0.95, width=1000, height=15, anchor="center")
+
+        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.CopyrightLabel, self.Bar, self.ProgressBarFormatter]
+
+    def Clear(self):
+        for Widget in self.AllWidgets:
+            if Widget is not None:
+                Widget.destroy()
+            self.AllWidgets = []
 
     def Update(self, Value):
         if Value != self.Bar["value"]:
@@ -60,9 +69,10 @@ class Progress():
             #self.CopyrightLabel["font"] = ("Helvetica", 7)
             #self.LinkButton = tk.Button(master=self.window, text="Start Tracking!", command=lambda: [self.window.destroy()], bg="#0070e0", foreground="white", borderwidth=0, font=("Helvetica", 10))
             #self.LinkButton.place(relx=0.5, rely=1, width=300, height=20, anchor="s")
-            self.window.destroy()
+            self.Clear()
 
 if __name__ == "__main__":
     a = Progress()
-    a.Update(40)
-    a.Loop()
+    a.Update(101)
+    from UIHandler import App
+    App(a.window).Loop()

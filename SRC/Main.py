@@ -12,6 +12,7 @@ try:
   import threading
   import time
   from events import Events
+  import tkinter as tk
 
   def PopUpAssistant(Keyword, URL, Include):
     def MakePopUp():
@@ -47,20 +48,19 @@ try:
       time.sleep(1)
 
       ProgressBarToParse.Update(101)
-      ProgressBarToParse = None
+
+      KeyHandler = threading.Thread(target = lambda: [KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)]) 
+      KeyHandler.start()
+      AllThreads.append(KeyHandler)
+
+      MainWindow = UIHandler.App(ProgressBarToParse.window)
+      AllWindows.append(MainWindow)
 
     NewWindow = threading.Thread(target=LoopProgress)
     NewWindow.start()
     AllThreads.append(NewWindow)
 
     ProgressBarToParse.Loop()
-
-    KeyHandler = threading.Thread(target = lambda: [KeyStrokeHandler.KeyHandler([PopUpAssistant], AllClasses)]) 
-    KeyHandler.start()
-    AllThreads.append(KeyHandler)
-
-    MainWindow = UIHandler.App()
-    AllWindows.append(MainWindow)
 except Exception as e:
   import traceback
   PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

@@ -12,11 +12,10 @@ class Progress():
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry("300x300")
-        self.window["bg"] = "#292929"
-        self.window.title("Unreal Import Assistant")
+        self.window["bg"] = "#2D2D2D"
+        self.window.title("Unrealify by Cowland Game Studios")
         self.window.resizable(False, False)
         self.window.focus_force()
-        self.window.iconphoto(False, ImageTk.PhotoImage(file = Progress.DirectoryAbove + "/Image/Logo.png"))
 
         self.SetUpUI()
         self.window.focus_force()
@@ -28,30 +27,30 @@ class Progress():
 
     def SetUpUI(self) -> None:
 
-        tk.Label(text="", font=("Helvetica", 5), bg="#292929").pack()
+        tk.Label(text="", font=("Yu Gothic", 10), bg="#2D2D2D").pack()
 
-        img = ImageTk.PhotoImage(Image.open(Progress.DirectoryAbove + "/Image/Splash.png").resize((200, 200), Image.ANTIALIAS))
+        img = ImageTk.PhotoImage(Image.open(Progress.DirectoryAbove + "/Image/Logo.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
         self.IntroImage.image = img
         self.IntroImage.pack()
 
-        tk.Label(text="", font=("Helvetica", 5), bg="#292929").pack()
-
-        self.HeaderLabel = tk.Label(master=self.window, text="Unreal Coding Assistant", bg="#292929", font=("Helvetica", 15), foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg="#2D2D2D", font=("Yu Gothic Bold", 20), foreground="white")
         self.HeaderLabel.pack()
 
-        self.CopyrightLabel = tk.Label(master=self.window, text="Cowland Game Studios", bg="#292929", font=("Helvetica", 10), foreground="white")
+        self.CopyrightLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#2D2D2D", font=("Yu Gothic", 10), foreground="white")
         self.CopyrightLabel.pack()
 
-        tk.Label(text="", font=("Helvetica", 30), bg="#292929").pack()
-        
-        self.Bar = Progressbar(self.window, length = 100)
-        self.Bar.place(relx = 0.5, rely = 0.975, width = 400, height = 25, anchor="center")
+        tk.Label(text="", font=("Yu Gothic", 35), bg="#2D2D2D").pack()
 
-        self.ProgressBarFormatter = tk.Frame(self.window, bg="#292929")
-        self.ProgressBarFormatter.place(relx = 0.5, rely = 0.95, width=1000, height=15, anchor="center")
+        self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")
+        self.ProgressBarFormatter.place(relx = 0.5, rely = 0.99, width=300, height=5, anchor="center")
 
-        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.CopyrightLabel, self.Bar, self.ProgressBarFormatter]
+        self.ProgressBar = tk.Frame(self.window, bg="#92DDC8")
+        self.ProgressBar.place(relx = 0, rely = 0.99, width=10, height=5, anchor="w")
+
+        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CopyrightLabel, self.ProgressBarFormatter]
+
+        self.Update(100)
 
     def Clear(self):
         for Widget in self.AllWidgets:
@@ -60,20 +59,12 @@ class Progress():
             self.AllWidgets = []
 
     def Update(self, Value):
-        if Value != self.Bar["value"]:
-            self.Bar["value"] = Value
+        self.ProgressBar.place(relx = 0, rely = 0.99, width=Value / 100 * 300, height=5, anchor="w")
         
         if Value > 100:
-            #self.Bar.destroy()
-            #self.HeaderLabel["text"] = "Loading Success! :)"
-            #self.CopyrightLabel["text"] = "The application will now track what you type."
-            #self.CopyrightLabel["font"] = ("Helvetica", 7)
-            #self.LinkButton = tk.Button(master=self.window, text="Start Tracking!", command=lambda: [self.window.destroy()], bg="#0070e0", foreground="white", borderwidth=0, font=("Helvetica", 10))
-            #self.LinkButton.place(relx=0.5, rely=1, width=300, height=20, anchor="s")
             self.Clear()
 
 if __name__ == "__main__":
     a = Progress()
-    a.Update(101)
-    from UIHandler import App
-    App(a.window).Loop()
+    a.Update(10)
+    a.Loop()

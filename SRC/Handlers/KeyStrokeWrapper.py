@@ -16,7 +16,7 @@ class KeyStrokeWrapper():
         NewWindow = threading.Thread(target=MakePopUp)
         NewWindow.start()
 
-    def Track(self):
+    def Start(self):
         self.KeyHandler.start()
         self.Running = True
 

@@ -15,19 +15,20 @@ class App():
   
   def __init__(self, SplashRef, AllCPPClasses):
     self.window = SplashRef
-    self.Width = 500
-    self.Height = 300
+    self.Width = 720
+    self.Height = 512
     self.AllWidgets = []
 
     #Setup window
     self.window.geometry(f"{self.Width}x{self.Height}")
-    self.window["bg"] = "#292929"
-    self.window.title("Unreal Coding Assistant - Dashboard")
+    self.window["bg"] = "#121212"
+    self.window.title("Unrealify by Cowland Game Studios")
     self.window.resizable(False, False)
     self.window.focus_force()
-    self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Logo.png"))
+    self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Icon.png"))
 
     #Load images
+    self.CowIcon = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo.png").resize((50, 50), Image.ANTIALIAS))
     self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp.png").resize((50, 50), Image.ANTIALIAS))
     self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((50, 50), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings.png").resize((50, 50), Image.ANTIALIAS))
@@ -49,10 +50,12 @@ class App():
 
   def __CPPKeyHandler(self, AllCPPClasses):
     self.KeyHandler = None
+    
     if (not self.Settings["C++"]["Type"]["Enabled"] or __name__ == "__main__"):
       return
     
     self.KeyHandler = KeyStrokeWrapper(AllCPPClasses)
+    self.KeyHandler.Start()
 
   def __ContinueLastLeft(self):
     if (self.Settings["App"]["LastLeft"] == "Blueprints"):
@@ -68,7 +71,7 @@ class App():
     self.window.mainloop()
     
   def SetUpSideBar(self):
-    self.SideBar = tk.Frame(width=55, height=self.Height, bg="#606060")
+    self.SideBar = tk.Frame(width=125, height=self.Height, bg="#2D2D2D")
     self.SideBar.place(x = 0, y = 0, anchor = "nw")
 
     #using tklabels because buttons shift down
@@ -93,7 +96,7 @@ class App():
     self.AllWidgets = []
 
   def __AddPadding(self, Parent, Size = 5):
-    tk.Label(Parent, text="", font=("Helvetica", Size), bg="#292929").pack()
+    tk.Label(Parent, text="", font=("Helvetica", Size), bg="#121212").pack()
 
   def SetUpSettingsMenu(self):
     ContentPane = self.SetUpUI()
@@ -102,7 +105,7 @@ class App():
 
     self.__AddPadding(ContentPane)
 
-    Header = tk.Label(ContentPane, text="Settings", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header = tk.Label(ContentPane, text="Settings", font=("Helvetica", 20), bg="#121212", foreground="#FFF")
     Header.pack()
 
   def SetUpBlueprintsMenu(self):
@@ -112,7 +115,7 @@ class App():
 
     self.__AddPadding(ContentPane)
     
-    Header = tk.Label(ContentPane, text="Blueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\n", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header = tk.Label(ContentPane, text="Blueprints", font=("Helvetica", 20), bg="#121212", foreground="#FFF")
     Header.pack()
 
   def SetUpCPPMenu(self):
@@ -122,14 +125,14 @@ class App():
 
     self.__AddPadding(ContentPane)
     
-    Header = tk.Label(ContentPane, text="C++", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header = tk.Label(ContentPane, text="C++", font=("Helvetica", 20), bg="#121212", foreground="#FFF")
     Header.pack()
 
   def SetUpUI(self):
     self.Clear()
     self.SetUpSideBar()
 
-    ContentPane = tk.Frame(width=self.Width - 75, height=self.Height, bg="#292929")
+    ContentPane = tk.Frame(width=self.Width - 75, height=self.Height, bg="#121212")
     ContentPane.place(x = 75, y = 0, anchor = "nw")
 
     self.AllWidgets.append(ContentPane)

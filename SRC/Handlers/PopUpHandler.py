@@ -11,7 +11,7 @@ class PopUp():
     def __init__(self, Header, Link, TextToCopy, CanCopy = True):
         self.SetUpUI(Header, Link, TextToCopy, CanCopy)
         self.window.focus_force()
-        self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo.png"))
+        self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Icon.png", master=self.window))
 
         self.window.mainloop()
     
@@ -25,7 +25,7 @@ class PopUp():
         self.window = tk.Tk()
         self.window.geometry("300x150")
         self.window["bg"] = "#292929"
-        self.window.title("Unreal Coding Assistant")
+        self.window.title("Unrealify - Popup")
         self.window.resizable(False, False)
 
         self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#292929", font=("Helvetica", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
@@ -36,14 +36,14 @@ class PopUp():
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 
         if (CanCopy):
-            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#0070e0", foreground="white", borderwidth=0)
+            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#92DDC8", foreground="white", borderwidth=0)
             self.CopyButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
         
         LinkButtonText = "Show In Browser"
         if (Link == "__CLOSE__"):
             LinkButtonText = "Close"
 
-        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#0070e0", foreground="white", borderwidth=0)
+        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#92DDC8", foreground="white", borderwidth=0)
         self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
     
 

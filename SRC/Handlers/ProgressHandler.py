@@ -27,7 +27,8 @@ class Progress():
 
     def SetUpUI(self) -> None:
 
-        tk.Label(text="", font=("Yu Gothic", 10), bg="#2D2D2D").pack()
+        A = tk.Label(text="", font=("Yu Gothic", 10), bg="#2D2D2D")
+        A.pack()
 
         img = ImageTk.PhotoImage(Image.open(Progress.DirectoryAbove + "/Image/Logo.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
@@ -40,7 +41,8 @@ class Progress():
         self.CopyrightLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#2D2D2D", font=("Yu Gothic", 10), foreground="white")
         self.CopyrightLabel.pack()
 
-        tk.Label(text="", font=("Yu Gothic", 35), bg="#2D2D2D").pack()
+        B = tk.Label(text="", font=("Yu Gothic", 35), bg="#2D2D2D")
+        B.pack()
 
         self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")
         self.ProgressBarFormatter.place(relx = 0.5, rely = 0.99, width=300, height=5, anchor="center")
@@ -48,7 +50,7 @@ class Progress():
         self.ProgressBar = tk.Frame(self.window, bg="#92DDC8")
         self.ProgressBar.place(relx = 0, rely = 0.99, width=10, height=5, anchor="w")
 
-        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CopyrightLabel, self.ProgressBarFormatter]
+        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CopyrightLabel, self.ProgressBarFormatter, A, B]
 
         self.Update(100)
 

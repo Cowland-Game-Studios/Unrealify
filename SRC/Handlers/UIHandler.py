@@ -3,9 +3,8 @@ import os
 from PIL import ImageTk, Image
 import threading
 
-if __name__ == '__main__':
+if __name__ == "__main__":
   from SettingsHandler import YamlParser
-  from KeyStrokeWrapper import KeyStrokeWrapper
 else:
   from Handlers.SettingsHandler import YamlParser
   from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
@@ -50,7 +49,7 @@ class App():
 
   def __CPPKeyHandler(self, AllCPPClasses):
     self.KeyHandler = None
-    if (not self.Settings["C++"]["Type"]["Enabled"]):
+    if (not self.Settings["C++"]["Type"]["Enabled"] or __name__ == "__main__"):
       return
     
     self.KeyHandler = KeyStrokeWrapper(AllCPPClasses)
@@ -101,6 +100,11 @@ class App():
     self.SettingButton["image"] = self.SettingImageHeld
     self.SettingsHandler.Write("App/LastLeft", "Settings")
 
+    self.__AddPadding(ContentPane)
+
+    Header = tk.Label(ContentPane, text="Settings", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header.pack()
+
   def SetUpBlueprintsMenu(self):
     ContentPane = self.SetUpUI()
     self.BlueprintButton["image"] = self.BlueprintImageHeld
@@ -108,9 +112,8 @@ class App():
 
     self.__AddPadding(ContentPane)
     
-    Header = tk.Label(ContentPane, text="Blueprints", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
+    Header = tk.Label(ContentPane, text="Blueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\nBlueprints\n", font=("Helvetica", 20), bg="#292929", foreground="#FFF")
     Header.pack()
-
 
   def SetUpCPPMenu(self):
     ContentPane = self.SetUpUI()
@@ -134,4 +137,5 @@ class App():
     return ContentPane
 
 if __name__ == "__main__":
-  a = App(tk.Tk()).Loop()
+  import BeautifulSoupHandler
+  a = App(tk.Tk(), BeautifulSoupHandler.GetAllCPPClasses()).Loop()

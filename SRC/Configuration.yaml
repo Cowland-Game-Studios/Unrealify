@@ -1,11 +1,12 @@
 App:
-  LastLeft: Dashboard
+  LastLeft: Settings
+  Version: V2.0
 Blueprints:
   Bites:
     Enabled: true
+  Enabled: true
   Moodifier:
     Enabled: true
-  Enabled: true
 C++:
   Bites:
     Enabled: true

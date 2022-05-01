@@ -18,7 +18,7 @@ class SplashScreen():
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry("300x300")
-        self.window["bg"] = "#2D2D2D"
+        self.window["bg"] = "#121212"
         self.window.title("Unrealify by Cowland Game Studios")
         self.window.resizable(False, False)
         self.window.focus_force()
@@ -33,21 +33,21 @@ class SplashScreen():
 
     def SetUpUI(self) -> None:
 
-        A = tk.Label(text="", font=("Yu Gothic", 10), bg="#2D2D2D")
+        A = tk.Label(text="", font=("Yu Gothic", 10), bg="#121212")
         A.pack()
 
-        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo.png").resize((200, 200), Image.ANTIALIAS))
+        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
         self.IntroImage.image = img
         self.IntroImage.pack()
 
-        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg="#2D2D2D", font=("Yu Gothic Bold", 20), foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg="#121212", font=("Yu Gothic Bold", 20), foreground="white")
         self.HeaderLabel.pack()
 
-        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#2D2D2D", font=("Yu Gothic", 10), foreground="white")
+        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#121212", font=("Yu Gothic", 10), foreground="white")
         self.CreditLabel.place(relx=0.5, rely=0.89, anchor="center")
 
-        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg="#2D2D2D", font=("Yu Gothic Bold", 7), foreground="white")
+        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg="#121212", font=("Yu Gothic Bold", 7), foreground="white")
         self.SplashLabel.place(x=1, rely=0.96, anchor="w")
 
         self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")

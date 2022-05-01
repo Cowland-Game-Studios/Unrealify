@@ -6,7 +6,7 @@ import webbrowser
 
 if __name__ == "__main__":
   from SettingsHandler import YamlParser
-  from KeyStrokeWrapper import KeyStrokeWrapper
+  #from KeyStrokeWrapper import KeyStrokeWrapper
 else:
   from Handlers.SettingsHandler import YamlParser
   from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
@@ -31,22 +31,28 @@ class App():
 
     #Load images
     self.CowImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo.png").resize((100, 100), Image.ANTIALIAS))
-    self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp.png").resize((125, 25), Image.ANTIALIAS))
-    self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((125, 25), Image.ANTIALIAS))
+    self.CowImageDark = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
+    self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp.png").resize((125, 37), Image.ANTIALIAS))
+    self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings.png").resize((30, 30), Image.ANTIALIAS))
     self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Info.png").resize((30, 30), Image.ANTIALIAS))
 
-    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp_Held.png").resize((125, 25), Image.ANTIALIAS))
-    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint_Held.png").resize((125, 25), Image.ANTIALIAS))
+    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp_Held.png").resize((125, 37), Image.ANTIALIAS))
+    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint_Held.png").resize((125, 37), Image.ANTIALIAS))
     self.SettingImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings_Held.png").resize((30, 30), Image.ANTIALIAS))
     self.InfoImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Info_Held.png").resize((30, 30), Image.ANTIALIAS))
+
+    #Socials
+    self.YoutubeImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Youtube.png").resize((50, 50), Image.ANTIALIAS))
+    self.ItchImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Itch.png").resize((50, 50), Image.ANTIALIAS))
+    self.GithubImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Github.png").resize((50, 50), Image.ANTIALIAS))
 
     #Handlers
     self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
     self.Settings = self.SettingsHandler.GetAllData()
 
     #Startup windows & processes
-    self.KeyHandler = KeyStrokeWrapper(AllCPPClasses) #import isues
+    self.KeyHandler = None#KeyStrokeWrapper(AllCPPClasses) #import isues
     self.__CPPKeyHandler(AllCPPClasses)
     self.SetUpSideBar()
     self.__ContinueLastLeft()
@@ -58,7 +64,7 @@ class App():
 
   def __CPPKeyHandler(self, AllCPPClasses):
     
-    if (not self.Settings["C++"]["Type"]["Enabled"]):
+    if (not self.Settings["C++"]["Type"]["Enabled"] or self.KeyHandler is None):
       return
     
     self.KeyHandler.Start()
@@ -72,6 +78,8 @@ class App():
       self.SetUpSettingsMenu()
     elif (self.Settings["App"]["LastLeft"] == "Dashboard"):
       self.SetUpDashboardMenu()
+    elif (self.Settings["App"]["LastLeft"] == "Info"):
+      self.SetUpInformationMenu()
     else:
       self.SetUpUI()
 
@@ -106,10 +114,8 @@ class App():
     self.SettingButton.place(x=0, y=self.Height, anchor="sw")
 
     self.InfoButton = tk.Label(self.SideBar, image=self.InfoImage, relief=tk.FLAT, borderwidth=0)
-    self.InfoButton.bind("<1>", lambda x: [webbrowser.open("https://cowlandgames.studio/unrealify"), self.ResetSideBar()])
+    self.InfoButton.bind("<1>", lambda x: [self.SetUpInformationMenu()])
     self.InfoButton.place(x=125, y=self.Height, anchor="se")
-
-    #self.AllWidgets.append(self.SideBar)
   
   def ResetSideBar(self):
     self.CowButton["image"] = self.CowImage
@@ -136,31 +142,66 @@ class App():
     self.SettingButton["image"] = self.SettingImageHeld
     self.SettingsHandler.Write("App/LastLeft", "Settings")
 
-    Header = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    Header.place(rely=1, x = 10, anchor="sw")
+    BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpBlueprintsMenu(self):
     ContentPane = self.SetUpUI()
     self.BlueprintButton["image"] = self.BlueprintImageHeld
     self.SettingsHandler.Write("App/LastLeft", "Blueprints")
     
-    Header = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    Header.place(rely=1, x = 10, anchor="sw")
+    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpCPPMenu(self):
     ContentPane = self.SetUpUI()
     self.CPPButton["image"] = self.CPPImageHeld
     self.SettingsHandler.Write("App/LastLeft", "C++")
     
-    Header = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    Header.place(rely=1, x = 10, anchor="sw")
+    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpDashboardMenu(self):
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
     
-    Header = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    Header.place(rely=1, x = 10, anchor="sw")
+    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+  
+  def SetUpInformationMenu(self):
+    ContentPane = self.SetUpUI()
+    self.InfoButton["image"] = self.InfoImageHeld
+    self.SettingsHandler.Write("App/LastLeft", "Info")
+
+    BackgroundText = tk.Label(ContentPane, text="App Info", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+
+    InfoIcon = tk.Label(ContentPane, image=self.CowImageDark, relief=tk.FLAT, borderwidth=0)
+    InfoIcon.place(relx=0.5, y=20, anchor="n")
+
+    Title = tk.Label(ContentPane, text="Unrealify", font=("Yu Gothic Bold", 40), bg="#121212", foreground="#FFF")
+    Title.place(relx=0.5, rely=0.51, anchor="center")
+
+    Version = tk.Label(ContentPane, text=self.Settings["App"]["Version"], font=("Yu Gothic Bold", 12), bg="#121212", foreground="#FFF")
+    Version.place(relx=0.725, rely=0.505, anchor="n")
+
+    Sub = tk.Label(ContentPane, text="Streamline Unreal Engine Development", font=("Yu Gothic Bold", 12), bg="#121212", foreground="#FFF")
+    Sub.place(relx=0.5, rely=0.56, anchor="n")
+
+    Credit = tk.Label(ContentPane, text="By Cowland Game Studios", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
+    Credit.place(relx=0.5, rely=0.61, anchor="n")
+
+    Socials_Youtube = tk.Label(ContentPane, image=self.YoutubeImage, relief=tk.FLAT, borderwidth=0)
+    Socials_Youtube.bind("<1>", lambda x: [webbrowser.open("https://www.youtube.com/channel/UCMcfj1Phz3G9xH0fUF_o9Jw")])
+    Socials_Youtube.place(relx=0.3, rely=0.725, anchor="center")
+
+    Socials_Itch = tk.Label(ContentPane, image=self.ItchImage, relief=tk.FLAT, borderwidth=0)
+    Socials_Itch.bind("<1>", lambda x: [webbrowser.open("https://cowlandgamestudios.itch.io/")])
+    Socials_Itch.place(relx=0.5, rely=0.725, anchor="center")
+
+    Socials_Github = tk.Label(ContentPane, image=self.GithubImage, relief=tk.FLAT, borderwidth=0)
+    Socials_Github.bind("<1>", lambda x: [webbrowser.open("https://github.com/Cowland-Game-Studios")])
+    Socials_Github.place(relx=0.7, rely=0.725, anchor="center")
 
   def SetUpUI(self):
     self.Clear()

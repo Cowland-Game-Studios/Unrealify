@@ -1,9 +1,9 @@
 from Handlers import PopUpHandler
-from Handlers import ProgressHandler
+from Handlers import SplashHandler
 
 AllThreads = []
 AllWindows = []
-ProgressBarToParse = None
+Splash = None
 
 try:
   from Handlers import BeautifulSoupHandler
@@ -15,17 +15,17 @@ try:
 
   AllCPPClasses = {}
   if __name__ == "__main__":
-    ProgressBarToParse = ProgressHandler.Progress()
-    AllWindows.append(ProgressBarToParse)
+    Splash = SplashHandler.SplashScreen()
+    AllWindows.append(Splash)
 
     def LoopProgress():
-      global ProgressBarToParse
+      global Splash
 
-      ProgressBarToParse.Update(0)
+      Splash.Update(0)
 
       def UpdateFakeBar():
         for i in range(0, 100):
-          ProgressBarToParse.Update(i)
+          Splash.Update(i)
           time.sleep(0.01)
 
       FakeUpdate = threading.Thread(target=UpdateFakeBar)
@@ -35,19 +35,19 @@ try:
       AllCPPClasses = BeautifulSoupHandler.GetAllCPPClasses()
 
       FakeUpdate.join()
-      ProgressBarToParse.Update(100)
+      Splash.Update(100)
 
       time.sleep(1)
 
-      ProgressBarToParse.Update(101)
+      Splash.Update(101)
 
-      MainWindow = UIHandler.App(ProgressBarToParse.window, AllCPPClasses)
+      MainWindow = UIHandler.App(Splash.window, AllCPPClasses)
 
     NewWindow = threading.Thread(target=LoopProgress)
     NewWindow.start()
     AllThreads.append(NewWindow)
 
-    ProgressBarToParse.Loop()
+    Splash.Loop()
 except Exception as e:
   import traceback
   PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

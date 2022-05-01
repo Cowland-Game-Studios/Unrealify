@@ -6,7 +6,7 @@ import os
 from PIL import ImageTk, Image
 import random
 
-class Progress():
+class SplashScreen():
 
     SplashText = [
         "Mooing Cows...",
@@ -36,7 +36,7 @@ class Progress():
         A = tk.Label(text="", font=("Yu Gothic", 10), bg="#2D2D2D")
         A.pack()
 
-        img = ImageTk.PhotoImage(Image.open(Progress.DirectoryAbove + "/Image/Logo.png").resize((200, 200), Image.ANTIALIAS))
+        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
         self.IntroImage.image = img
         self.IntroImage.pack()
@@ -47,7 +47,7 @@ class Progress():
         self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#2D2D2D", font=("Yu Gothic", 10), foreground="white")
         self.CreditLabel.place(relx=0.5, rely=0.89, anchor="center")
 
-        self.SplashLabel = tk.Label(master=self.window, text=random.choice(Progress.SplashText), bg="#2D2D2D", font=("Yu Gothic Bold", 7), foreground="white")
+        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg="#2D2D2D", font=("Yu Gothic Bold", 7), foreground="white")
         self.SplashLabel.place(x=1, rely=0.96, anchor="w")
 
         self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")
@@ -73,6 +73,6 @@ class Progress():
             self.Clear()
 
 if __name__ == "__main__":
-    a = Progress()
+    a = SplashScreen()
     a.Update(10)
     a.Loop()

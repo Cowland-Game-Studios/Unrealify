@@ -3,6 +3,8 @@ App:
 Blueprints:
   Bites:
     Enabled: true
+  Moodifier:
+    Enabled: true
   Enabled: true
 C++:
   Bites:

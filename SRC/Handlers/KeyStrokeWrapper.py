@@ -7,7 +7,7 @@ class KeyStrokeWrapper():
 
     def __init__(self, AllClasses):
         self.Running = False
-        self.KeyHandler = threading.Thread(target = lambda: [KeyStrokeHandler.KeyHandler([KeyStrokeWrapper.PopUpAssistant], AllClasses)]) 
+        self.KeyHandler = KeyStrokeHandler.KeyHandler([KeyStrokeWrapper.PopUpAssistant], AllClasses) 
 
     def PopUpAssistant(Keyword, URL, Include):
         def MakePopUp():
@@ -17,9 +17,9 @@ class KeyStrokeWrapper():
         NewWindow.start()
 
     def Start(self):
-        self.KeyHandler.start()
+        self.KeyHandler.Start()
         self.Running = True
 
     def Stop(self):
-        self.KeyHandler.join()
+        self.KeyHandler.Stop()
         self.Running = False

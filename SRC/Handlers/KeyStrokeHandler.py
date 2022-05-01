@@ -1,11 +1,15 @@
 
 from pynput.keyboard import Key, Listener
 import re
-from Handlers import BeautifulSoupHandler
 from events import Events
 import datetime
 import time
 import threading
+
+if __name__ == '__main__':
+  import BeautifulSoupHandler
+else:
+  from Handlers import BeautifulSoupHandler
 
 KeyIgnores = [
   "key.enter",
@@ -15,16 +19,15 @@ KeyIgnores = [
 class KeyHandler():
 
   #optional parameters, event params are just for what functions to call when matched, the dictionairy can be parsed in to save recalling of a latent function
-  def __init__(self, AEventParams = [], AClassDict = {}) -> None:
-
-    if AClassDict == {}:
-      AClassDict = BeautifulSoupHandler.GetAllCPPClasses()
+  def __init__(self, AEventParams = [], AClassDict = {}, DelayBetweenKeys = 0.5) -> None:
     
     print("Tracking Started (Exit terminal to stop)")
 
+    self.DelayBetweenKeys = DelayBetweenKeys
     self.Keys = []
     self.UnrealClassesDict = AClassDict
     self.TriggeredStamp = datetime.datetime.now().timestamp()
+    self.Running = True
 
     self.EventHandler = Events()
     if len(AEventParams) == 0:
@@ -33,11 +36,26 @@ class KeyHandler():
       for Event in AEventParams:
         self.EventHandler.on_change += Event
 
-    Checker = threading.Thread(target=self.CheckStrokes)
-    Checker.start()
+    self.Checker = threading.Thread(target=self.CheckStrokes)
+    self.Listener = Listener(on_press = self.AddStrokes)
 
-    with Listener(on_press = self.ProcessStrokes) as listener:   
-      listener.join()
+    # def StopKBListener():
+    #   while True:
+    #     if not self.Running:
+    #       self.Listener.join()
+
+    # threading.Thread(target=StopKBListener).start()
+
+  def Start(self):
+    self.Running = True
+    self.Checker.start()
+    self.Listener.start()
+
+  def Stop(self):
+    self.Running = False
+    self.Checker.join()
+    self.Listener.stop()
+    self.Listener.join()
 
   def IsNotBlackListedKeys(self, Key) -> bool:
     return Key.lower() in KeyIgnores or "\\" in Key.lower() #to rid key.space, key.backspace
@@ -48,7 +66,7 @@ class KeyHandler():
   def DummyEvent(self, Keyword, URL, Include) -> None: #dummy event if no event is put in the EventParams
     print("%s %s %s" % (Keyword, URL, Include))
 
-  def ProcessStrokes(self, Key) -> None:
+  def AddStrokes(self, Key) -> None:
     
     Key = str(Key).replace("\'", "")
 
@@ -70,13 +88,14 @@ class KeyHandler():
 
   def CheckStrokes(self):
 
-    Delay = 0.5
-
     while True:
 
-      time.sleep(Delay)
+      if not self.Running:
+        break
 
-      if (datetime.datetime.now().timestamp() - self.TriggeredStamp > Delay / 2):
+      time.sleep(self.DelayBetweenKeys)
+
+      if (datetime.datetime.now().timestamp() - self.TriggeredStamp > self.DelayBetweenKeys / 2):
         Joined = "".join(self.Keys).lower().replace(";", "")
               
         if Joined in list(self.UnrealClassesDict.keys()): 
@@ -90,4 +109,7 @@ class KeyHandler():
 
 if __name__ == "__main__":
   import BeautifulSoupHandler
-  K = KeyHandler([], BeautifulSoupHandler.GetAllCPPClasses())
+  K = KeyHandler([], {}, 1)
+  K.Start()
+  time.sleep(2)
+  K.Stop()

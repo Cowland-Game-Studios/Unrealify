@@ -42,7 +42,6 @@ try:
       ProgressBarToParse.Update(101)
 
       MainWindow = UIHandler.App(ProgressBarToParse.window, AllCPPClasses)
-      AllWindows.append(MainWindow)
 
     NewWindow = threading.Thread(target=LoopProgress)
     NewWindow.start()

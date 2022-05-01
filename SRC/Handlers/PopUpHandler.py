@@ -24,14 +24,14 @@ class PopUp():
     def SetUpUI(self, Header, Link, TextToCopy, CanCopy) -> None:
         self.window = tk.Tk()
         self.window.geometry("300x150")
-        self.window["bg"] = "#292929"
+        self.window["bg"] = "#121212"
         self.window.title("Unrealify - Popup")
         self.window.resizable(False, False)
 
-        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#292929", font=("Helvetica", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#121212", font=("Helvetica", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
         self.HeaderLabel.pack()
         
-        self.DescriptionLabel = tk.Text(master=self.window, bg="#585858", foreground="white", font=("Courier", 10), borderwidth=0)
+        self.DescriptionLabel = tk.Text(master=self.window, bg="#292929", foreground="white", font=("Courier", 10), borderwidth=0)
         self.DescriptionLabel.insert(tk.INSERT, TextToCopy)
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 

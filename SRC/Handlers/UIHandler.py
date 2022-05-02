@@ -43,9 +43,9 @@ class App():
     self.InfoImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Info_Held.png").resize((30, 30), Image.ANTIALIAS))
 
     #Socials
-    self.YoutubeImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Youtube.png").resize((50, 50), Image.ANTIALIAS))
-    self.ItchImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Itch.png").resize((50, 50), Image.ANTIALIAS))
-    self.GithubImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Github.png").resize((50, 50), Image.ANTIALIAS))
+    self.YoutubeImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Youtube.png").resize((100, 100), Image.ANTIALIAS))
+    self.ItchImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Itch.png").resize((100, 100), Image.ANTIALIAS))
+    self.GithubImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Github.png").resize((100, 100), Image.ANTIALIAS))
 
     #Handlers
     self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
@@ -173,7 +173,7 @@ class App():
     self.InfoButton["image"] = self.InfoImageHeld
     self.SettingsHandler.Write("App/LastLeft", "Info")
 
-    BackgroundText = tk.Label(ContentPane, text="App Info", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText = tk.Label(ContentPane, text="Info", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
     InfoIcon = tk.Label(ContentPane, image=self.CowImageDark, relief=tk.FLAT, borderwidth=0)
@@ -185,23 +185,26 @@ class App():
     Version = tk.Label(ContentPane, text=self.Settings["App"]["Version"], font=("Yu Gothic Bold", 12), bg="#121212", foreground="#FFF")
     Version.place(relx=0.725, rely=0.505, anchor="n")
 
-    Sub = tk.Label(ContentPane, text="Streamline Unreal Engine Development", font=("Yu Gothic Bold", 12), bg="#121212", foreground="#FFF")
-    Sub.place(relx=0.5, rely=0.56, anchor="n")
+    Sub = tk.Label(ContentPane, text="Streamline", font=("Yu Gothic Bold", 12), bg="#121212", foreground="#FFF")
+    Sub.place(relx=0.375, rely=0.56, anchor="n")
 
-    Credit = tk.Label(ContentPane, text="By Cowland Game Studios", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
-    Credit.place(relx=0.5, rely=0.61, anchor="n")
+    Sub = tk.Label(ContentPane, text="your UE5 experiance", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
+    Sub.place(relx=0.45, rely=0.56, anchor="nw")
+
+    # Credit = tk.Label(ContentPane, text="Cowland Game Studios", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
+    # Credit.place(relx=0.5, rely=0.9, anchor="s")
 
     Socials_Youtube = tk.Label(ContentPane, image=self.YoutubeImage, relief=tk.FLAT, borderwidth=0)
     Socials_Youtube.bind("<1>", lambda x: [webbrowser.open("https://www.youtube.com/channel/UCMcfj1Phz3G9xH0fUF_o9Jw")])
-    Socials_Youtube.place(relx=0.3, rely=0.725, anchor="center")
+    Socials_Youtube.place(relx=0.7, rely=0.725, anchor="center")
 
     Socials_Itch = tk.Label(ContentPane, image=self.ItchImage, relief=tk.FLAT, borderwidth=0)
     Socials_Itch.bind("<1>", lambda x: [webbrowser.open("https://cowlandgamestudios.itch.io/")])
     Socials_Itch.place(relx=0.5, rely=0.725, anchor="center")
 
     Socials_Github = tk.Label(ContentPane, image=self.GithubImage, relief=tk.FLAT, borderwidth=0)
-    Socials_Github.bind("<1>", lambda x: [webbrowser.open("https://github.com/Cowland-Game-Studios")])
-    Socials_Github.place(relx=0.7, rely=0.725, anchor="center")
+    Socials_Github.bind("<1>", lambda x: [webbrowser.open("https://github.com/Cowland-Game-Studios/Unrealify")])
+    Socials_Github.place(relx=0.3, rely=0.725, anchor="center")
 
   def SetUpUI(self):
     self.Clear()

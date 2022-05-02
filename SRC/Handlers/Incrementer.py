@@ -22,21 +22,16 @@ class Incrementor(tk.Canvas):
         self.IncrementValue = IncrementValue
         self.Bounds = Bounds
 
-        self.IncrementPressed = False
-        self.DecrementPressed = False
-
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.IncrementButton = tk.Label(self, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0)
-        self.IncrementButton.bind("<1>", lambda x: [self.OnIncrement()])
-        self.IncrementButton.bind("<ButtonRelease-1>", lambda x: [self.ResetButtons()])
+        self.IncrementButton = tk.Button(self, repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
         self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
+        self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
         
-        self.DecrementButton = tk.Label(self, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0)
-        self.DecrementButton.bind("<1>", lambda x: [self.OnDecrement()])
-        self.DecrementButton.bind("<ButtonRelease-1>", lambda x: [self.ResetButtons()])
+        self.DecrementButton = tk.Button(self, repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
+        self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
 
         self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF")
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
@@ -69,15 +64,9 @@ class Incrementor(tk.Canvas):
         self.DecrementButton["image"] = self.DecrementImage
         self.IncrementButton["image"] = self.IncrementImage
 
-        self.IncrementPressed = False
-        self.DecrementPressed = False
+    def OnIncrement(self):
 
-    def OnIncrement(self, Recur = False):
-
-        if not Recur:
-            self.IncrementPressed = True
-
-        if (self.Value >= self.Bounds[1] or not self.IncrementPressed):
+        if (self.Value >= self.Bounds[1]):
             return
         
         self.Value += self.IncrementValue
@@ -87,14 +76,9 @@ class Incrementor(tk.Canvas):
         if self.OnIncrement2:
             self.OnIncrement2()
 
-        #self.after(500, self.OnIncrement(True))
+    def OnDecrement(self):
 
-    def OnDecrement(self, Recur = False):
-
-        if not Recur:
-            self.DecrementPressed = True
-
-        if (self.Value <= self.Bounds[0] or not self.DecrementPressed):
+        if (self.Value <= self.Bounds[0]):
             return
 
         self.Value -= self.IncrementValue
@@ -103,8 +87,6 @@ class Incrementor(tk.Canvas):
 
         if self.OnDecrement2:
             self.OnDecrement2()
-
-        #self.after(500, self.OnDecrement(True))
 
 if __name__ == "__main__":
     root = tk.Tk()

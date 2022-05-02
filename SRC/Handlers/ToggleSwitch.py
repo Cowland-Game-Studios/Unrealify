@@ -6,8 +6,8 @@ class ToggleSwitch(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
 
-    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, Width=67, Height=25):
-        super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0)
+    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, Width=67, Height=30):
+        super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0, highlightthickness=0)
 
         self.ToggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/ToggledBackground.png").resize((67, 30), Image.ANTIALIAS))
         self.UntoggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/UntoggledBackground.png").resize((67, 30), Image.ANTIALIAS))
@@ -20,25 +20,30 @@ class ToggleSwitch(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        # self.ToggleButton = tk.Button(self, activebackground = "#2D2D2D", bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=self.Toggle)
-        # self.ToggleButton.pack()
+
         self.ToggleButton = self.create_image(0, 0, image=self.ToggledImage, anchor="nw")
-        self.SwitchBallButton = self.create_image(0, 0, image=self.SwitchBallImage, anchor="nw")
         self.tag_bind(self.ToggleButton, "<1>", lambda x: [self.Toggle()])
-        #self.tag_bind(B, "<1>", lambda x: [self.Toggle()])
+        self.SwitchBallButton = None
 
         self.Update()
 
-    def Update(self):
-        print(self.IsToggled)
+    def Update(self, Lerp = 1):
+
         self.itemconfigure(self.ToggleButton, image=self.ToggledImage if self.IsToggled else self.UntoggledImage)
-        pass
-        #self.ToggleButton["image"] = self.ToggledImage if self.IsToggled else self.UntoggledImage
+
+        if (self.SwitchBallButton):
+            self.delete(self.SwitchBallButton)
+        
+        self.SwitchBallButton = self.create_image(38 * (Lerp if self.IsToggled else 1 - Lerp) + 15, 0, image=self.SwitchBallImage, anchor="n")
+        self.tag_bind(self.SwitchBallButton, "<1>", lambda x: [self.Toggle()])
+
+        if Lerp < 1:
+            self.after(10, lambda: [self.Update(Lerp + 0.1 * (1 - Lerp + 0.1))])
 
     def Toggle(self):
         self.IsToggled = not self.IsToggled
 
-        self.Update()
+        self.Update(0)
 
         if self.OnToggle:
             self.OnToggle()

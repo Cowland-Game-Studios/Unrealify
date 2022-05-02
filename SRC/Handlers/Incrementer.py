@@ -25,11 +25,11 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement(), self.ButtonAnimation()])
+        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
         self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
         #self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
         
-        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement(), self.ButtonAnimation()])
+        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
         #self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
 
@@ -38,8 +38,17 @@ class Incrementor(tk.Canvas):
         self.OnChanged()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
 
-    def ButtonAnimation(self, Pass = 0, Add = 1):
-        return
+    def TextboxAnimation(self, Pass = 0, Add = 1):
+        if Pass > 3:
+            self.after(10, self.TextboxAnimation(Pass - 1, -1))
+            return
+        if Pass < 0:
+            self.ValueTextbox["font"] = ("Yu Gothic Bold", 10)
+            return
+        
+        self.ValueTextbox["font"] = ("Yu Gothic Bold", 10 + Pass)
+
+        self.after(10, lambda: [self.TextboxAnimation(Pass + Add, Add)])
 
     def OnChanged(self):
         self.ValueTextbox.insert(tk.END, " ")
@@ -47,6 +56,8 @@ class Incrementor(tk.Canvas):
         self.ValueTextbox.insert(tk.END, self.Value)
         self.ValueTextbox.tag_configure("center", justify="center")
         self.ValueTextbox.tag_add("center", 1.0, "end")
+
+        self.TextboxAnimation()
 
     def ValidateValue(self, Event):
         NewValue = 0.0

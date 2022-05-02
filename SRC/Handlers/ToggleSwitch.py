@@ -16,6 +16,7 @@ class ToggleSwitch(tk.Canvas):
         self.OnToggle = OnToggleFuncRef
 
         self.IsToggled = StartValue
+        self.Cooldown = False
 
         self.SetUpUI()
 
@@ -27,7 +28,7 @@ class ToggleSwitch(tk.Canvas):
 
         self.Update()
 
-    def Update(self, Lerp = 1):
+    def Update(self, Lerp = 1, Ignore = False):
 
         self.itemconfigure(self.ToggleButton, image=self.ToggledImage if self.IsToggled else self.UntoggledImage)
 
@@ -38,15 +39,23 @@ class ToggleSwitch(tk.Canvas):
         self.tag_bind(self.SwitchBallButton, "<1>", lambda x: [self.Toggle()])
 
         if Lerp < 1:
-            self.after(10, lambda: [self.Update(Lerp + 0.1 * (1 - Lerp + 0.1))])
+            self.after(10, lambda: [self.Update(Lerp + 0.1 * (1 - Lerp + 0.1), True)])
+        else:
+            self.Cooldown = False
+            
 
     def Toggle(self):
+        if self.Cooldown:
+            return
+
+        self.Cooldown = True
         self.IsToggled = not self.IsToggled
 
         self.Update(0)
 
         if self.OnToggle:
             self.OnToggle()
+        
 
 if __name__ == "__main__":
     root = tk.Tk()

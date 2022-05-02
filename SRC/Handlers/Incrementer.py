@@ -25,13 +25,13 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.IncrementButton = tk.Button(self, repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
+        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
         self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
-        self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
+        #self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
         
-        self.DecrementButton = tk.Button(self, repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
+        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
-        self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
+        #self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
 
         self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF")
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
@@ -47,9 +47,10 @@ class Incrementor(tk.Canvas):
 
     def ValidateValue(self, Event):
 
-        NewValue = int(self.ValueTextbox.get("1.0", tk.END))
+        NewValue = float(self.ValueTextbox.get("1.0", tk.END))
+        print(NewValue)
 
-        if NewValue <= self.Bounds[1] and NewValue >= self.Bounds[1]:
+        if NewValue >= self.Bounds[0] and NewValue <= self.Bounds[1]:
             self.Value = NewValue
         elif NewValue > self.Bounds[1]:
             self.Value = self.Bounds[1]
@@ -66,24 +67,23 @@ class Incrementor(tk.Canvas):
 
     def OnIncrement(self):
 
-        if (self.Value >= self.Bounds[1]):
+        if (self.Value + self.IncrementValue > self.Bounds[1]):
             return
         
         self.Value += self.IncrementValue
         self.OnChanged()
-        self.IncrementButton["image"] = self.IncrementImageHeld
 
         if self.OnIncrement2:
             self.OnIncrement2()
 
     def OnDecrement(self):
 
-        if (self.Value <= self.Bounds[0]):
+        if (self.Value - self.IncrementValue < self.Bounds[0]):
             return
 
         self.Value -= self.IncrementValue
         self.OnChanged()
-        self.DecrementButton["image"] = self.DecrementImageHeld
+        #self.DecrementButton["image"] = self.DecrementImageHeld
 
         if self.OnDecrement2:
             self.OnDecrement2()

@@ -36,7 +36,7 @@ class SplashScreen():
         A = tk.Label(text="", font=("Yu Gothic", 10), bg="#121212")
         A.pack()
 
-        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
+        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
         self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
         self.IntroImage.image = img
         self.IntroImage.pack()

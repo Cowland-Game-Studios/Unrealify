@@ -11,7 +11,7 @@ class PopUp():
     def __init__(self, Header, Link, TextToCopy, CanCopy = True):
         self.SetUpUI(Header, Link, TextToCopy, CanCopy)
         self.window.focus_force()
-        self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Icon.png", master=self.window))
+        self.window.iconphoto(False, ImageTk.PhotoImage(file = PopUp.DirectoryAbove + "/Image/Logo/Icon.png", master=self.window))
 
         self.window.mainloop()
     
@@ -28,10 +28,10 @@ class PopUp():
         self.window.title("Unrealify - Popup")
         self.window.resizable(False, False)
 
-        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#121212", font=("Helvetica", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg="#121212", font=("Yu Gothic", 30 if (len(Header) <= 10) else (int(30 - (len(Header) - 10)))) if (int(30 - (len(Header) - 10))) > 10 else 10, foreground="white")
         self.HeaderLabel.pack()
         
-        self.DescriptionLabel = tk.Text(master=self.window, bg="#292929", foreground="white", font=("Courier", 10), borderwidth=0)
+        self.DescriptionLabel = tk.Text(master=self.window, bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0)
         self.DescriptionLabel.insert(tk.INSERT, TextToCopy)
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 

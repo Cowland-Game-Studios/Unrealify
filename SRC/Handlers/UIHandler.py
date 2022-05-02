@@ -27,25 +27,25 @@ class App():
     self.window.title("Unrealify by Cowland Game Studios")
     self.window.resizable(False, False)
     self.window.focus_force()
-    self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Icon.png"))
+    self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Logo/Icon.png"))
 
     #Load images
-    self.CowImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo.png").resize((100, 100), Image.ANTIALIAS))
-    self.CowImageDark = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
-    self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp.png").resize((125, 37), Image.ANTIALIAS))
-    self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
-    self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings.png").resize((30, 30), Image.ANTIALIAS))
-    self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Info.png").resize((30, 30), Image.ANTIALIAS))
+    self.CowImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo/Logo.png").resize((100, 100), Image.ANTIALIAS))
+    self.CowImageDark = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
+    self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Cpp.png").resize((125, 37), Image.ANTIALIAS))
+    self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
+    self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings.png").resize((30, 30), Image.ANTIALIAS))
+    self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info.png").resize((30, 30), Image.ANTIALIAS))
 
-    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Cpp_Held.png").resize((125, 37), Image.ANTIALIAS))
-    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Blueprint_Held.png").resize((125, 37), Image.ANTIALIAS))
-    self.SettingImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Settings_Held.png").resize((30, 30), Image.ANTIALIAS))
-    self.InfoImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Info_Held.png").resize((30, 30), Image.ANTIALIAS))
+    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Cpp_Held.png").resize((125, 37), Image.ANTIALIAS))
+    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint_Held.png").resize((125, 37), Image.ANTIALIAS))
+    self.SettingImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings_Held.png").resize((30, 30), Image.ANTIALIAS))
+    self.InfoImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info_Held.png").resize((30, 30), Image.ANTIALIAS))
 
     #Socials
-    self.YoutubeImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Youtube.png").resize((100, 100), Image.ANTIALIAS))
-    self.ItchImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Itch.png").resize((100, 100), Image.ANTIALIAS))
-    self.GithubImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials_Github.png").resize((100, 100), Image.ANTIALIAS))
+    self.YoutubeImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials/Socials_Youtube.png").resize((100, 100), Image.ANTIALIAS))
+    self.ItchImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials/Socials_Itch.png").resize((100, 100), Image.ANTIALIAS))
+    self.GithubImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Socials/Socials_Github.png").resize((100, 100), Image.ANTIALIAS))
 
     #Handlers
     self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")

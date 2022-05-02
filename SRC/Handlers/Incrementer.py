@@ -25,18 +25,21 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
+        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement(), self.ButtonAnimation()])
         self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
         #self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
         
-        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
+        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement(), self.ButtonAnimation()])
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
         #self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
 
-        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF")
+        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=("Yu Gothic Bold", 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.OnChanged()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
+
+    def ButtonAnimation(self, Pass = 0, Add = 1):
+        return
 
     def OnChanged(self):
         self.ValueTextbox.insert(tk.END, " ")
@@ -46,9 +49,12 @@ class Incrementor(tk.Canvas):
         self.ValueTextbox.tag_add("center", 1.0, "end")
 
     def ValidateValue(self, Event):
-
-        NewValue = float(self.ValueTextbox.get("1.0", tk.END))
-        print(NewValue)
+        NewValue = 0.0
+        try:
+            NewValue = float(self.ValueTextbox.get("1.0", tk.END))
+        except:
+            self.OnChanged()
+            return "break"
 
         if NewValue >= self.Bounds[0] and NewValue <= self.Bounds[1]:
             self.Value = NewValue
@@ -83,18 +89,18 @@ class Incrementor(tk.Canvas):
 
         self.Value -= self.IncrementValue
         self.OnChanged()
-        #self.DecrementButton["image"] = self.DecrementImageHeld
 
         if self.OnDecrement2:
             self.OnDecrement2()
 
 if __name__ == "__main__":
     root = tk.Tk()
+    root.geometry("300x150")
     root["bg"] = bg="#2D2D2D"
 
     # create canvas
     myCanvas = Incrementor(root, (0, 30), 10, 0.5)
 
     # add to window and show
-    myCanvas.pack()
+    myCanvas.place(relx=0.5, rely=0.5, anchor="center")
     root.mainloop()

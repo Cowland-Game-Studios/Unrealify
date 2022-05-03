@@ -52,7 +52,7 @@ class App():
     self.Settings = self.SettingsHandler.GetAllData()
 
     #Startup windows & processes
-    self.KeyHandler = None#KeyStrokeWrapper(AllCPPClasses) #import isues
+    self.KeyHandler = KeyStrokeWrapper(AllCPPClasses) #import isues
     self.__CPPKeyHandler(AllCPPClasses)
     self.SetUpSideBar()
     self.__ContinueLastLeft()

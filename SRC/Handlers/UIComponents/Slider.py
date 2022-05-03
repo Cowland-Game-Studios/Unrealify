@@ -38,12 +38,12 @@ class Slider(tk.Canvas):
 
     def OnChanged(self):
         if self.OnChangeFuncRef:
-            self.OnChangeFuncRef()
+            self.OnChangeFuncRef(self.Value)
 
         print(self.Value)
 
-    def OnClicked(self, Event):
-        NewValue = ((Event.x - 7) / 250) * (abs(self.Bounds[0]) + self.Bounds[1]) - abs(self.Bounds[0])
+    def OnClicked(self, Event, ValueOverride = None):
+        NewValue = (((Event.x - 7) / 250) * (abs(self.Bounds[0]) + self.Bounds[1]) - abs(self.Bounds[0])) if ValueOverride is None else ValueOverride
 
         if NewValue >= self.Bounds[0] and NewValue <= self.Bounds[1]:
             self.Value = NewValue

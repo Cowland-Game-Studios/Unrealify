@@ -57,13 +57,16 @@ class Incrementor(tk.Canvas):
 
         self.TextboxAnimation()
 
-    def ValidateValue(self, Event):
+    def ValidateValue(self, Event, ValueOverride = None):
         NewValue = 0.0
-        try:
-            NewValue = float(self.ValueTextbox.get("1.0", tk.END))
-        except:
-            self.OnChanged()
-            return "break"
+        if ValueOverride is None:
+            try:
+                NewValue = float(self.ValueTextbox.get("1.0", tk.END))
+            except:
+                self.OnChanged()
+                return "break"
+        else:
+            NewValue = ValueOverride
 
         if NewValue >= self.Bounds[0] and NewValue <= self.Bounds[1]:
             self.Value = NewValue
@@ -89,7 +92,7 @@ class Incrementor(tk.Canvas):
         self.OnChanged()
 
         if self.OnIncrementFuncRef:
-            self.OnIncrementFuncRef()
+            self.OnIncrementFuncRef(self.Value)
 
     def OnDecrement(self):
 
@@ -100,16 +103,26 @@ class Incrementor(tk.Canvas):
         self.OnChanged()
 
         if self.OnDecrementFuncRef:
-            self.OnDecrementFuncRef()
+            self.OnDecrementFuncRef(self.Value)
 
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("300x150")
     root["bg"] = bg="#2D2D2D"
 
+    def Update(Value):
+        IC.ValidateValue(None, Value)
+        SL.OnClicked(None, Value)
+
     # create canvas
-    myCanvas = Incrementor(root, (0, 30), 10, 0.5)
+    IC = Incrementor(root, (-10, 10), 0, 0.5, OnIncrementFuncRef=Update, OnDecrementFuncRef=Update)
 
     # add to window and show
-    myCanvas.place(relx=0.5, rely=0.5, anchor="center")
+    IC.pack()
+
+    from Slider import Slider
+
+    SL = Slider(root, (-10, 10), 0, Update, SnapTo=[0, 5], SnapThreashold=1)
+    SL.pack()
+
     root.mainloop()

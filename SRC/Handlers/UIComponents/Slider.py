@@ -52,15 +52,16 @@ class Slider(tk.Canvas):
         elif NewValue < self.Bounds[0]:
             self.Value = self.Bounds[0]
 
-        Lowest = 10e9
-        Snap = 0
-        for Point in self.SnapTo:
-            if (abs(self.Value - Point) < Lowest):
-                Lowest = abs(self.Value - Point)
-                Snap = Point
-
-        if Lowest < self.SnapThreashold:
-            self.Value = Snap
+        if (ValueOverride is None):
+          Lowest = 10e9
+          Snap = 0
+          for Point in self.SnapTo:
+              if (abs(self.Value - Point) < Lowest):
+                  Lowest = abs(self.Value - Point)
+                  Snap = Point
+  
+          if Lowest < self.SnapThreashold:
+              self.Value = Snap
 
         self.UpdateButtonPos()
 

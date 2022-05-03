@@ -6,7 +6,7 @@ class Slider(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None):
+    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1):
         super().__init__(Root, width=400, height=30, bg="#2D2D2D", borderwidth=0, highlightthickness=0)
 
         self.BackgroundImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderBackground.png").resize((250, 4), Image.ANTIALIAS))
@@ -17,6 +17,8 @@ class Slider(tk.Canvas):
 
         self.Value = StartValue
         self.Bounds = Bounds
+        self.SnapTo = SnapTo + [self.Bounds[0], self.Bounds[1]]
+        self.SnapThreashold = SnapThreashold
 
         self.SetUpUI()
 
@@ -55,6 +57,16 @@ class Slider(tk.Canvas):
         elif NewValue < self.Bounds[0]:
             self.Value = self.Bounds[0]
 
+        Lowest = 10e9
+        Snap = 0
+        for Point in self.SnapTo:
+            if (abs(self.Value - Point) < Lowest):
+                Lowest = abs(self.Value - Point)
+                Snap = Point
+
+        if Lowest < self.SnapThreashold:
+            self.Value = Snap
+
         self.UpdateButtonPos()
 
 if __name__ == "__main__":
@@ -63,7 +75,7 @@ if __name__ == "__main__":
     root["bg"] = bg="#2D2D2D"
 
     # create canvas
-    myCanvas = Slider(root, (0, 30), 0)
+    myCanvas = Slider(root, (0, 30), 0, SnapTo=[15], SnapThreashold=5)
 
     # add to window and show
     myCanvas.place(x=10, y=0, width=375, height=30, anchor="nw")

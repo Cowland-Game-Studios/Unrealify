@@ -24,22 +24,16 @@ class Slider(tk.Canvas):
 
     def SetUpUI(self):
         self.Background = self.create_image(7, 15, image=self.BackgroundImage, anchor="w")
-        self.tag_bind(self.Background, "<B1-Motion>", lambda x: [self.OnClicked(x)])
-        self.tag_bind(self.Background, "<ButtonRelease-1>", lambda x: [self.OnClicked(x), self.OnChanged()])
-        self.Button = None
-        self.BackgroundOverlay = None
+        self.Button = self.create_image((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 7, image=self.DotButtonImage, anchor="n")
+        self.BackgroundOverlay = self.create_rectangle(0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17, outline="", fill="#92DDC8")
+        self.HitDetector = self.create_rectangle(0, 0, 400, 30, outline="")
+        self.tag_bind(self.HitDetector, "<B1-Motion>", lambda x: [self.OnClicked(x)])
         
         self.UpdateButtonPos()
 
     def UpdateButtonPos(self):
-        if self.Button:
-            self.delete(self.Button)
-
-        if self.BackgroundOverlay:
-            self.delete(self.BackgroundOverlay)
-        
-        self.BackgroundOverlay = self.create_rectangle(0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17, outline="", fill="#92DDC8")
-        self.Button = self.create_image((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 7, image=self.DotButtonImage, anchor="n")
+        self.coords(self.BackgroundOverlay, 0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17)
+        self.moveto(self.Button, ((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250), 7)
 
     def OnChanged(self):
         if self.OnChangeFuncRef:
@@ -75,7 +69,7 @@ if __name__ == "__main__":
     root["bg"] = bg="#2D2D2D"
 
     # create canvas
-    myCanvas = Slider(root, (0, 30), 0, SnapTo=[15], SnapThreashold=5)
+    myCanvas = Slider(root, (-20, 30), 0, SnapTo=[ -10, 5, 10, 15], SnapThreashold=2)
 
     # add to window and show
     myCanvas.place(x=10, y=0, width=375, height=30, anchor="nw")

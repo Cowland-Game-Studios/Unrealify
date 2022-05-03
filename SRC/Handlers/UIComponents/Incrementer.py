@@ -4,19 +4,19 @@ import os
 
 class Incrementor(tk.Canvas):
 
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
+    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnIncrement2 = None, OnDecrement2 = None, Width=100, Height=25):
-        super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0)
+    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnIncrementFuncRef = None, OnDecrementFuncRef = None, Width=100, Height=25):
+        super().__init__(Root, width=Width, height=Height, bg="#137A63", borderwidth=0)
 
-        self.IncrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Slider/Increment.png").resize((25, 25), Image.ANTIALIAS))
-        self.DecrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Slider/Decrement.png").resize((25, 25), Image.ANTIALIAS))
+        self.IncrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment.png").resize((25, 25), Image.ANTIALIAS))
+        self.DecrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement.png").resize((25, 25), Image.ANTIALIAS))
 
-        self.IncrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Slider/Increment_Held.png").resize((25, 25), Image.ANTIALIAS))
-        self.DecrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Slider/Decrement_Held.png").resize((25, 25), Image.ANTIALIAS))
+        self.IncrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment_Held.png").resize((25, 25), Image.ANTIALIAS))
+        self.DecrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement_Held.png").resize((25, 25), Image.ANTIALIAS))
 
-        self.OnIncrement2 = OnIncrement2
-        self.OnDecrement2 = OnDecrement2
+        self.OnIncrementFuncRef = OnIncrementFuncRef
+        self.OnDecrementFuncRef = OnDecrementFuncRef
 
         self.Value = StartValue
         self.IncrementValue = IncrementValue
@@ -33,7 +33,7 @@ class Incrementor(tk.Canvas):
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
         #self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
 
-        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=("Yu Gothic Bold", 10))
+        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#137A63", borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=("Yu Gothic Bold", 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.OnChanged()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
@@ -90,8 +90,8 @@ class Incrementor(tk.Canvas):
         self.Value += self.IncrementValue
         self.OnChanged()
 
-        if self.OnIncrement2:
-            self.OnIncrement2()
+        if self.OnIncrementFuncRef:
+            self.OnIncrementFuncRef()
 
     def OnDecrement(self):
 
@@ -101,8 +101,8 @@ class Incrementor(tk.Canvas):
         self.Value -= self.IncrementValue
         self.OnChanged()
 
-        if self.OnDecrement2:
-            self.OnDecrement2()
+        if self.OnDecrementFuncRef:
+            self.OnDecrementFuncRef()
 
 if __name__ == "__main__":
     root = tk.Tk()

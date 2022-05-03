@@ -4,7 +4,7 @@ import os
 
 class ToggleSwitch(tk.Canvas):
 
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
+    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
     def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, Width=67, Height=30):
         super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0, highlightthickness=0)

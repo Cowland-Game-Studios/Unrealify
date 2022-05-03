@@ -30,13 +30,14 @@ class ToggleSwitch(tk.Canvas):
 
     def Update(self, Lerp = 1, Ignore = False):
 
-        self.itemconfigure(self.ToggleButton, image=self.ToggledImage if self.IsToggled else self.UntoggledImage)
-
         if (self.SwitchBallButton):
             self.delete(self.SwitchBallButton)
         
         self.SwitchBallButton = self.create_image(38 * (Lerp if self.IsToggled else 1 - Lerp) + 15, 0, image=self.SwitchBallImage, anchor="n")
         self.tag_bind(self.SwitchBallButton, "<1>", lambda x: [self.Toggle()])
+
+        if Lerp > 0.5:
+            self.itemconfigure(self.ToggleButton, image=self.ToggledImage if self.IsToggled else self.UntoggledImage)
 
         if Lerp < 1:
             self.after(10, lambda: [self.Update(Lerp + 0.1 * (1 - Lerp + 0.1), True)])

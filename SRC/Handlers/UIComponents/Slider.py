@@ -28,6 +28,7 @@ class Slider(tk.Canvas):
         self.BackgroundOverlay = self.create_rectangle(0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17, outline="", fill="#92DDC8")
         self.HitDetector = self.create_rectangle(0, 0, 400, 30, outline="")
         self.tag_bind(self.HitDetector, "<B1-Motion>", lambda x: [self.OnClicked(x)])
+        self.tag_bind(self.HitDetector, "<ButtonRelease>", lambda x: [self.OnClicked(x), self.OnChanged()])
         
         self.UpdateButtonPos()
 

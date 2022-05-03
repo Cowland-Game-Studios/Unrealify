@@ -6,8 +6,8 @@ class Incrementor(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnIncrementFuncRef = None, OnDecrementFuncRef = None, Width=100, Height=25):
-        super().__init__(Root, width=Width, height=Height, bg="#137A63", borderwidth=0)
+    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnIncrementFuncRef = None, OnDecrementFuncRef = None, Width=100, Height=26):
+        super().__init__(Root, width=Width, height=Height, bg="#137A63", borderwidth=0, highlightthickness=0)
 
         self.IncrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment.png").resize((25, 25), Image.ANTIALIAS))
         self.DecrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement.png").resize((25, 25), Image.ANTIALIAS))
@@ -25,18 +25,16 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()])
-        self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
-        #self.IncrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
-        
-        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, bg="#2D2D2D", relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()])
-        self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
-        #self.DecrementButton.bind("<Leave>", lambda x: [self.ResetButtons()])
-
         self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#137A63", borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=("Yu Gothic Bold", 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.OnChanged()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
+
+        self.IncrementButton = tk.Button(self, activebackground = "#2D2D2D", bg  = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()], border=0)
+        self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
+        
+        self.DecrementButton = tk.Button(self, activebackground = "#2D2D2D", bg  = "#2D2D2D", repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()], border=0)
+        self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
 
     def TextboxAnimation(self, Pass = 0, Add = 1):
         if Pass > 3:

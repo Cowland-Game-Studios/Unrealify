@@ -6,8 +6,10 @@ class Slider(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1):
-        super().__init__(Root, width=400, height=30, bg="#2D2D2D", borderwidth=0, highlightthickness=0)
+    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg="#2d2d2d"):
+        self.bg = bg
+
+        super().__init__(Root, width=400, height=30, bg=self.bg, borderwidth=0, highlightthickness=0)
 
         self.BackgroundImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderBackground.png").resize((250, 4), Image.ANTIALIAS))
         self.DotButtonImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderButton.png").resize((15, 15), Image.ANTIALIAS))
@@ -25,7 +27,7 @@ class Slider(tk.Canvas):
     def SetUpUI(self):
         self.Background = self.create_image(7, 15, image=self.BackgroundImage, anchor="w")
         self.Button = self.create_image((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 7, image=self.DotButtonImage, anchor="n")
-        self.BackgroundOverlay = self.create_rectangle(0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17, outline="", fill="#92DDC8")
+        self.BackgroundOverlay = self.create_rectangle(0, 0, 0, 0, outline="", fill="#92DDC8")
         self.HitDetector = self.create_rectangle(0, 0, 400, 30, outline="")
         self.tag_bind(self.HitDetector, "<B1-Motion>", lambda x: [self.OnClicked(x)])
         self.tag_bind(self.HitDetector, "<ButtonRelease>", lambda x: [self.OnClicked(x), self.OnChanged()])
@@ -33,7 +35,7 @@ class Slider(tk.Canvas):
         self.UpdateButtonPos()
 
     def UpdateButtonPos(self):
-        self.coords(self.BackgroundOverlay, 0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 17)
+        self.coords(self.BackgroundOverlay, 0, 13, (self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 1, 17)
         self.moveto(self.Button, ((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250), 7)
 
     def OnChanged(self):
@@ -44,6 +46,7 @@ class Slider(tk.Canvas):
 
     def OnClicked(self, Event, ValueOverride = None):
         NewValue = (((Event.x - 7) / 250) * (abs(self.Bounds[0]) + self.Bounds[1]) - abs(self.Bounds[0])) if ValueOverride is None else ValueOverride
+        NewValue = round(NewValue * 1e3) / 1e3
 
         if NewValue >= self.Bounds[0] and NewValue <= self.Bounds[1]:
             self.Value = NewValue

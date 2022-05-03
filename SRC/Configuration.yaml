@@ -1,5 +1,5 @@
 App:
-  LastLeft: C++
+  LastLeft: Settings
   Version: V2.0
 Blueprints:
   Bites:
@@ -12,7 +12,7 @@ C++:
     Enabled: true
   Enabled: true
   PopUps:
-    AutoCloseAfter: -1
+    AutoCloseAfter: 10
     Enabled: true
   Type:
     DelayBetweenCharacters: 1

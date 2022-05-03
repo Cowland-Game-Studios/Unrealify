@@ -6,10 +6,14 @@ import webbrowser
 
 if __name__ == "__main__":
   from SettingsHandler import YamlParser
+  from UIComponents.IncrementSlider import IncrementSlider
+  from UIComponents.ToggleSwitch import ToggleSwitch
   #from KeyStrokeWrapper import KeyStrokeWrapper
 else:
   from Handlers.SettingsHandler import YamlParser
   from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
+  from Handlers.UIComponents.IncrementSlider import IncrementSlider
+  from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 
 class App():
 
@@ -52,7 +56,7 @@ class App():
     self.Settings = self.SettingsHandler.GetAllData()
 
     #Startup windows & processes
-    self.KeyHandler = KeyStrokeWrapper(AllCPPClasses) #import isues
+    self.KeyHandler = None #KeyStrokeWrapper(AllCPPClasses) #import isues
     self.__CPPKeyHandler(AllCPPClasses)
     self.SetUpSideBar()
     self.__ContinueLastLeft()
@@ -144,6 +148,76 @@ class App():
 
     BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
+
+    self.Settings = self.SettingsHandler.GetAllData()
+
+    def SettingsWriteSlider(Value, Dir):
+      #print(f"Writing to {Dir} at {Value}")
+      self.SettingsHandler.Write(Dir, Value)
+
+    CSettings = tk.Canvas(ContentPane, width=400, height=50, bg="#121212", highlightthickness=0)
+    Ref = tk.Label(CSettings, text="C++", font=("Yu Gothic Bold", 30), foreground="#FFF", bg="#121212")
+    Ref.pack(padx=10)
+
+    Ref = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["Enabled"])
+    Ref.place(relx=1, y=10, anchor="ne")
+
+    if (self.Settings["C++"]["Enabled"]):
+      Ref = tk.Label(CSettings, text="Bites", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+      Ref.pack(padx=10, anchor="w")
+
+      Ref = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Bites/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["Bites"]["Enabled"])
+      Ref.pack(padx=30, anchor="w")
+
+      Ref = tk.Label(CSettings, text="Popups", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+      Ref.pack(padx=10, anchor="w")
+
+      Ref = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["PopUps"]["Enabled"])
+      Ref.pack(padx=30, anchor="w")
+
+      if (self.Settings["C++"]["PopUps"]["Enabled"]):
+        Ref = IncrementSlider(CSettings, (0, 10), Title="Autoclose After Seconds (0 to not autoclose)", StartValue = self.Settings["C++"]["PopUps"]["AutoCloseAfter"], IncrementValue = 1, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/AutoCloseAfter")], SnapTo = [], SnapThreashold = 1, bg="#121212")
+        Ref.pack(padx=30)
+
+      Ref = tk.Label(CSettings, text="Type", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+      Ref.pack(padx=10, anchor="w")
+
+      Ref = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Type/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["Type"]["Enabled"])
+      Ref.pack(padx=30, anchor="w")
+
+      if (self.Settings["C++"]["Type"]["Enabled"]):
+        Ref = ToggleSwitch(CSettings, Title="History?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Type/LogTypeHistory")], bg="#121212", StartValue = self.Settings["C++"]["Type"]["LogTypeHistory"])
+        Ref.pack(padx=30, anchor="w")
+
+        Ref = IncrementSlider(CSettings, (0.1, 1), Title="Delay (Seconds) after last key pressed to check", StartValue = self.Settings["C++"]["Type"]["DelayBetweenCharacters"], IncrementValue = 0.05, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Type/DelayBetweenCharacters")], SnapTo = [0.25, 0.5], SnapThreashold = 0.05, bg="#121212")
+        Ref.pack(padx=30, pady=3)
+    
+    CSettings.pack()
+
+    BPSettings = tk.Canvas(ContentPane, width=400, height=50, bg="#121212", highlightthickness=0)
+    Ref = tk.Label(BPSettings, text="Blueprints", font=("Yu Gothic Bold", 30), foreground="#FFF", bg="#121212")
+    Ref.pack(padx=10)
+
+    Ref = ToggleSwitch(BPSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "Blueprints/Enabled")], bg="#121212", StartValue=self.Settings["Blueprints"]["Enabled"])
+    Ref.place(relx=1, y=10, anchor="ne")
+
+    Ref = ToggleSwitch(BPSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "Blueprints/Enabled")], bg="#121212", StartValue=self.Settings["Blueprints"]["Enabled"])
+    Ref.place(relx=1, y=10, anchor="ne")
+
+    if (self.Settings["Blueprints"]["Enabled"]):
+      Ref = tk.Label(BPSettings, text="Bites", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+      Ref.pack(padx=10, anchor="w")
+
+      Ref = ToggleSwitch(BPSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "Blueprints/Bites/Enabled")], bg="#121212", StartValue=self.Settings["Blueprints"]["Bites"]["Enabled"])
+      Ref.pack(padx=30, anchor="w")
+
+      Ref = tk.Label(BPSettings, text="Moodifier", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+      Ref.pack(padx=10, anchor="w")
+
+      Ref = ToggleSwitch(BPSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "Blueprints/Moodifier/Enabled")], bg="#121212", StartValue=self.Settings["Blueprints"]["Moodifier"]["Enabled"])
+      Ref.pack(padx=30, anchor="w")
+
+    BPSettings.pack()
 
   def SetUpBlueprintsMenu(self):
     ContentPane = self.SetUpUI()

@@ -6,14 +6,15 @@ class ToggleSwitch(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, Width=67, Height=30):
-        super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0, highlightthickness=0)
+    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, Width=67, Height=50, Title="", bg="#2d2d2d"):
+        super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=0, highlightthickness=0)
 
-        self.ToggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/ToggledBackground.png").resize((67, 30), Image.ANTIALIAS))
-        self.UntoggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/UntoggledBackground.png").resize((67, 30), Image.ANTIALIAS))
-        self.SwitchBallImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/SwitchBall.png").resize((30, 30), Image.ANTIALIAS))
+        self.ToggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/ToggledBackground.png").resize((33, 15), Image.ANTIALIAS))
+        self.UntoggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/UntoggledBackground.png").resize((33, 15), Image.ANTIALIAS))
+        self.SwitchBallImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/SwitchBall.png").resize((15, 15), Image.ANTIALIAS))
 
         self.OnToggle = OnToggleFuncRef
+        self.Title = self.create_text(0, 0, text=Title, font=("Yu Gothic Bold", 10), anchor="nw", fill="white")
 
         self.IsToggled = StartValue
         self.Cooldown = False
@@ -22,7 +23,7 @@ class ToggleSwitch(tk.Canvas):
 
     def SetUpUI(self):
 
-        self.ToggleButton = self.create_image(0, 0, image=self.ToggledImage, anchor="nw")
+        self.ToggleButton = self.create_image(0, 20, image=self.ToggledImage, anchor="nw")
         self.tag_bind(self.ToggleButton, "<1>", lambda x: [self.Toggle()])
         self.SwitchBallButton = None
 
@@ -33,7 +34,7 @@ class ToggleSwitch(tk.Canvas):
         if (self.SwitchBallButton):
             self.delete(self.SwitchBallButton)
         
-        self.SwitchBallButton = self.create_image(38 * (Lerp if self.IsToggled else 1 - Lerp) + 15, 0, image=self.SwitchBallImage, anchor="n")
+        self.SwitchBallButton = self.create_image(19 * (Lerp if self.IsToggled else 1 - Lerp) + 7, 20, image=self.SwitchBallImage, anchor="n")
         self.tag_bind(self.SwitchBallButton, "<1>", lambda x: [self.Toggle()])
 
         if Lerp > 0.5:
@@ -55,7 +56,7 @@ class ToggleSwitch(tk.Canvas):
         self.Update(0)
 
         if self.OnToggle:
-            self.OnToggle()
+            self.OnToggle(self.IsToggled)
         
 
 if __name__ == "__main__":
@@ -63,8 +64,8 @@ if __name__ == "__main__":
     root["bg"] = bg="#2D2D2D"
 
     # create canvas
-    myCanvas = ToggleSwitch(root, False)
+    myCanvas = ToggleSwitch(root, False, Title="Uhh")
 
     # add to window and show
-    myCanvas.place(relx=0.5, rely=0.5, anchor="center")
+    myCanvas.pack()
     root.mainloop()

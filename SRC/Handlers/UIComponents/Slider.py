@@ -23,7 +23,7 @@ class Slider(tk.Canvas):
     def SetUpUI(self):
         self.Background = self.create_image(7, 15, image=self.BackgroundImage, anchor="w")
         self.tag_bind(self.Background, "<B1-Motion>", lambda x: [self.OnClicked(x)])
-        self.tag_bind(self.Background, "<ButtonRelease-1>", lambda x: [self.OnChanged()])
+        self.tag_bind(self.Background, "<ButtonRelease-1>", lambda x: [self.OnClicked(x), self.OnChanged()])
         self.Button = None
         self.BackgroundOverlay = None
         

@@ -1,10 +1,10 @@
 App:
-  LastLeft: Settings
+  LastLeft: Info
   Version: V2.0
 Blueprints:
   Bites:
     Enabled: true
-  Enabled: true
+  Enabled: false
   Moodifier:
     Enabled: true
 C++:
@@ -12,7 +12,7 @@ C++:
     Enabled: true
   Enabled: true
   PopUps:
-    AutoCloseAfter: 10
+    AutoCloseAfter: 5.88
     Enabled: true
   Type:
     DelayBetweenCharacters: 1

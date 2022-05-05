@@ -22,10 +22,16 @@ class TransitionalButton(tk.Canvas):
         self.OnClickFuncRef = OnClickFuncRef
 
         self.IsHighlighted = False
+        self.Cooldown = False
 
         self.SetUpUI()
 
     def OnClick(self):
+
+        if (self.Cooldown):
+            return
+        
+        self.Cooldown = True
 
         if (self.OnClickFuncRef):
             self.OnClickFuncRef()
@@ -41,6 +47,7 @@ class TransitionalButton(tk.Canvas):
 
         if Lerp > 1:
             self.IsHighlighted = Reversed
+            self.Cooldown = False
             return #self.PlayAnimation(not Reversed, 0)
 
         LerpFlipped = Lerp * (-1 if Reversed else 1)

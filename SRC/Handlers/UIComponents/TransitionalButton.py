@@ -6,17 +6,19 @@ class TransitionalButton(tk.Canvas):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, OnClickFuncRef = None, bg="#2d2d2d", Mode="Side", OverlayImage = None):
+    def __init__(self, Root, OnClickFuncRef = None, bg="#2d2d2d", Mode="Side", OverlayImage = None, TwoTapToReverse=False):
 
-        self.Width = 125 if (Mode == "Side") else 50
-        self.Height = 37 if (Mode == "Side") else 50
+        self.Width = 125 if (Mode == "Side") else 30
+        self.Height = 37 if (Mode == "Side") else 30
 
         super().__init__(Root, width=self.Width, height=self.Height, bg=bg, borderwidth=0, highlightthickness=0)
 
         self.Mode = Mode
+        self.TwoTapToReverse = TwoTapToReverse
 
         self.SideBarImage = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/SideBar.png").resize((125, 37), Image.ANTIALIAS))
-        self.BottomBarImage = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/BottomBar.png").resize((50, 50), Image.ANTIALIAS))
+        self.BottomBarImageR = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/BottomBarR.png").resize((30, 30), Image.ANTIALIAS))
+        self.BottomBarImageL = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/BottomBarL.png").resize((30, 30), Image.ANTIALIAS))
 
         self.OverlayImage = OverlayImage
         self.OnClickFuncRef = OnClickFuncRef
@@ -39,22 +41,31 @@ class TransitionalButton(tk.Canvas):
         self.PlayAnimation(not self.IsHighlighted)
 
     def SetUpUI(self):
-        self.SlideImage = self.create_image(self.Width, 0, image=self.SideBarImage if self.Mode == "Side" else self.BottomBarImage, anchor="nw")
-        ButtonID = self.create_image(0, 0, image=self.OverlayImage, anchor="nw")
-        self.tag_bind(ButtonID, "<1>", lambda x :[self.OnClick()])
+        self.SlideImage = self.create_image(self.Width, 0, image=self.SideBarImage if self.Mode == "Side" else self.BottomBarImageL if self.Mode == "BL" else self.BottomBarImageR, anchor="nw")
+        self.ButtonID = self.create_image(0, 0, image=self.OverlayImage, anchor="nw")
+        self.tag_bind(self.ButtonID, "<1>", lambda x :[self.OnClick()])
     
-    def PlayAnimation(self, Reversed = False, Lerp = 0):
+    def PlayAnimation(self, Reversed = False, Lerp = 0, CallbackFuncRef=None):
+
+        if (Reversed == self.IsHighlighted): return
 
         if Lerp > 1:
             self.IsHighlighted = Reversed
-            self.Cooldown = False
-            return #self.PlayAnimation(not Reversed, 0)
+            
+            if self.IsHighlighted:
+                self.Cooldown = not self.TwoTapToReverse
+            else:
+                self.Cooldown = False
+
+            if (CallbackFuncRef):
+                CallbackFuncRef()
+            return
 
         LerpFlipped = Lerp * (-1 if Reversed else 1)
 
         self.moveto(self.SlideImage, ((LerpFlipped * self.Width) + (self.Width if Reversed else 0)) if self.Mode == "Side" else 0, ((LerpFlipped * self.Height) + (self.Height if Reversed else 0)) if self.Mode != "Side" else 0)
 
-        self.after(10, lambda: [self.PlayAnimation(Reversed, Lerp = Lerp + 0.1 * (1 - Lerp + 0.01))])
+        self.after(10, lambda: [self.PlayAnimation(Reversed, Lerp = Lerp + 0.1 * (1 - Lerp + 0.01), CallbackFuncRef=CallbackFuncRef)])
 
 if __name__ == "__main__":
     root = tk.Tk()

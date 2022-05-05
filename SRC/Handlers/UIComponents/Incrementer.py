@@ -14,9 +14,6 @@ class Incrementor(tk.Canvas):
         self.IncrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment.png").resize((20, 20), Image.ANTIALIAS))
         self.DecrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement.png").resize((20, 20), Image.ANTIALIAS))
 
-        self.IncrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment_Held.png").resize((20, 20), Image.ANTIALIAS))
-        self.DecrementImageHeld = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement_Held.png").resize((20, 20), Image.ANTIALIAS))
-
         self.OnChangedFuncRef = OnChangedFuncRef
 
         self.Value = StartValue

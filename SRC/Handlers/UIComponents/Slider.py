@@ -13,7 +13,6 @@ class Slider(tk.Canvas):
 
         self.BackgroundImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderBackground.png").resize((250, 4), Image.ANTIALIAS))
         self.DotButtonImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderButton.png").resize((15, 15), Image.ANTIALIAS))
-        self.DotButtonImageHeld = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderButton_Held.png").resize((15, 15), Image.ANTIALIAS))
         
         self.OnChangeFuncRef = OnChangeFuncRef
 

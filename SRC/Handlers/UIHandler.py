@@ -9,6 +9,7 @@ if __name__ == "__main__":
   #from KeyStrokeWrapper import KeyStrokeWrapper
   from UI.SettingsPane import SettingsPane
   from UI.InfoPane import InfoPane
+  from UIComponents.TransitionalButton import TransitionalButton
 else:
   from Handlers.SettingsHandler import YamlParser
   from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
@@ -26,6 +27,7 @@ class App():
     self.Width = 720
     self.Height = 512
     self.AllWidgets = []
+    self.IsAnimating = False
 
     #Setup window
     self.window.geometry(f"{self.Width}x{self.Height}")
@@ -41,11 +43,6 @@ class App():
     self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings.png").resize((30, 30), Image.ANTIALIAS))
     self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info.png").resize((30, 30), Image.ANTIALIAS))
-
-    self.CPPImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Cpp_Held.png").resize((125, 37), Image.ANTIALIAS))
-    self.BlueprintImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint_Held.png").resize((125, 37), Image.ANTIALIAS))
-    self.SettingImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings_Held.png").resize((30, 30), Image.ANTIALIAS))
-    self.InfoImageHeld = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info_Held.png").resize((30, 30), Image.ANTIALIAS))
 
     #Handlers
     self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
@@ -101,30 +98,34 @@ class App():
     self.CowButton.bind("<1>", lambda x: [self.SetUpDashboardMenu()])
     self.CowButton.pack(pady=10)
 
-    self.CPPButton = tk.Label(self.SideBar, image=self.CPPImage, relief=tk.FLAT, borderwidth=0)
-    self.CPPButton.bind("<1>", lambda x: [self.SetUpCPPMenu()])
+    self.CPPButton = TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpCPPMenu, OverlayImage=self.CPPImage)
     self.CPPButton.pack(pady=5)
 
-    self.BlueprintButton = tk.Label(self.SideBar, image=self.BlueprintImage, relief=tk.FLAT, borderwidth=0)
-    self.BlueprintButton.bind("<1>", lambda x: [self.SetUpBlueprintsMenu()])
+    self.BlueprintButton = TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
     self.BlueprintButton.pack(pady=5)
 
-    self.SettingButton = tk.Label(self.SideBar, image=self.SettingImage, relief=tk.FLAT, borderwidth=0)
-    self.SettingButton.bind("<1>", lambda x: [self.SetUpSettingsMenu()])
+    self.SettingButton = TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
     self.SettingButton.place(x=0, y=self.Height, anchor="sw")
 
-    self.InfoButton = tk.Label(self.SideBar, image=self.InfoImage, relief=tk.FLAT, borderwidth=0)
-    self.InfoButton.bind("<1>", lambda x: [self.SetUpInformationMenu()])
+    self.InfoButton = TransitionalButton(self.SideBar, Mode="BR", OnClickFuncRef=self.SetUpInformationMenu, OverlayImage=self.InfoImage)
     self.InfoButton.place(x=125, y=self.Height, anchor="se")
-  
-  def ResetSideBar(self):
-    self.CowButton["image"] = self.CowImage
-    self.CPPButton["image"] = self.CPPImage
-    self.BlueprintButton["image"] = self.BlueprintImage
-    self.SettingButton["image"] = self.SettingImage
-    self.InfoButton["image"] = self.InfoImage
 
-  def Clear(self):
+  def SetNotAnimating(self):
+    self.IsAnimating = False
+  
+  def ResetSideBar(self, SkipAnimations=False):
+
+    if self.IsAnimating:
+      return
+
+    self.CowButton["image"] = self.CowImage
+    self.CPPButton.PlayAnimation(False, 0, self.SetNotAnimating)
+    self.BlueprintButton.PlayAnimation(False, 0, self.SetNotAnimating)
+    self.SettingButton.PlayAnimation(False, 0, self.SetNotAnimating)
+    self.InfoButton.PlayAnimation(False, 0, self.SetNotAnimating)
+    self.IsAnimating = True
+
+  def Clear(self, SkipAnimations=False):
     self.window.overrideredirect(False)
 
     for Widget in self.AllWidgets:
@@ -132,14 +133,15 @@ class App():
         Widget.destroy()
     self.AllWidgets = []
 
-    self.ResetSideBar()
+    self.ResetSideBar(SkipAnimations)
 
   def __AddPadding(self, Parent, Size = 3):
     tk.Label(Parent, text="", font=("Yu Gothic", Size), bg="#121212").pack()
 
   def SetUpSettingsMenu(self):
+    self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
-    self.SettingButton["image"] = self.SettingImageHeld
+
     self.SettingsHandler.Write("App/LastLeft", "Settings")
 
     BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
@@ -153,31 +155,26 @@ class App():
     )
 
   def SetUpBlueprintsMenu(self):
+    self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
-    self.BlueprintButton["image"] = self.BlueprintImageHeld
+    
     self.SettingsHandler.Write("App/LastLeft", "Blueprints")
     
     BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpCPPMenu(self):
+    self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
-    self.CPPButton["image"] = self.CPPImageHeld
     self.SettingsHandler.Write("App/LastLeft", "C++")
     
     BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
-
-  def SetUpDashboardMenu(self):
-    ContentPane = self.SetUpUI()
-    self.SettingsHandler.Write("App/LastLeft", "Dashboard")
-    
-    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
   
   def SetUpInformationMenu(self):
+    self.InfoButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
-    self.InfoButton["image"] = self.InfoImageHeld
+    
     self.SettingsHandler.Write("App/LastLeft", "Info")
 
     InfoMenu = InfoPane(ContentPane, self.SettingsHandler, 720-125, 512)
@@ -186,6 +183,13 @@ class App():
     self.AllWidgets.append(
       ContentPane
     )
+
+  def SetUpDashboardMenu(self):
+    ContentPane = self.SetUpUI()
+    self.SettingsHandler.Write("App/LastLeft", "Dashboard")
+    
+    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpUI(self):
     self.Clear()

@@ -4,20 +4,10 @@ from PIL import ImageTk, Image
 import threading
 import webbrowser
 
-if __name__ == "__main__":
-  from SettingsHandler import YamlParser
-  #from KeyStrokeWrapper import KeyStrokeWrapper
-  from UI.SettingsPane import SettingsPane
-  from UI.InfoPane import InfoPane
-  from UIComponents.TransitionalButton import TransitionalButton
-else:
-  from Handlers.SettingsHandler import YamlParser
-  from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
-  from Handlers.UIComponents.IncrementSlider import IncrementSlider
-  from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
-  from Handlers.UI.SettingsPane import SettingsPane
-  from Handlers.UI.InfoPane import InfoPane
-  from Handlers.UIComponents.TransitionalButton import TransitionalButton
+from Handlers.SettingsHandler import YamlParser
+from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
+from Handlers.UIComponents import IncrementSlider, ToggleSwitch, TransitionalButton
+from Handlers.UI import InfoPane, SettingsPane
 
 class App():
 
@@ -99,16 +89,16 @@ class App():
     self.CowButton.bind("<1>", lambda x: [self.SetUpDashboardMenu()])
     self.CowButton.pack(pady=10)
 
-    self.CPPButton = TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpCPPMenu, OverlayImage=self.CPPImage)
+    self.CPPButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpCPPMenu, OverlayImage=self.CPPImage)
     self.CPPButton.pack(pady=5)
 
-    self.BlueprintButton = TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
+    self.BlueprintButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
     self.BlueprintButton.pack(pady=5)
 
-    self.SettingButton = TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
+    self.SettingButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
     self.SettingButton.place(x=0, y=self.Height, anchor="sw")
 
-    self.InfoButton = TransitionalButton(self.SideBar, Mode="BR", OnClickFuncRef=self.SetUpInformationMenu, OverlayImage=self.InfoImage)
+    self.InfoButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BR", OnClickFuncRef=self.SetUpInformationMenu, OverlayImage=self.InfoImage)
     self.InfoButton.place(x=125, y=self.Height, anchor="se")
 
   def SetNotAnimating(self):
@@ -149,7 +139,7 @@ class App():
     BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
-    SettingsMenu = SettingsPane(ContentPane, self.SettingsHandler)
+    SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler)
     SettingsMenu.pack()
 
     self.AllWidgets.append(
@@ -180,7 +170,7 @@ class App():
     
     self.SettingsHandler.Write("App/LastLeft", "Info")
 
-    InfoMenu = InfoPane(ContentPane, self.SettingsHandler, 720-125, 512)
+    InfoMenu = InfoPane.InfoPane(ContentPane, self.SettingsHandler, 720-125, 512)
     InfoMenu.pack(fill="both")
 
     self.AllWidgets.append(
@@ -203,6 +193,3 @@ class App():
     self.AllWidgets.append(ContentPane)
 
     return ContentPane
-
-if __name__ == "__main__":
-  a = App(tk.Tk(), None).Loop()

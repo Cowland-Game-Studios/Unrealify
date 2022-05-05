@@ -64,7 +64,7 @@ class SplashScreen():
         self.SpinImage.image = SpinnerImage
         self.SpinImage.place(relx=0.99, rely=0.97, anchor="se")
 
-        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CreditLabel, self.ProgressBarFormatter, A, self.SplashLabel]
+        self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CreditLabel, self.ProgressBarFormatter, A, self.SplashLabel, self.SpinImage]
 
         self.Update(100)
 

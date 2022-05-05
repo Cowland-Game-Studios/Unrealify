@@ -139,8 +139,8 @@ class App():
     BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
-    SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler)
-    SettingsMenu.pack()
+    SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    SettingsMenu.grid(row=1)
 
     self.AllWidgets.append(
       ContentPane
@@ -171,7 +171,7 @@ class App():
     self.SettingsHandler.Write("App/LastLeft", "Info")
 
     InfoMenu = InfoPane.InfoPane(ContentPane, self.SettingsHandler, 720-125, 512)
-    InfoMenu.pack(fill="both")
+    InfoMenu.grid(row=1)
 
     self.AllWidgets.append(
       ContentPane

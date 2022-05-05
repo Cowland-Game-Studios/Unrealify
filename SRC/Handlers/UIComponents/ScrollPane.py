@@ -5,11 +5,14 @@ Thank you for the ScrollPane class.
 
 import tkinter as tk
 
-class ScrollPane(tk.Frame):
-    def __init__(self, root, Background = "#FFF"):
-        tk.Frame.__init__(self, root)
-        self.Canvas = tk.Canvas(root, borderwidth=0, background=Background)
+class ScrollPane(tk.Canvas):
+    def __init__(self, root, Background = "#FFF", width=400, height=50):
+        tk.Canvas.__init__(self, root, bg=Background, width=width, height=height, borderwidth=0, highlightthickness=0)
+        self.Canvas = tk.Canvas(root, bg=Background, width=width, height=height, borderwidth=0, highlightthickness=0)
+
         self.Frame = tk.Frame(self.Canvas, background=Background)
+        self.Root = self.Frame
+
         self.VerticalScrollBar = tk.Scrollbar(root, orient="vertical", command=self.Canvas.yview)
         self.Canvas.configure(yscrollcommand=self.VerticalScrollBar.set)
 
@@ -18,8 +21,13 @@ class ScrollPane(tk.Frame):
         self.Canvas.create_window((4,4), window=self.Frame, anchor="nw", tags="self.frame")
 
         self.Frame.bind("<Configure>", self.ConfigureHeight)
+        #self.Canvas.bind("<MouseWheel>", self.MouseWheel)
 
         self.row = 0
+
+    def MouseWheel(self, event):
+        if (self.Canvas):
+            self.Canvas.yview_scroll(int(-1*(event.delta/120)), "units")
 
     def ConfigureHeight(self, event):
         '''Reset the scroll region to encompass the inner frame'''

@@ -2,12 +2,14 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
-class TemplatePane(tk.Canvas):
+from Handlers.UIComponents.ScrollPane import ScrollPane
+
+class TemplatePane(ScrollPane):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
     def __init__(self, Root, SettingsHandler, width=400, height=50):
-        super().__init__(Root, width=width, height=height, bg="#121212", borderwidth=0, highlightthickness=0)
+        super().__init__(Root, width=width, height=height, Background="#121212")
 
         self.AllWidgets = []
         self.SettingsHandler = SettingsHandler

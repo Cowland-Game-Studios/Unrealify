@@ -15,7 +15,7 @@ class SettingsPane(TemplatePane):
     def __init__(self, Root, SettingsHandler, width=400, height=50):
         super().__init__(Root, SettingsHandler, width, height)
 
-        self.Root = Root
+        #self.Root = Root
 
         self.Settings = self.SettingsHandler.GetAllData()
 
@@ -30,7 +30,7 @@ class SettingsPane(TemplatePane):
 
         #C++
 
-        CSettings = tk.Canvas( self.Root, width=400, height=50, bg="#121212", highlightthickness=0)
+        CSettings = tk.Canvas(self.Root, width=400, height=50, bg="#121212", highlightthickness=0)
         CPPText = tk.Label(CSettings, text="C++", font=("Yu Gothic Bold", 30), foreground="#FFF", bg="#121212")
         CPPText.pack(padx=10)
         self.AllWidgets.append(CPPText)
@@ -80,11 +80,11 @@ class SettingsPane(TemplatePane):
             
         tk.Label(CSettings, text="", bg="#121212").pack(padx=210)
 
-        CSettings.pack()
+        self.Add(CSettings)
 
         #Blueprints
 
-        BPSettings = tk.Canvas( self.Root, width=400, height=50, bg="#121212", highlightthickness=0)
+        BPSettings = tk.Canvas(self.Root, width=400, height=50, bg="#121212", highlightthickness=0)
         BPText = tk.Label(BPSettings, text="Blueprints", font=("Yu Gothic Bold", 30), foreground="#FFF", bg="#121212")
         BPText.pack(padx=10)
         self.AllWidgets.append(BPText)
@@ -112,8 +112,7 @@ class SettingsPane(TemplatePane):
 
         tk.Label(BPSettings, text="", bg="#121212").pack(padx=210)
 
-        BPSettings.pack()
-
+        self.Add(BPSettings)
         #self.PlayAnimation()
 
 if __name__ == "__main__":

@@ -17,6 +17,7 @@ else:
   from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
   from Handlers.UI.SettingsPane import SettingsPane
   from Handlers.UI.InfoPane import InfoPane
+  from Handlers.UIComponents.TransitionalButton import TransitionalButton
 
 class App():
 
@@ -118,12 +119,13 @@ class App():
     if self.IsAnimating:
       return
 
+    self.IsAnimating = True
+    
     self.CowButton["image"] = self.CowImage
     self.CPPButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.BlueprintButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.SettingButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.InfoButton.PlayAnimation(False, 0, self.SetNotAnimating)
-    self.IsAnimating = True
 
   def Clear(self, SkipAnimations=False):
     self.window.overrideredirect(False)
@@ -166,6 +168,7 @@ class App():
   def SetUpCPPMenu(self):
     self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
+    
     self.SettingsHandler.Write("App/LastLeft", "C++")
     
     BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")

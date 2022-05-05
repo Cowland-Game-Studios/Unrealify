@@ -3,10 +3,10 @@ from PIL import ImageTk, Image
 import os
 
 #Buttons... etc
-from UIComponents.IncrementSlider import IncrementSlider
-from UIComponents.ToggleSwitch import ToggleSwitch
+from Handlers.UIComponents.IncrementSlider import IncrementSlider
+from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 
-from UI.TemplatePane import TemplatePane
+from Handlers.UI.TemplatePane import TemplatePane
 
 class SettingsPane(TemplatePane):
 

@@ -10,7 +10,8 @@ class SplashScreen():
 
     SplashText = [
         "Mooing Cows...",
-        "Loading Unreal Assets..."
+        "Loading Unreal Assets...",
+        "Larry sucks at COD:Mobile..."
     ]
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
@@ -36,9 +37,12 @@ class SplashScreen():
         A = tk.Label(text="", font=("Yu Gothic", 10), bg="#121212")
         A.pack()
 
-        img = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
-        self.IntroImage = tk.Label(self.window, image=img, borderwidth=0)
-        self.IntroImage.image = img
+        #load images
+        CowImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
+        SpinnerImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Splash/Spinner.png").resize((20, 20), Image.ANTIALIAS))
+
+        self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0)
+        self.IntroImage.image = CowImage
         self.IntroImage.pack()
 
         self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg="#121212", font=("Yu Gothic Bold", 20), foreground="white")
@@ -48,13 +52,17 @@ class SplashScreen():
         self.CreditLabel.place(relx=0.5, rely=0.89, anchor="center")
 
         self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg="#121212", font=("Yu Gothic Bold", 7), foreground="white")
-        self.SplashLabel.place(x=1, rely=0.96, anchor="w")
+        self.SplashLabel.place(x=1, rely=0.955, anchor="w")
 
         self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")
         self.ProgressBarFormatter.place(relx = 0.5, rely = 0.99, width=300, height=5, anchor="center")
 
         self.ProgressBar = tk.Frame(self.window, bg="#92DDC8")
         self.ProgressBar.place(relx = 0, rely = 0.99, width=10, height=5, anchor="w")
+
+        self.SpinImage = tk.Label(self.window, image=SpinnerImage, borderwidth=0)
+        self.SpinImage.image = SpinnerImage
+        self.SpinImage.place(relx=0.99, rely=0.97, anchor="se")
 
         self.AllWidgets = [self.IntroImage, self.HeaderLabel, self.ProgressBar, self.CreditLabel, self.ProgressBarFormatter, A, self.SplashLabel]
 

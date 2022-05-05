@@ -1,5 +1,5 @@
 App:
-  LastLeft: Blueprints
+  LastLeft: Info
   Version: V2.0
 Blueprints:
   Bites:
@@ -12,9 +12,9 @@ C++:
     Enabled: true
   Enabled: true
   PopUps:
-    AutoCloseAfter: 5.88
+    AutoCloseAfter: 8.0
     Enabled: true
   Type:
-    DelayBetweenCharacters: 1
+    DelayBetweenCharacters: 1.0
     Enabled: true
     LogTypeHistory: true

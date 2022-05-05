@@ -6,8 +6,8 @@ if __name__ == "__main__":
     from Slider import Slider
     from Incrementer import Incrementor
 else:
-    from UIComponents.Slider import Slider
-    from UIComponents.Incrementer import Incrementor
+    from Handlers.UIComponents.Slider import Slider
+    from Handlers.UIComponents.Incrementer import Incrementor
 
 class IncrementSlider(tk.Canvas):
     def __init__(self, Root, Bounds, Title="Uhh", StartValue = 0, IncrementValue = 1, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg="#2D2D2D"):

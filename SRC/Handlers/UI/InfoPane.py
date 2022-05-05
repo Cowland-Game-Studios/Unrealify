@@ -3,7 +3,7 @@ from PIL import ImageTk, Image
 import os
 import webbrowser
 
-from UI.TemplatePane import TemplatePane
+from Handlers.UI.TemplatePane import TemplatePane
 
 class InfoPane(TemplatePane):
 

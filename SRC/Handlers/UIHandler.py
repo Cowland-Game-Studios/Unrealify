@@ -64,12 +64,12 @@ class App():
       self.SetUpCPPMenu()
     elif (self.Settings["App"]["LastLeft"] == "Settings"):
       self.SetUpSettingsMenu()
-    elif (self.Settings["App"]["LastLeft"] == "Dashboard"):
-      self.SetUpDashboardMenu()
+    elif (self.Settings["App"]["LastLeft"] == "Misc"):
+      self.SetUpMiscMenu()
     elif (self.Settings["App"]["LastLeft"] == "Info"):
       self.SetUpInformationMenu()
     else:
-      self.SetUpUI()
+      self.SetUpDashboardMenu()
 
   def Loop(self):
     self.window.mainloop()
@@ -95,6 +95,9 @@ class App():
     self.BlueprintButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
     self.BlueprintButton.pack(pady=5)
 
+    self.MiscButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpMiscMenu, OverlayImage=self.CPPImage)
+    self.MiscButton.pack(pady=5)
+
     self.SettingButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
     self.SettingButton.place(x=0, y=self.Height, anchor="sw")
 
@@ -112,8 +115,11 @@ class App():
     self.IsAnimating = True
     
     self.CowButton["image"] = self.CowImage
+
     self.CPPButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.BlueprintButton.PlayAnimation(False, 0, self.SetNotAnimating)
+    self.MiscButton.PlayAnimation(False, 0, self.SetNotAnimating)
+
     self.SettingButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.InfoButton.PlayAnimation(False, 0, self.SetNotAnimating)
 
@@ -129,6 +135,47 @@ class App():
 
   def __AddPadding(self, Parent, Size = 3):
     tk.Label(Parent, text="", font=("Yu Gothic", Size), bg="#121212").pack()
+
+  def SetUpDashboardMenu(self):
+    ContentPane = self.SetUpUI()
+    self.SettingsHandler.Write("App/LastLeft", "Dashboard")
+    
+    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+
+  def SetUpCPPMenu(self):
+    self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
+    ContentPane = self.SetUpUI()
+    
+    self.SettingsHandler.Write("App/LastLeft", "C++")
+    
+    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+  
+  def SetUpBlueprintsMenu(self):
+    self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
+    ContentPane = self.SetUpUI()
+    
+    self.SettingsHandler.Write("App/LastLeft", "Blueprints")
+    
+    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+
+  def SetUpMiscMenu(self):
+    self.MiscButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
+    ContentPane = self.SetUpUI()
+
+    self.SettingsHandler.Write("App/LastLeft", "Misc")
+
+    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
+
+    # SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    # SettingsMenu.grid(row=1)
+
+    self.AllWidgets.append(
+      ContentPane
+    )
 
   def SetUpSettingsMenu(self):
     self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
@@ -146,24 +193,6 @@ class App():
       ContentPane
     )
 
-  def SetUpBlueprintsMenu(self):
-    self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
-    ContentPane = self.SetUpUI()
-    
-    self.SettingsHandler.Write("App/LastLeft", "Blueprints")
-    
-    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
-
-  def SetUpCPPMenu(self):
-    self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
-    ContentPane = self.SetUpUI()
-    
-    self.SettingsHandler.Write("App/LastLeft", "C++")
-    
-    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
-  
   def SetUpInformationMenu(self):
     self.InfoButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
@@ -176,13 +205,6 @@ class App():
     self.AllWidgets.append(
       ContentPane
     )
-
-  def SetUpDashboardMenu(self):
-    ContentPane = self.SetUpUI()
-    self.SettingsHandler.Write("App/LastLeft", "Dashboard")
-    
-    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpUI(self):
     self.Clear()

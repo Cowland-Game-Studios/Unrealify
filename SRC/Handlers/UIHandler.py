@@ -141,7 +141,7 @@ class App():
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
     
-    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpCPPMenu(self):
@@ -153,7 +153,7 @@ class App():
     CPPMenu = CPPPane.CPPPane(ContentPane, self.SettingsHandler, 720-142, 512)
     CPPMenu.place(x=0, y=0)
     
-    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
   
   def SetUpBlueprintsMenu(self):
@@ -169,7 +169,7 @@ class App():
       ContentPane
     )
     
-    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpMiscMenu(self):
@@ -185,7 +185,7 @@ class App():
       ContentPane
     )
 
-    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpSettingsMenu(self):
@@ -194,11 +194,11 @@ class App():
 
     self.SettingsHandler.Write("App/LastLeft", "Settings")
 
-    BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
-
     SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler, 720-142, 512)
     SettingsMenu.grid(row=1)
+
+    BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
     self.AllWidgets.append(
       ContentPane

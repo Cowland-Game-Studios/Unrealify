@@ -7,6 +7,7 @@ import time
 from Handlers.UIComponents.IncrementSlider import IncrementSlider
 from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 from Handlers.UIComponents.BitesWindow import BitesWindow
+from Handlers.SettingsHandler import YamlParser
 
 from Handlers.UI.TemplatePane import TemplatePane
 
@@ -23,19 +24,56 @@ class BitesTemplatePane(TemplatePane):
         self.BitesDirectory = BitesDirectory
 
         self.AllBites = []
+
+        self.SearchBar = tk.Text(master=self.Root, bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0)
+        self.SearchBar.place(x=10, y=10, width=160, height=20, anchor="nw")
+        self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
+
+        self.SearchBar.insert(1.0, "Search For...")
         
         self.SetUpBitesUI()
 
-    def SetUpBitesUI(self):
+    def SetUpBitesUI(self, Context = ""):
 
-        Bites = [x for x in os.listdir(BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory) if not x.startswith("_")]
+        Context = Context.strip().lower()
+
+        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg="#121212")
+        self.AllBites.append(Pad)
+        Pad.pack()
+
+        Bites = []
+        for Bite in os.listdir(BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory):            
+            if (Bite.startswith("_")):
+                continue
+
+            Data = YamlParser(BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + Bite + "/Details.yaml").GetAllData()
+
+            if Context == "" or \
+                Context in Data["Name"].lower() or \
+                any([Context.lower() in x.lower() for x in Data["Tags"].split(",")]):
+                Bites.append(Bite)
 
         if len(Bites) == 0:
-            tk.Label(self.Root, text="No bites yet... Check later.", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg="#121212").pack()
+            A = tk.Label(self.Root, text="No bites yet.", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg="#121212")
+            self.AllBites.append(A)
+            A.pack()
             return
 
         for BiteName in Bites:
             NewBite = BitesWindow(self.Root, BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
             NewBite.pack(anchor="center")
             self.AllBites.append(NewBite)
+
+    def ClearBites(self):
+        for Widget in self.AllBites:
+            if Widget:
+                Widget.destroy()
+        self.AllBites = []
         
+    def FilterFeed(self):
+        if not self.SearchBar:
+            return
+
+        self.ClearBites()
+
+        self.SetUpBitesUI(Context = self.SearchBar.get("1.0", tk.END))

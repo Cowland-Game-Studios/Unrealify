@@ -3,7 +3,7 @@ Name:
 Description: 
   An input template for your project settings 
 Tags:
-  NONE
+  Project Settings
 CodeSnippetToCopy: 
   NONE
 WebpageToOpen: 
@@ -11,6 +11,6 @@ WebpageToOpen:
 FileToOpen: 
   PCVRInput.ini
 Image: 
-  Link: NONE
-  PreviewSize: NONE
-  RescaleSize: NONE
+  Link: Input.png
+  PreviewSize: 50x50
+  RescaleSize: 100x100

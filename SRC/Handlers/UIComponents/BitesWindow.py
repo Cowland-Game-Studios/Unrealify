@@ -24,6 +24,7 @@ class BitesWindow(tk.Canvas):
         self.CodeSnippetToCopy = self.Data["CodeSnippetToCopy"]
         self.WebpageToOpen = self.Data["WebpageToOpen"]
         self.FileToOpen = BitePath + "/" + self.Data["FileToOpen"]
+        self.Tags = [x.strip() for x in self.Data["Tags"].split(",")] if self.Data["Tags"] != "NONE" else []
         ImagePath = BitePath + "/" + self.Data["Image"]["Link"]
 
         if (self.Data["Image"]["Link"] != "NONE"):
@@ -44,6 +45,10 @@ class BitesWindow(tk.Canvas):
 
         self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg="#121212", wraplengt=600)
         self.DescriptionLabel.pack()
+
+        if self.Tags != []:
+            self.TagLabel = tk.Label(self, text=self.Tags[0], font=("Yu Gothic", 7), foreground="#121212", bg="#92DDC8", wraplengt=600)
+            self.TagLabel.pack(pady=(5, 10))
 
         if self.PreviewImage:
             self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0)
@@ -77,6 +82,10 @@ class BitesExpanded(tk.Toplevel):
 
         self.TitleLabel = tk.Label(self, text=self.ParentBite.Title, font=("Yu Gothic Bold", 18), foreground="#92DDC8", bg="#121212", wraplengt=380)
         self.TitleLabel.pack()
+
+        if self.ParentBite.Tags != []:
+            self.TagLabel = tk.Label(self, text=self.ParentBite.Tags[0], font=("Yu Gothic", 7), foreground="#121212", bg="#92DDC8", wraplengt=600)
+            self.TagLabel.pack()
 
         self.DescriptionLabel = tk.Label(self, text=self.ParentBite.Description, font=("Yu Gothic", 10), foreground="#FFF", bg="#121212", wraplengt=380)
         self.DescriptionLabel.pack()

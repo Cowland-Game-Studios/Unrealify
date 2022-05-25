@@ -21,7 +21,7 @@ class KeyHandler():
   #optional parameters, event params are just for what functions to call when matched, the dictionairy can be parsed in to save recalling of a latent function
   def __init__(self, AEventParams = [], AClassDict = {}, DelayBetweenKeys = 0.5) -> None:
     
-    print("Tracking Started (Exit terminal to stop)")
+    print("Tracking Object Initiated")
 
     self.DelayBetweenKeys = DelayBetweenKeys
     self.Keys = []
@@ -36,26 +36,24 @@ class KeyHandler():
       for Event in AEventParams:
         self.EventHandler.on_change += Event
 
+  def Start(self):
     self.Checker = threading.Thread(target=self.CheckStrokes)
     self.Listener = Listener(on_press = self.AddStrokes)
 
-    # def StopKBListener():
-    #   while True:
-    #     if not self.Running:
-    #       self.Listener.join()
-
-    # threading.Thread(target=StopKBListener).start()
-
-  def Start(self):
     self.Running = True
     self.Checker.start()
     self.Listener.start()
 
+    print("Tracking Started")
+
   def Stop(self):
     self.Running = False
     self.Checker.join()
+    #self.Checker.stop()
     self.Listener.stop()
     self.Listener.join()
+
+    print("Tracking Stopped")
 
   def IsNotBlackListedKeys(self, Key) -> bool:
     return Key.lower() in KeyIgnores or "\\" in Key.lower() #to rid key.space, key.backspace

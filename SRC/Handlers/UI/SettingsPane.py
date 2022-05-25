@@ -68,7 +68,7 @@ class SettingsPane(TemplatePane):
                 CPPPopupAutocloseSlide.pack(padx=30)
                 self.AllWidgets.append(CPPPopupAutocloseSlide)
 
-            CPPTypeText = tk.Label(CSettings, text="Type", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+            CPPTypeText = tk.Label(CSettings, text="Code Tracker", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
             CPPTypeText.pack(padx=10, anchor="w")
             self.AllWidgets.append(CPPTypeText)
 

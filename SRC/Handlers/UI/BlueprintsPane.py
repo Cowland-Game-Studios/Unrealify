@@ -21,7 +21,7 @@ class BlueprintsPane(TemplatePane):
 
         self.BitesPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
 
-        self.BackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 30), bg="#121212", foreground="#FFF")
+        self.BackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
         self.BackgroundText.grid()
 
         self.MiscBites = BitesTemplatePane(self.BitesPane, "Blueprints", self.SettingsHandler, Width=720-160, Height=300)

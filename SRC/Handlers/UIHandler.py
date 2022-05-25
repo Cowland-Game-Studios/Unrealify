@@ -5,7 +5,6 @@ import threading
 import webbrowser
 
 from Handlers.SettingsHandler import YamlParser
-from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
 from Handlers.UIComponents import IncrementSlider, ToggleSwitch, TransitionalButton
 from Handlers.UI import InfoPane, SettingsPane, MiscPane, BlueprintsPane, CPPPane
 
@@ -14,6 +13,9 @@ class App():
   DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
   
   def __init__(self, SplashRef, AllCPPClasses):
+
+    self.AllCPPClasses = AllCPPClasses
+
     self.window = SplashRef
     self.Width = 720
     self.Height = 512
@@ -41,8 +43,6 @@ class App():
     self.Settings = self.SettingsHandler.GetAllData()
 
     #Startup windows & processes
-    self.KeyHandler = None #KeyStrokeWrapper(AllCPPClasses) #import isues
-    self.__CPPKeyHandler(AllCPPClasses)
     self.SetUpSideBar()
     self.__ContinueLastLeft()
 
@@ -50,13 +50,6 @@ class App():
     self.window.focus_force()
 
     self.window.protocol("WM_DELETE_WINDOW", self.Destroy)
-
-  def __CPPKeyHandler(self, AllCPPClasses):
-    
-    if (not self.Settings["C++"]["Type"]["Enabled"] or self.KeyHandler is None):
-      return
-    
-    self.KeyHandler.Start()
 
   def __ContinueLastLeft(self):
     if (self.Settings["App"]["LastLeft"] == "Blueprints"):
@@ -76,9 +69,7 @@ class App():
     self.window.mainloop()
 
   def Destroy(self):
-    if self.KeyHandler:
-      self.KeyHandler.Stop()
-
+    self.Clear(Exiting=True)
     self.window.destroy()
     
   def SetUpSideBar(self):
@@ -124,11 +115,13 @@ class App():
     self.SettingButton.PlayAnimation(False, 0, self.SetNotAnimating)
     self.InfoButton.PlayAnimation(False, 0, self.SetNotAnimating)
 
-  def Clear(self, SkipAnimations=False):
+  def Clear(self, SkipAnimations=False, Exiting=False):
     self.window.overrideredirect(False)
 
     for Widget in self.AllWidgets:
       if Widget is not None:
+        if hasattr(Widget, "OnExit") and Exiting:
+          Widget.OnExit()
         Widget.destroy()
     self.AllWidgets = []
 
@@ -150,8 +143,12 @@ class App():
     
     self.SettingsHandler.Write("App/LastLeft", "C++")
 
-    CPPMenu = CPPPane.CPPPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    CPPMenu = CPPPane.CPPPane(ContentPane, self.SettingsHandler, 720-142, 512, self.AllCPPClasses)
     CPPMenu.place(x=0, y=0)
+
+    self.AllWidgets.append(
+      CPPMenu
+    )
     
     BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
@@ -166,7 +163,7 @@ class App():
     BlueprintsMenu.place(x=0, y=0)
 
     self.AllWidgets.append(
-      ContentPane
+      BlueprintsMenu
     )
     
     BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
@@ -182,7 +179,7 @@ class App():
     MiscBites.place(x=0, y=0)
 
     self.AllWidgets.append(
-      ContentPane
+      MiscBites
     )
 
     BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
@@ -201,7 +198,7 @@ class App():
     BackgroundText.place(rely=1, x = 10, anchor="sw")
 
     self.AllWidgets.append(
-      ContentPane
+      SettingsMenu
     )
 
   def SetUpInformationMenu(self):
@@ -212,10 +209,6 @@ class App():
 
     InfoMenu = InfoPane.InfoPane(ContentPane, self.SettingsHandler, 720-125, 512)
     InfoMenu.grid(row=1)
-
-    self.AllWidgets.append(
-      ContentPane
-    )
 
   def SetUpUI(self):
     self.Clear()

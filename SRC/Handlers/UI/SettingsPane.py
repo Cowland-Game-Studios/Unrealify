@@ -54,20 +54,6 @@ class SettingsPane(TemplatePane):
             CPPBitesToggle.pack(padx=30, anchor="w")
             self.AllWidgets.append(CPPBitesToggle)
 
-            CPPPopupText = tk.Label(CSettings, text="Pop Ups", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
-            CPPPopupText.pack(padx=10, anchor="w")
-            self.AllWidgets.append(CPPPopupText)
-
-            CPPPopupToggle = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["PopUps"]["Enabled"], OnAnimDoneRef=RefreshSettings)
-            CPPPopupToggle.pack(padx=30, anchor="w")
-            self.AllWidgets.append(CPPPopupToggle)
-
-            if (self.Settings["C++"]["PopUps"]["Enabled"]):
-                
-                CPPPopupAutocloseSlide = IncrementSlider(CSettings, (0, 10), Title="Autoclose After Seconds (0 to not autoclose)", StartValue = self.Settings["C++"]["PopUps"]["AutoCloseAfter"], IncrementValue = 1, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/AutoCloseAfter")], SnapTo = [], SnapThreashold = 1, bg="#121212")
-                CPPPopupAutocloseSlide.pack(padx=30)
-                self.AllWidgets.append(CPPPopupAutocloseSlide)
-
             CPPTypeText = tk.Label(CSettings, text="Code Tracker", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
             CPPTypeText.pack(padx=10, anchor="w")
             self.AllWidgets.append(CPPTypeText)
@@ -87,6 +73,20 @@ class SettingsPane(TemplatePane):
                 CPPTypeDelaySlide.pack(padx=30, pady=3)
                 self.AllWidgets.append(CPPTypeDelaySlide)
             
+            CPPPopupText = tk.Label(CSettings, text="Code Tracker - Popups", font=("Yu Gothic", 15), foreground="#FFF", bg="#121212")
+            CPPPopupText.pack(padx=10, anchor="w")
+            self.AllWidgets.append(CPPPopupText)
+
+            CPPPopupToggle = ToggleSwitch(CSettings, Title="Enabled?", OnToggleFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/Enabled")], bg="#121212", StartValue=self.Settings["C++"]["PopUps"]["Enabled"], OnAnimDoneRef=RefreshSettings)
+            CPPPopupToggle.pack(padx=30, anchor="w")
+            self.AllWidgets.append(CPPPopupToggle)
+
+            if (self.Settings["C++"]["PopUps"]["Enabled"]):
+                
+                CPPPopupAutocloseSlide = IncrementSlider(CSettings, (0, 10), Title="Autoclose After Seconds (0 to not autoclose)", StartValue = self.Settings["C++"]["PopUps"]["AutoCloseAfter"], IncrementValue = 1, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/PopUps/AutoCloseAfter")], SnapTo = [], SnapThreashold = 1, bg="#121212")
+                CPPPopupAutocloseSlide.pack(padx=30)
+                self.AllWidgets.append(CPPPopupAutocloseSlide)
+
         tk.Label(CSettings, text="", bg="#121212").pack(padx=210)
 
         self.Add(CSettings)

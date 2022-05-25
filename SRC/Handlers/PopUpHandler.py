@@ -36,14 +36,14 @@ class PopUp():
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 
         if (CanCopy):
-            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#92DDC8", foreground="white", borderwidth=0)
+            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg="#92DDC8", foreground="#000", borderwidth=0)
             self.CopyButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
         
         LinkButtonText = "Show In Browser"
         if (Link == "__CLOSE__"):
             LinkButtonText = "Close"
 
-        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#92DDC8", foreground="white", borderwidth=0)
+        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#92DDC8", foreground="#000", borderwidth=0)
         self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
 
 if __name__ == "__main__":

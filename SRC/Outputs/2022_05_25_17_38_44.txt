@@ -1,0 +1,21 @@
+
+2022-05-25 17:38:15: Aactor: 
+
+#include "GameFramework/Actor.h" 
+
+URL: https://docs.unrealengine.com/5.0/en-US/API/Runtime/Engine/GameFramework/AActor 
+ ---- 
+
+2022-05-25 17:38:19: Uobject: 
+
+#include "UObject/Object.h" 
+
+URL: https://docs.unrealengine.com/5.0/en-US/API/Runtime/CoreUObject/UObject/UObject 
+ ---- 
+
+2022-05-25 17:38:26: Aactor: 
+
+#include "GameFramework/Actor.h" 
+
+URL: https://docs.unrealengine.com/5.0/en-US/API/Runtime/Engine/GameFramework/AActor 
+ ---- 

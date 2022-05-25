@@ -150,7 +150,7 @@ class App():
     
     self.SettingsHandler.Write("App/LastLeft", "C++")
 
-    CPPMenu = CPPPane.MiscPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    CPPMenu = CPPPane.CPPPane(ContentPane, self.SettingsHandler, 720-142, 512)
     CPPMenu.place(x=0, y=0)
     
     BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
@@ -162,7 +162,7 @@ class App():
     
     self.SettingsHandler.Write("App/LastLeft", "Blueprints")
 
-    BlueprintsMenu = BlueprintsPane.MiscPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    BlueprintsMenu = BlueprintsPane.BlueprintsPane(ContentPane, self.SettingsHandler, 720-142, 512)
     BlueprintsMenu.place(x=0, y=0)
 
     self.AllWidgets.append(

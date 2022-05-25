@@ -5,7 +5,7 @@ import os
 from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UI.BitesTemplatePane import BitesTemplatePane
 
-class MiscPane(TemplatePane):
+class BlueprintsPane(TemplatePane):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 

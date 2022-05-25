@@ -1,6 +1,6 @@
 App:
-  LastLeft: Blueprints
-  Version: V2.0
+  LastLeft: C++
+  Version: V1.0
 Blueprints:
   Bites:
     Enabled: true
@@ -15,7 +15,7 @@ C++:
     AutoCloseAfter: 10
     Enabled: true
   Type:
-    DelayBetweenCharacters: 1
+    DelayBetweenCharacters: 1.0
     Enabled: true
     LogTypeHistory: true
 Misc:

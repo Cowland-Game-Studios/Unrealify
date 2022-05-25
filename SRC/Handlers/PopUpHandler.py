@@ -45,7 +45,6 @@ class PopUp():
 
         self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg="#92DDC8", foreground="white", borderwidth=0)
         self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
-    
 
 if __name__ == "__main__":
     a2 = PopUp("uassetcompon", "__CLOSE__", "fdjkladsfjasjdhkfhjkfdhjhjkafdhjkhafkdshasfdhjafdshjdsfjafadsjkdsaf")

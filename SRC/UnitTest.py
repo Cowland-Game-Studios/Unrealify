@@ -4,9 +4,11 @@ from Handlers.UI.BitesTemplatePane import BitesTemplatePane
 from Handlers.SettingsHandler import YamlParser
 
 root = tk.Tk()
-#root.geometry("300x150")
+root.geometry("600x500")
 root["bg"] = "#2D2D2D"
 
-BitesTemplatePane(root, "Blueprints", YamlParser(r"C:\Users\kingo\Documents\GitHub\UnrealCppImportHelper\SRC\Configuration.yaml"), width=600, height=400).grid(row=1)
+BitesTemplatePane(root, "Misc", YamlParser(r"C:\Users\kingo\Documents\GitHub\UnrealCppImportHelper\SRC\Configuration.yaml"), Width=600, Height=300).place(x=0, y=0)
+
+tk.Text(root).place(x=0, y=0)
 
 root.mainloop()

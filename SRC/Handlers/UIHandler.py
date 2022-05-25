@@ -7,7 +7,7 @@ import webbrowser
 from Handlers.SettingsHandler import YamlParser
 from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
 from Handlers.UIComponents import IncrementSlider, ToggleSwitch, TransitionalButton
-from Handlers.UI import InfoPane, SettingsPane
+from Handlers.UI import InfoPane, SettingsPane, MiscPane, BlueprintsPane, CPPPane
 
 class App():
 
@@ -32,6 +32,7 @@ class App():
     self.CowImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo/Logo.png").resize((100, 100), Image.ANTIALIAS))
     self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Cpp.png").resize((125, 37), Image.ANTIALIAS))
     self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
+    self.MiscImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Misc.png").resize((125, 37), Image.ANTIALIAS))
     self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings.png").resize((30, 30), Image.ANTIALIAS))
     self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info.png").resize((30, 30), Image.ANTIALIAS))
 
@@ -95,7 +96,7 @@ class App():
     self.BlueprintButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
     self.BlueprintButton.pack(pady=5)
 
-    self.MiscButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpMiscMenu, OverlayImage=self.CPPImage)
+    self.MiscButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpMiscMenu, OverlayImage=self.MiscImage)
     self.MiscButton.pack(pady=5)
 
     self.SettingButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
@@ -148,6 +149,9 @@ class App():
     ContentPane = self.SetUpUI()
     
     self.SettingsHandler.Write("App/LastLeft", "C++")
+
+    CPPMenu = CPPPane.MiscPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    CPPMenu.place(x=0, y=0)
     
     BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
@@ -157,6 +161,13 @@ class App():
     ContentPane = self.SetUpUI()
     
     self.SettingsHandler.Write("App/LastLeft", "Blueprints")
+
+    BlueprintsMenu = BlueprintsPane.MiscPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    BlueprintsMenu.place(x=0, y=0)
+
+    self.AllWidgets.append(
+      ContentPane
+    )
     
     BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
     BackgroundText.place(rely=1, x = 10, anchor="sw")
@@ -167,15 +178,15 @@ class App():
 
     self.SettingsHandler.Write("App/LastLeft", "Misc")
 
-    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
-
-    # SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler, 720-142, 512)
-    # SettingsMenu.grid(row=1)
+    MiscBites = MiscPane.MiscPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    MiscBites.place(x=0, y=0)
 
     self.AllWidgets.append(
       ContentPane
     )
+
+    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
+    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpSettingsMenu(self):
     self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)

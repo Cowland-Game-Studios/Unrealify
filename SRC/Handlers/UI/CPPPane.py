@@ -35,12 +35,12 @@ class CPPPane(TemplatePane):
         self.RefreshHistoryBoxDisplay()
     
     def RefreshHistoryBoxDisplay(self):
-        if self.TrackHistory is not None:
+        try:
+            self.TrackHistory.delete("1.0", tk.END)
             for Text in CPPPane.Texts:
-                try:
-                    self.TrackHistory.insert(tk.INSERT, Text)
-                except:
-                    return
+                self.TrackHistory.insert(tk.INSERT, Text)
+        except:
+            return
 
     def SaveLog(self):
         with open(CPPPane.DirectoryAbove + f"""/Outputs/{str(datetime.datetime.now()).split(".")[0]}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
@@ -52,10 +52,12 @@ class CPPPane(TemplatePane):
         
         if (not self.Settings["C++"]["Type"]["Enabled"] or not Event):
             CPPPane.KeyHandler.Stop()
+            self.UpdateHistoryBox("Stopped Logging")
             return
     
         if Event:
             CPPPane.KeyHandler.Start()
+            self.UpdateHistoryBox("Started Logging")
 
     def SetUpMiscUI(self):
 
@@ -65,7 +67,7 @@ class CPPPane(TemplatePane):
             self.BitesBackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
             self.BitesBackgroundText.grid()
 
-            self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-160, Height=300)
+            self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-170, Height=300)
             self.MiscBites.grid()
 
             self.Add(self.BitesPane)
@@ -93,6 +95,8 @@ class CPPPane(TemplatePane):
 
                 self.SaveHistoryButton = tk.Button(self.TrackerPane, text="Save As .txt", bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog)
                 self.SaveHistoryButton.grid(pady=5)
+
+                #also clear button on same canvas
 
             self.Add(self.TrackerPane)
             self.AllWidgets.append(self.TrackerPane)

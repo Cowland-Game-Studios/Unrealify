@@ -1,0 +1,16 @@
+Name: 
+  Timeline Function
+Description: 
+  Copy and paste of UTimelineComponent
+Tags:
+  UE5 
+CodeSnippetToCopy: 
+  //code
+WebpageToOpen: 
+  NONE
+FileToOpen: 
+  NONE
+Image: 
+  Link: Preview.png #Image (same folder) or NONE (all caps) for no preview image
+  PreviewSize: 50x50 #Preview resolution in Bites tab
+  RescaleSize: 100x100 #Acutal resolution in new Bites window

@@ -44,16 +44,12 @@ class KeyHandler():
     self.Checker.start()
     self.Listener.start()
 
-    print("Tracking Started")
-
   def Stop(self):
     self.Running = False
     self.Checker.join()
     #self.Checker.stop()
     self.Listener.stop()
     self.Listener.join()
-
-    print("Tracking Stopped")
 
   def IsNotBlackListedKeys(self, Key) -> bool:
     return Key.lower() in KeyIgnores or "\\" in Key.lower() #to rid key.space, key.backspace

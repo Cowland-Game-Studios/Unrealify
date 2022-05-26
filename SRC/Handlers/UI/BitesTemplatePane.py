@@ -25,7 +25,7 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Root, bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0)
+        self.SearchBar = tk.Text(master=self.Root, bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0)
         self.SearchBar.place(x=10, y=10, width=160, height=20, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 

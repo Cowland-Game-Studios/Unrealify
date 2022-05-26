@@ -69,7 +69,7 @@ class SettingsPane(TemplatePane):
                 self.AllWidgets.append(CPPTypeHistoryToggle)
 
                 
-                CPPTypeDelaySlide = IncrementSlider(CSettings, (0.1, 1), Title="Delay (Seconds) after last key pressed to check", StartValue = self.Settings["C++"]["Type"]["DelayBetweenCharacters"], IncrementValue = 0.05, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Type/DelayBetweenCharacters")], SnapTo = [0.25, 0.5], SnapThreashold = 0.05, bg="#121212")
+                CPPTypeDelaySlide = IncrementSlider(CSettings, (0.1, 1), Title="Typing speed sensitivity (Left is Lowest)", StartValue = self.Settings["C++"]["Type"]["DelayBetweenCharacters"], IncrementValue = 0.05, OnChangeFuncRef = lambda x : [SettingsWriteSlider(x, "C++/Type/DelayBetweenCharacters")], SnapTo = [0.25, 0.5], SnapThreashold = 0.05, bg="#121212")
                 CPPTypeDelaySlide.pack(padx=30, pady=3)
                 self.AllWidgets.append(CPPTypeDelaySlide)
             

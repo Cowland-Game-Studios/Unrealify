@@ -6,8 +6,10 @@ import datetime
 
 from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UI.BitesTemplatePane import BitesTemplatePane
-from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
+
+from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
+from Handlers.UIComponents.BottomBar import BottomBar
 
 class CPPPane(TemplatePane):
 
@@ -24,7 +26,7 @@ class CPPPane(TemplatePane):
         self.AllCPPClasses = AllCPPClasses
 
         if CPPPane.KeyHandler is None:
-            CPPPane.KeyHandler = KeyStrokeWrapper(AllCPPClasses, EnablePopup=self.Settings["C++"]["PopUps"]["Enabled"], OnPopupFuncRef=lambda x : [self.UpdateHistoryBox(x)])
+            CPPPane.KeyHandler = KeyStrokeWrapper(AllCPPClasses, Settings=self.SettingsHandler, OnPopupFuncRef=lambda x : [self.UpdateHistoryBox(x)])
 
         self.SetUpMiscUI()
 
@@ -43,8 +45,16 @@ class CPPPane(TemplatePane):
             return
 
     def SaveLog(self):
-        with open(CPPPane.DirectoryAbove + f"""/Outputs/{str(datetime.datetime.now()).split(".")[0]}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
+        FileName = str(datetime.datetime.now()).split(".")[0]
+
+        with open(CPPPane.DirectoryAbove + f"""/Outputs/{FileName}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
             f.writelines(CPPPane.Texts)
+
+        BottomBar(self.Root, f"Saved successfully as {FileName}.txt")
+
+    def ClearLog(self):
+        CPPPane.Texts = []
+        self.RefreshHistoryBoxDisplay()
 
     def StartKey(self, Event):
         if CPPPane.KeyHandler is None:
@@ -87,16 +97,20 @@ class CPPPane(TemplatePane):
             self.TrackerSwitch.grid()
 
             if (self.Settings["C++"]["Type"]["LogTypeHistory"]):
-                self.TrackHistory = tk.Text(self.TrackerPane, bg="#262626", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0)
+                self.TrackHistory = tk.Text(self.TrackerPane, bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0)
                 self.TrackHistory.bind("<Key>", lambda e: "break")
                 self.TrackHistory.insert(tk.INSERT, f"""{str(datetime.datetime.now()).split(".")[0]}: History Log:\n""")
                 self.RefreshHistoryBoxDisplay()
                 self.TrackHistory.grid()
 
-                self.SaveHistoryButton = tk.Button(self.TrackerPane, text="Save As .txt", bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog)
-                self.SaveHistoryButton.grid(pady=5)
+                self.ButtonCanvas = tk.Canvas(self.TrackerPane, bg="#121212", highlightthickness=0)
+                self.ButtonCanvas.grid(pady=5)
 
-                #also clear button on same canvas
+                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Save As .txt", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog)
+                self.SaveHistoryButton.grid(row=0, column=1, padx=(0, 5))
+
+                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Clear", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.ClearLog)
+                self.SaveHistoryButton.grid(row=0, column=2)
 
             self.Add(self.TrackerPane)
             self.AllWidgets.append(self.TrackerPane)

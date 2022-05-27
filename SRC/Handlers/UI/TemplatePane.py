@@ -8,8 +8,10 @@ class TemplatePane(ScrollPane):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, SettingsHandler, width=400, height=50):
-        super().__init__(Root, width=width, height=height, Background="#121212")
+    def __init__(self, Root, SettingsHandler, width=400, height=50, Background="#121212"):
+        super().__init__(Root, width=width, height=height, Background=Background)
+
+        self.Background = Background
 
         self.AllWidgets = []
         self.SettingsHandler = SettingsHandler
@@ -23,7 +25,7 @@ class TemplatePane(ScrollPane):
     def SetUpUI(self):
         self.Clear()
 
-        ContentPane = tk.Canvas(width=self.Width - 125, height=self.Height, bg="#121212", highlightthickness=0)
+        ContentPane = tk.Canvas(width=self.Width - 125, height=self.Height, bg=self.Background, highlightthickness=0)
         ContentPane.place(x = 125, y = 0, anchor = "nw")
 
         self.AllWidgets.append(ContentPane)

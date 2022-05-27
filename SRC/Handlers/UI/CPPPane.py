@@ -78,7 +78,7 @@ class CPPPane(TemplatePane):
             self.BitesBackgroundText.grid()
 
             self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-170, Height=300)
-            self.MiscBites.grid()
+            self.MiscBites.place()#.grid()
 
             self.Add(self.BitesPane)
             self.AllWidgets.append(self.BitesPane)

@@ -19,13 +19,19 @@ class MiscPane(TemplatePane):
 
     def SetUpMiscUI(self):
 
-        self.BitesPane = tk.Canvas(self.Root, width=720-142, height=50, bg="#121212", highlightthickness=0)
+        self.BitesPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
 
-        self.MiscBites = BitesTemplatePane(self.BitesPane, "Misc", self.SettingsHandler, Width=720-142, Height=512)
-        self.MiscBites.grid()
+        self.BitesBackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
+        self.BitesBackgroundText.grid()
+
+        self.MiscBites = BitesTemplatePane(self.BitesPane, "Misc", self.SettingsHandler, Width=720-170, Height=384)
+        self.MiscBites.place()
 
         self.Add(self.BitesPane)
 
-        self.AllWidgets = [self.BitesPane]
+        self.ToolPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
 
-        #self.PlayAnimation()
+        self.BitesBackgroundText = tk.Label(self.BitesPane, text="Tools", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
+        self.BitesBackgroundText.grid()
+
+        self.Add(self.ToolPane)

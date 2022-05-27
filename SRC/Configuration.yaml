@@ -19,5 +19,4 @@ C++:
     Enabled: true
     LogTypeHistory: true
 Misc:
-  ProjectDirectory: ''
   XattrBot: false

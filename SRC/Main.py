@@ -13,7 +13,6 @@ try:
   from events import Events
   import tkinter as tk
 
-  AllCPPClasses = {}
   if __name__ == "__main__":
     Splash = SplashHandler.SplashScreen()
     AllWindows.append(Splash)
@@ -32,12 +31,17 @@ try:
       FakeUpdate.start()
       AllThreads.append(FakeUpdate)
 
-      AllCPPClasses = BeautifulSoupHandler.GetAllCPPClasses()
+      AllCPPClasses = None
+
+      try:
+        AllCPPClasses = BeautifulSoupHandler.GetAllCPPClasses()
+      except Exception as e:
+        PopUpHandler.PopUp("No Wifi", "__CLOSE__", "No wifi connection detected, running on local mode- C++ CodeTracker is disabled.", False, 10)
 
       FakeUpdate.join()
       Splash.Update(100)
 
-      time.sleep(1)
+      time.sleep(0.25)
 
       Splash.Update(101)
 
@@ -49,5 +53,7 @@ try:
 
     Splash.Loop()
 except Exception as e:
+  if type(e) == ModuleNotFoundError:
+    import InstallModules
   import traceback
   PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

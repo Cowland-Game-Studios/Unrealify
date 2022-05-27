@@ -12,12 +12,14 @@ class BitesWindow(tk.Canvas):
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, BitePath, Width=50, Height=75, bg="#121212"):
-        super().__init__(Root, width=Width, height=Height, bg="#121212", borderwidth=0, highlightthickness=0)
+    def __init__(self, Root, BitePath, Width=50, Height=75, bg="#262626"):
+        super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=0, highlightthickness=0)
 
         self.BitePath = BitePath
 
         self.Data = YamlParser(BitePath + "/Details.yaml").GetAllData()
+
+        self.Background = bg
 
         self.Title = self.Data["Name"]
         self.Description = self.Data["Description"]
@@ -38,16 +40,16 @@ class BitesWindow(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.TitleLabel = tk.Label(self, text=self.Title, font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg="#121212", wraplengt=600)
+        self.TitleLabel = tk.Label(self, text=self.Title, font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg=self.Background, wraplengt=600)
         self.TitleLabel.pack()
 
         self.TitleLabel.bind("<Button-1>", lambda x : [self.CreateBiteDetail()])
 
-        self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg="#121212", wraplengt=600)
+        self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg=self.Background, wraplengt=600)
         self.DescriptionLabel.pack()
 
         if self.Tags != []:
-            self.TagLabel = tk.Label(self, text=self.Tags[0], font=("Yu Gothic", 7), foreground="#121212", bg="#92DDC8", wraplengt=600)
+            self.TagLabel = tk.Label(self, text=self.Tags[0], font=("Yu Gothic", 7), foreground=self.Background, bg="#92DDC8", wraplengt=600)
             self.TagLabel.pack(pady=(5, 10))
 
         if self.PreviewImage:

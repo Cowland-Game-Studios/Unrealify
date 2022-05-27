@@ -55,7 +55,7 @@ try:
 except Exception as e:
   if type(e) == ModuleNotFoundError:
     import InstallModules
-    PopUpHandler.PopUp("Installed Needed Dependencies", "__CLOSE__", "All required dependencies have been installed, restart application to start Unrealify", False)
+    PopUpHandler.PopUp("Installed Needed Dependencies", "__CLOSE__", "All required dependencies should have been installed, restart application to start Unrealify", False)
     exit()
   import traceback
   PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

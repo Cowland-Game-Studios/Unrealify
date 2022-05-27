@@ -1,4 +1,4 @@
-import os
+import os, sys
 
 packages = [
     "bs4", 
@@ -9,4 +9,4 @@ packages = [
 ]
 
 for package in packages:
-    os.system(f"python3 -m pip install {package}")
+    os.system(f"{sys.executable} -m pip install {package}")

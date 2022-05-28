@@ -133,9 +133,6 @@ class App():
   def SetUpDashboardMenu(self):
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
-    
-    BackgroundText = tk.Label(ContentPane, text="Dashbored", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpCPPMenu(self):
     self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
@@ -149,9 +146,6 @@ class App():
     self.AllWidgets.append(
       CPPMenu
     )
-    
-    BackgroundText = tk.Label(ContentPane, text="C++", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
   
   def SetUpBlueprintsMenu(self):
     self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
@@ -165,9 +159,6 @@ class App():
     self.AllWidgets.append(
       BlueprintsMenu
     )
-    
-    BackgroundText = tk.Label(ContentPane, text="Blueprints", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
   def SetUpMiscMenu(self):
     self.MiscButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
@@ -182,9 +173,6 @@ class App():
       MiscBites
     )
 
-    BackgroundText = tk.Label(ContentPane, text="Misc", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
-
   def SetUpSettingsMenu(self):
     self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
@@ -193,9 +181,6 @@ class App():
 
     SettingsMenu = SettingsPane.SettingsPane(ContentPane, self.SettingsHandler, 720-142, 512)
     SettingsMenu.grid(row=1)
-
-    BackgroundText = tk.Label(ContentPane, text="Settings", font=("Yu Gothic Bold", 23), bg="#121212", foreground="#2D2D2D")
-    BackgroundText.place(rely=1, x = 10, anchor="sw")
 
     self.AllWidgets.append(
       SettingsMenu

@@ -77,7 +77,7 @@ class App():
     self.SideBar.pack(side=tk.LEFT, fill="y")
 
     #using tklabels because buttons shift down
-    self.CowButton = tk.Label(self.SideBar, image=self.CowImage, relief=tk.FLAT, borderwidth=0)
+    self.CowButton = tk.Label(self.SideBar, image=self.CowImage, relief=tk.FLAT, borderwidth=0, background="#2D2D2D")
     self.CowButton.bind("<1>", lambda x: [self.SetUpDashboardMenu()])
     self.CowButton.pack(pady=10)
 

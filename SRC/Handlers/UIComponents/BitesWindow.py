@@ -53,7 +53,7 @@ class BitesWindow(tk.Canvas):
             self.TagLabel.pack(pady=(5, 10))
 
         if self.PreviewImage:
-            self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0)
+            self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
             self.ImageLabel.pack()
 
     def CreateBiteDetail(self):
@@ -93,7 +93,7 @@ class BitesExpanded(tk.Toplevel):
         self.DescriptionLabel.pack()
 
         if self.ParentBite.PreviewImage:
-            self.ImageLabel = tk.Label(self, image=self.ParentBite.ActualImage, borderwidth=0)
+            self.ImageLabel = tk.Label(self, image=self.ParentBite.ActualImage, borderwidth=0, background="#121212")
             self.ImageLabel.pack(pady=5)
 
         if self.ParentBite.WebpageToOpen != "NONE":

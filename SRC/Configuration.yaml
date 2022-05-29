@@ -1,5 +1,5 @@
 App:
-  LastLeft: Dashboard
+  LastLeft: Misc
   Version: V1.0
 Blueprints:
   Bites:
@@ -13,7 +13,7 @@ C++:
   Enabled: true
   PopUps:
     AutoCloseAfter: 10
-    Enabled: false
+    Enabled: true
   Type:
     DelayBetweenCharacters: 0.1
     Enabled: true

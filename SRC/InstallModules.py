@@ -5,7 +5,8 @@ packages = [
     "pynput",
     "Events",
     "webbrowser",
-    "pyperclip"
+    "pyperclip",
+    "PIL"
 ]
 
 for package in packages:

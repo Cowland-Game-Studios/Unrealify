@@ -10,7 +10,7 @@ else:
     from Handlers.UIComponents.Incrementer import Incrementor
 
 class IncrementSlider(tk.Canvas):
-    def __init__(self, Root, Bounds, Title="Uhh", StartValue = 0, IncrementValue = 1, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg="#2D2D2D"):
+    def __init__(self, Root, Bounds, Title="Uhh", StartValue = 0, IncrementValue = 1, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg="#121212"):
         super().__init__(Root, width=355, height=50, bg=bg, borderwidth=0, highlightthickness=0)
 
         self.Slider = Slider(self, Bounds, StartValue, self.OnChangeRef, SnapTo, SnapThreashold, bg=bg)

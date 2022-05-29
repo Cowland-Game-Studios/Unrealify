@@ -7,7 +7,7 @@ class Incrementor(tk.Canvas):
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
     def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnChangedFuncRef = None, Width=80, Height=21, bg="#2d2d2d"):
-        super().__init__(Root, width=Width, height=Height, bg="#2D2D2D", borderwidth=0, highlightthickness=0)
+        super().__init__(Root, width=Width, height=Height, bg="#121212", borderwidth=0, highlightthickness=0)
 
         self.bg = bg
 
@@ -28,10 +28,10 @@ class Incrementor(tk.Canvas):
         self.UpdateTextboxAlignment()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
 
-        self.IncrementButton = tk.Button(self, activebackground = self.bg, bg  = self.bg, repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()], border=0)
+        self.IncrementButton = tk.Button(self, activebackground = self.bg, bg  = self.bg, repeatdelay = 750, repeatinterval = 250, image=self.IncrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnIncrement()], border=0, fg=self.bg, highlightthickness=0, highlightbackground=self.bg)
         self.IncrementButton.place(relx=1, rely=0.5, anchor="e")
         
-        self.DecrementButton = tk.Button(self, activebackground = self.bg, bg  = self.bg, repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()], border=0)
+        self.DecrementButton = tk.Button(self, activebackground = self.bg, bg  = self.bg, repeatdelay = 750, repeatinterval = 250, image=self.DecrementImage, relief=tk.FLAT, borderwidth=0, command=lambda: [self.OnDecrement()], border=0, fg=self.bg, highlightthickness=0, highlightbackground=self.bg)
         self.DecrementButton.place(relx=0, rely=0.5, anchor="w")
 
     def TextboxAnimation(self, Pass = 0, Add = 1):

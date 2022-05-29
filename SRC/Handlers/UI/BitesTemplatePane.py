@@ -27,7 +27,7 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Root, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0)
+        self.SearchBar = tk.Text(master=self.Root, bg="#121212", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, highlightthickness=0)
         self.SearchBar.place(x=10, y=10, width=160, height=20, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 
@@ -39,7 +39,7 @@ class BitesTemplatePane(TemplatePane):
 
         Context = Context.strip().lower()
 
-        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg=self.Background)
+        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg=self.Background, borderwidth=0)
         self.AllBites.append(Pad)
         Pad.pack()
 

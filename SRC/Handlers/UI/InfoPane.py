@@ -27,7 +27,7 @@ class InfoPane(TemplatePane):
         self.BackgroundText = tk.Label( self.Root, text="Info", font=("Yu Gothic Bold", 50), bg="#121212", foreground="#2D2D2D")
         self.BackgroundText.place(rely=1, x = 10, anchor="sw")
 
-        self.InfoIcon = tk.Label( self.Root, image=self.LogoDark, relief=tk.FLAT, borderwidth=0)
+        self.InfoIcon = tk.Label( self.Root, image=self.LogoDark, borderwidth=0, background="#121212")
         self.InfoIcon.place(relx=0.5, y=20, anchor="n")
 
         self.Title = tk.Label( self.Root, text="Unrealify", font=("Yu Gothic Bold", 40), bg="#121212", foreground="#FFF")
@@ -45,15 +45,15 @@ class InfoPane(TemplatePane):
         # Credit = tk.Label( self.Root, text="Cowland Game Studios", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
         # Credit.place(relx=0.5, rely=0.9, anchor="s")
 
-        self.Socials_Youtube = tk.Label( self.Root, image=self.YoutubeImage, relief=tk.FLAT, borderwidth=0)
+        self.Socials_Youtube = tk.Label( self.Root, image=self.YoutubeImage, relief=tk.FLAT, borderwidth=0, background="#121212")
         self.Socials_Youtube.bind("<1>", lambda x: [webbrowser.open("https://www.youtube.com/channel/UCMcfj1Phz3G9xH0fUF_o9Jw")])
         self.Socials_Youtube.place(relx=0.7, rely=0.725, anchor="center")
 
-        self.Socials_Itch = tk.Label( self.Root, image=self.ItchImage, relief=tk.FLAT, borderwidth=0)
+        self.Socials_Itch = tk.Label( self.Root, image=self.ItchImage, relief=tk.FLAT, borderwidth=0, background="#121212")
         self.Socials_Itch.bind("<1>", lambda x: [webbrowser.open("https://cowlandgamestudios.itch.io/")])
         self.Socials_Itch.place(relx=0.5, rely=0.725, anchor="center")
 
-        self.Socials_Github = tk.Label( self.Root, image=self.GithubImage, relief=tk.FLAT, borderwidth=0)
+        self.Socials_Github = tk.Label( self.Root, image=self.GithubImage, relief=tk.FLAT, borderwidth=0, background="#121212")
         self.Socials_Github.bind("<1>", lambda x: [webbrowser.open("https://github.com/Cowland-Game-Studios/Unrealify")])
         self.Socials_Github.place(relx=0.3, rely=0.725, anchor="center")
 

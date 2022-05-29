@@ -97,7 +97,7 @@ class CPPPane(TemplatePane):
             self.TrackerSwitch.grid()
 
             if (self.Settings["C++"]["Type"]["LogTypeHistory"]):
-                self.TrackHistory = tk.Text(self.TrackerPane, bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0)
+                self.TrackHistory = tk.Text(self.TrackerPane, bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, highlightthickness=0, highlightbackground="#292929")
                 self.TrackHistory.bind("<Key>", lambda e: "break")
                 self.TrackHistory.insert(tk.INSERT, f"""{str(datetime.datetime.now()).split(".")[0]}: History Log:\n""")
                 self.RefreshHistoryBoxDisplay()
@@ -106,11 +106,11 @@ class CPPPane(TemplatePane):
                 self.ButtonCanvas = tk.Canvas(self.TrackerPane, bg="#121212", highlightthickness=0)
                 self.ButtonCanvas.grid(pady=5)
 
-                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Save As .txt", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog)
+                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Save As .txt", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog, highlightthickness=0)
                 self.SaveHistoryButton.grid(row=0, column=1, padx=(0, 5))
 
-                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Clear", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.ClearLog)
-                self.SaveHistoryButton.grid(row=0, column=2)
+                self.ClearHistoryButton = tk.Button(self.ButtonCanvas, text="Clear", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.ClearLog, highlightthickness=0)
+                self.ClearHistoryButton.grid(row=0, column=2)
 
             self.Add(self.TrackerPane)
             self.AllWidgets.append(self.TrackerPane)

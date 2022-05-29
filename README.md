@@ -14,13 +14,13 @@ Open your Unreal projects from Unrealify to quick-swap settings/templates per pr
 
 # How To Use
 
-Video soon
+Video soon:tm:
 
 Run Main.py with python 3.9.x/3.10.x
 
 # Contribute
 
-Check Contribute.MD
+Check [Contribute.MD]()
 
 # Credits
 
@@ -28,6 +28,6 @@ Several Stackoverflow.com threads, mentioned in code where applicable.
 
 The entire w3schools website and Codemy.com.
 
-Designed on Figma, powered by Tkinter; written by Cowland Game Studios 2022 in three months.
+Designed on Figma, powered by Tkinter; V2.0 written by Cowland Game Studios 2022 to extend upon the CodeTracker feature of V1.0.
 
-The entire project is open-source, no secrets here.
+The entire project is open-source, no secrets here. The compiled version of .exe and .dmg files are provided by python libraries (will list when released)

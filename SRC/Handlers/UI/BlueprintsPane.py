@@ -25,7 +25,7 @@ class BlueprintsPane(TemplatePane):
         self.BackgroundText.grid()
 
         self.MiscBites = BitesTemplatePane(self.BitesPane, "Blueprints", self.SettingsHandler, Width=720-170, Height=300)
-        self.MiscBites.place()#.grid()
+        self.MiscBites.place()
 
         self.Add(self.BitesPane)
 

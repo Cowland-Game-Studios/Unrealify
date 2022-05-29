@@ -6,7 +6,7 @@ import webbrowser
 
 from Handlers.SettingsHandler import YamlParser
 from Handlers.UIComponents import IncrementSlider, ToggleSwitch, TransitionalButton
-from Handlers.UI import InfoPane, SettingsPane, MiscPane, BlueprintsPane, CPPPane
+from Handlers.UI import InfoPane, SettingsPane, MiscPane, BlueprintsPane, CPPPane, DashboardPane
 
 class App():
 
@@ -133,6 +133,13 @@ class App():
   def SetUpDashboardMenu(self):
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
+
+    DashboardMenu = DashboardPane.DashboardPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    DashboardMenu.place(x=0, y=0)
+
+    self.AllWidgets.append(
+      DashboardMenu
+    )
 
   def SetUpCPPMenu(self):
     self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)

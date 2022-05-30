@@ -3,6 +3,7 @@ from tkinter.ttk import Progressbar
 import webbrowser
 import pyperclip
 import os
+import sys
 from PIL import ImageTk, Image
 import random
 
@@ -26,7 +27,9 @@ class SplashScreen():
 
         self.SetUpUI()
         self.window.focus_force()
-        self.window.overrideredirect(True)
+        if sys.platform != "darwin":
+            self.window.overrideredirect(True)
+        #self.window.wm_attributes("-type", "splash")
         self.window.eval("tk::PlaceWindow . center")
 
     def Loop(self):
@@ -41,7 +44,7 @@ class SplashScreen():
         CowImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
         SpinnerImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Splash/Spinner.png").resize((20, 20), Image.ANTIALIAS))
 
-        self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0)
+        self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0, background="#121212")
         self.IntroImage.image = CowImage
         self.IntroImage.pack()
 
@@ -60,7 +63,7 @@ class SplashScreen():
         self.ProgressBar = tk.Frame(self.window, bg="#92DDC8")
         self.ProgressBar.place(relx = 0, rely = 0.99, width=10, height=5, anchor="w")
 
-        self.SpinImage = tk.Label(self.window, image=SpinnerImage, borderwidth=0)
+        self.SpinImage = tk.Label(self.window, image=SpinnerImage, borderwidth=0, background="#121212")
         self.SpinImage.image = SpinnerImage
         self.SpinImage.place(relx=0.99, rely=0.97, anchor="se")
 

@@ -116,7 +116,8 @@ class App():
     self.InfoButton.PlayAnimation(False, 0, self.SetNotAnimating)
 
   def Clear(self, SkipAnimations=False, Exiting=False):
-    self.window.overrideredirect(False)
+
+    self.window.overrideredirect(False) #do we have to keep this here?
 
     for Widget in self.AllWidgets:
       if Widget is not None:

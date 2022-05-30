@@ -47,6 +47,9 @@ class CPPPane(TemplatePane):
     def SaveLog(self):
         FileName = str(datetime.datetime.now()).split(".")[0]
 
+        if not os.path.isdir(CPPPane.DirectoryAbove + "/Outputs"):
+            os.mkdir(CPPPane.DirectoryAbove + "/Outputs")
+
         with open(CPPPane.DirectoryAbove + f"""/Outputs/{FileName}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
             f.writelines(CPPPane.Texts)
 

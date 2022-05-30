@@ -1,6 +1,7 @@
 import os, sys
 
 packages = [
+    "pyyaml",
     "bs4", 
     "pynput",
     "Events",

@@ -15,10 +15,10 @@ class BitesTemplatePane(TemplatePane):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background="#262626"):
+    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background="#262626", Title="Bites"):
         super().__init__(Root, SettingsHandler, Width, Height, Background=Background)
 
-        tk.Label(self.Root, text="", font=("Yu Gothic Bold", 1), foreground="#92DDC8", bg=Background, width=Width).pack()
+        tk.Label(self.Root, text="a", font=("Yu Gothic Bold", 1), foreground="#92DDC8", bg=Background, width=Width).pack()
 
         self.Settings = self.SettingsHandler.GetAllData()
         self.BitesDirectory = BitesDirectory
@@ -27,9 +27,11 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Root, bg="#121212", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, highlightthickness=0)
-        self.SearchBar.place(x=10, y=10, width=160, height=20, anchor="nw")
+        self.SearchBar = tk.Text(master=self.Root, bg="#121212", foreground="#FFF", font=("Yu Gothic", 12), borderwidth=0, highlightthickness=0)
+        self.SearchBar.place(x=10, y=10+50, width=200, height=25, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
+
+        tk.Label(self.Root, text="Bites", font=("Yu Gothic Bold", 24), foreground="#FFF", bg=Background).place(x=10, y=10, anchor="nw")
 
         self.SearchBar.insert(1.0, "Search By Tag/Keyword")
         
@@ -39,7 +41,7 @@ class BitesTemplatePane(TemplatePane):
 
         Context = Context.strip().lower()
 
-        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg=self.Background, borderwidth=0)
+        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 50), foreground="#92DDC8", bg=self.Background, borderwidth=0)
         self.AllBites.append(Pad)
         Pad.pack()
 

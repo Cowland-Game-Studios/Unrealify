@@ -74,13 +74,10 @@ class CPPPane(TemplatePane):
         if (self.Settings["C++"]["Bites"]["Enabled"]):
             self.BitesPane = tk.Canvas(self.Frame, bg="#121212", highlightthickness=0)
 
-            self.BitesBackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
-            self.BitesBackgroundText.grid()
+            self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-170-10, Height=512-20)
+            self.MiscBites.place(x=10, y=10)#.grid()
 
-            self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-170, Height=300)
-            self.MiscBites.place()#.grid()
-
-            self.Add(self.BitesPane)
+            self.Add(self.BitesPane, 10, 10)
             self.AllWidgets.append(self.BitesPane)
 
 

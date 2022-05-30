@@ -21,13 +21,10 @@ class MiscPane(TemplatePane):
 
         self.BitesPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
 
-        self.BitesBackgroundText = tk.Label(self.BitesPane, text="Bites", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
-        self.BitesBackgroundText.grid()
-
-        self.MiscBites = BitesTemplatePane(self.BitesPane, "Misc", self.SettingsHandler, Width=720-170, Height=384)
+        self.MiscBites = BitesTemplatePane(self.BitesPane, "Misc", self.SettingsHandler, Width=720-170-10, Height=512-20)
         self.MiscBites.place()
 
-        self.Add(self.BitesPane)
+        self.Add(self.BitesPane, 10, 10)
 
         self.ToolPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
 

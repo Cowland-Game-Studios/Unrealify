@@ -63,10 +63,18 @@ class BitesTemplatePane(TemplatePane):
             A.pack()
             return
 
+        Column = 2 #rst
+        CurrentPane = None 
+
         for BiteName in Bites:
-            NewBite = BitesWindow(self.Root, BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
-            NewBite.pack(anchor="center")
-            self.AllBites.append(NewBite)
+            if Column >= 2:
+                Column = 0
+                CurrentPane = tk.Canvas(self.Root, bg="#121212", borderwidth=0, highlightthickness=0)
+                CurrentPane.pack()
+            NewBite = BitesWindow(CurrentPane, BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
+            NewBite.grid(column=Column, row=0)
+            Column += 1
+            self.AllBites.append(CurrentPane)
 
     def ClearBites(self):
         for Widget in self.AllBites:

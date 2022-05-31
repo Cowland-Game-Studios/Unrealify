@@ -62,9 +62,11 @@ class DashboardPane(TemplatePane):
 
         if Data["Projects"] is None:
             Data["Projects"] = []
+
+        PathAndPlatform = Path + "\t" + str(sys.platform)
         
-        if Path not in Data["Projects"]:
-            Parser.Write("Projects", Data["Projects"] + [Path + "\t" + str(sys.platform)])
+        if PathAndPlatform not in Data["Projects"]:
+            Parser.Write("Projects", Data["Projects"] + [PathAndPlatform])
 
         BottomBar(self.Root, ".uproject file found!")
 

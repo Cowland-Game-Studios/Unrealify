@@ -16,10 +16,10 @@ class YamlParser():
             print(e)
             return None
 
-    def Write(self, Directories, NewVal) -> bool:
+    def Write(self, Directories, NewVal, DelimOverride="") -> bool:
         try:
             Data = self.GetAllData()
-            Directories = "".join([f"[\"{x}\"]" for x in Directories.split("/")])
+            Directories = "".join([f"[\"{x}\"]" for x in Directories.split(("/" if DelimOverride == "" else DelimOverride))])
 
             exec(f"""Data{Directories} = {NewVal if type(NewVal) != str else "'"+NewVal+"'" }""")
 

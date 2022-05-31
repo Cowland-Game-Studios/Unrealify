@@ -65,12 +65,14 @@ class DashboardPane(TemplatePane):
         self.DataParser.Write("LastLeft", str(RootDir))
 
         if Data["Projects"] is None:
-            Data["Projects"] = []
-
-        PathAndPlatform = RootDir + "\t" + str(sys.platform) + "\t" + str(str(datetime.datetime.now()).split(".")[0])
+            Data["Projects"] = {}
         
-        if PathAndPlatform not in Data["Projects"]:
-            self.DataParser.Write("Projects", Data["Projects"] + [PathAndPlatform])
+        if RootDir not in Data["Projects"].keys():
+            DataToMod = Data["Projects"]
+            DataToMod.update({RootDir : {"Platform" : sys.platform, "LastModif" : str(datetime.datetime.now()).split(".")[0]}})
+            self.DataParser.Write("Projects", DataToMod)
+        else:
+            self.DataParser.Write(f"Projects:::{RootDir}:::LastModif", str(str(datetime.datetime.now()).split(".")[0]), ":::")
 
         BottomBar(self.Root, ".uproject file found!")
 
@@ -87,18 +89,23 @@ class DashboardPane(TemplatePane):
         Column = 0
         Row = 0
 
-        if self.DataParser.GetAllData()["Projects"]:
-            for Project in self.DataParser.GetAllData()["Projects"]:
-                if Project.split("\t")[1] != sys.platform:
+        ProjectData = self.DataParser.GetAllData()["Projects"]
+
+        if ProjectData:
+            for ProjectPath in ProjectData:
+
+                Project = ProjectData[ProjectPath]
+
+                if Project["Platform"] != sys.platform:
                     continue
 
-                if not os.path.isfile(Project.split("\t")[0] + "/Unrealify/Properties.yaml"):
+                if not os.path.isfile(ProjectPath + "/Unrealify/Properties.yaml"):
                     continue
 
                 if Column >= 3:
                     Column = 0
                     Row += 1
-                NewBite = ProjectWindow(self.BrowserPane.Frame, Project.split("\t")[0])
+                NewBite = ProjectWindow(self.BrowserPane.Frame, ProjectPath, self)
                 self.BrowserPane.Add(NewBite, Padx=3, Pady=3, RowOverride=Row, ColOverride=Column)
                 Column += 1
                 self.AllProjects.append(NewBite)
@@ -110,7 +117,7 @@ class DashboardPane(TemplatePane):
         self.Pather = tk.Text(self.BottomPane, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 16), borderwidth=0, highlightthickness=0)
         self.Pather.place(x=0, y=10, width=505, height=25)
         self.Pather.insert("1.0", r"/Users/mootbing/Desktop/LoneCity/LoneCity/LoneCity.uproject")
-        self.Pather.bind("<Return>", lambda e: "break")
+        self.Pather.bind("<Return>", lambda x: "break")
 
         def SetFile():
             File = filedialog.askopenfilename(initialdir = DashboardPane.DirectoryAbove,

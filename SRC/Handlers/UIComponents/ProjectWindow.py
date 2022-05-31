@@ -16,8 +16,10 @@ class ProjectWindow(tk.Canvas):
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, ProjectPath, Width=175, Height=175, bg="#121212"):
+    def __init__(self, Root, ProjectPath, Dashboard, Width=175, Height=175, bg="#121212"):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=2, highlightthickness=0)
+
+        self.Dashboard = Dashboard
 
         self.ProjectPath = ProjectPath
         self.ProjectNameRaw = [x.replace(".uproject", "") for x in os.listdir(ProjectPath) if x.lower().endswith(".uproject")][0]
@@ -35,7 +37,8 @@ class ProjectWindow(tk.Canvas):
         self.PreviewImage = ImageTk.PhotoImage(Image.open(self.ImagePath).resize((175, 175)), Image.ANTIALIAS)
 
         self.UProjectContent = {}
-        with open(f"{ProjectPath}/{self.ProjectNameRaw}.uproject") as f:
+        self.UProjectPath = f"{ProjectPath}/{self.ProjectNameRaw}.uproject"
+        with open(self.UProjectPath) as f:
             self.UProjectContent = json.loads(f.read())
 
         self.Version = self.UProjectContent["EngineAssociation"]
@@ -60,4 +63,10 @@ class ProjectWindow(tk.Canvas):
         self.NameLabel =  tk.Label(self, text=Name, foreground="#FFF", borderwidth=0, background=self.Background, wraplengt=175)
         self.NameLabel.pack()
 
-        self.NameLabel.bind("<Button-1>", lambda x : [print("aaa")])
+        self.NameLabel.bind("<Button-1>", lambda x : [self.Clicked()])
+
+    def Clicked(self):
+        self.Dashboard.Pather.delete("1.0", tk.END)
+        self.Dashboard.Pather.insert(tk.INSERT, self.UProjectPath)
+
+        self.Dashboard.OpenProject()

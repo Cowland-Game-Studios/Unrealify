@@ -115,7 +115,7 @@ class DashboardPane(TemplatePane):
         self.BottomPane = tk.Canvas(self.Frame, width=720-142, height=75, bg="#121212", highlightthickness=0)
 
         self.Pather = tk.Text(self.BottomPane, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 16), borderwidth=0, highlightthickness=0)
-        self.Pather.place(x=0, y=10, width=505, height=25)
+        self.Pather.place(x=5, y=10, width=505, height=25)
         self.Pather.insert("1.0", r"/Users/mootbing/Desktop/LoneCity/LoneCity/LoneCity.uproject")
         self.Pather.bind("<Return>", lambda x: "break")
 
@@ -141,6 +141,6 @@ class DashboardPane(TemplatePane):
         self.CreateButton = tk.Button(self.ButtonCanvas, text="Properties", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, highlightthickness=0)
         self.CreateButton.grid(row=0, column=2, padx=(0, 30))
 
-        self.Add(self.BottomPane)
+        self.Add(self.BottomPane, Padx=10)
 
         #self.VerticalScrollBar.destroy() #for now no need

@@ -69,10 +69,10 @@ class DashboardPane(TemplatePane):
         
         if RootDir not in Data["Projects"].keys():
             DataToMod = Data["Projects"]
-            DataToMod.update({RootDir : {"Platform" : sys.platform, "LastModif" : str(datetime.datetime.now()).split(".")[0]}})
+            DataToMod.update({RootDir : {"Platform" : sys.platform, "LastModif" : datetime.datetime.now().timestamp(), "UPath" : Path.replace("\\", "/").split("/")[-1]}})
             self.DataParser.Write("Projects", DataToMod)
         else:
-            self.DataParser.Write(f"Projects:::{RootDir}:::LastModif", str(str(datetime.datetime.now()).split(".")[0]), ":::")
+            self.DataParser.Write(f"Projects:::{RootDir}:::LastModif", str(str(datetime.datetime.now().timestamp())), ":::")
 
         BottomBar(self.Root, ".uproject file found!")
 
@@ -92,6 +92,9 @@ class DashboardPane(TemplatePane):
         ProjectData = self.DataParser.GetAllData()["Projects"]
 
         if ProjectData:
+            #tysm https://stackoverflow.com/questions/613183/how-do-i-sort-a-dictionary-by-value
+            ProjectData = {k: v for k, v in sorted(ProjectData.items(), key=lambda item: float(item[1]["LastModif"]) * -1)}
+
             for ProjectPath in ProjectData:
 
                 Project = ProjectData[ProjectPath]
@@ -116,7 +119,10 @@ class DashboardPane(TemplatePane):
 
         self.Pather = tk.Text(self.BottomPane, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 16), borderwidth=0, highlightthickness=0)
         self.Pather.place(x=5, y=10, width=505, height=25)
-        self.Pather.insert("1.0", r"/Users/mootbing/Desktop/LoneCity/LoneCity/LoneCity.uproject")
+
+        if self.DataParser.GetAllData()["LastLeft"] != "":
+            Left = self.DataParser.GetAllData()["LastLeft"]
+            self.Pather.insert("1.0", Left + "/" + self.DataParser.GetAllData()["Projects"][Left]["UPath"])
         self.Pather.bind("<Return>", lambda x: "break")
 
         def SetFile():

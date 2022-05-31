@@ -12,7 +12,7 @@ class BitesWindow(tk.Canvas):
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, BitePath, Width=150, Height=250, bg="#121212"):
+    def __init__(self, Root, BitePath, Width=160, Height=250, bg="#121212"):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=2, highlightthickness=0)
 
         self.BitePath = BitePath
@@ -32,8 +32,8 @@ class BitesWindow(tk.Canvas):
         if (self.Data["Image"]["Link"] != "NONE"):
             #self.ImagePreviewSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
             self.ImageRescaleSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
-            self.ImagePreviewSize = [150, int(self.ImageRescaleSize[1] * 150 / self.ImageRescaleSize[0])]
-            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 150, 100]))
+            self.ImagePreviewSize = [160, int(self.ImageRescaleSize[1] * 160 / self.ImageRescaleSize[0])]
+            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 160, 100]))
             self.ActualImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImageRescaleSize[0], self.ImageRescaleSize[1]), Image.ANTIALIAS))
         else:
             self.ImagePreviewSize = [Width + 10]

@@ -9,6 +9,8 @@ from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 from Handlers.UIComponents.BitesWindow import BitesWindow
 from Handlers.SettingsHandler import YamlParser
 
+from Handlers.UIComponents.ScrollPane import ScrollPane
+
 from Handlers.UI.TemplatePane import TemplatePane
 
 class BitesTemplatePane(TemplatePane):
@@ -27,11 +29,11 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Root, bg="#121212", foreground="#FFF", font=("Yu Gothic", 12), borderwidth=0, highlightthickness=0)
+        self.SearchBar = tk.Text(master=self.Canvas, bg="#121212", foreground="#FFF", font=("Yu Gothic", 12), borderwidth=0, highlightthickness=0)
         self.SearchBar.place(x=10, y=10+50, width=200, height=25, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 
-        tk.Label(self.Root, text="Bites", font=("Yu Gothic Bold", 24), foreground="#FFF", bg=Background).place(x=10, y=10, anchor="nw")
+        tk.Label(self.Canvas, text="Bites", font=("Yu Gothic Bold", 24), foreground="#FFF", bg=Background).place(x=10, y=10, anchor="nw")
 
         self.SearchBar.insert(1.0, "Search By Tag/Keyword")
         
@@ -63,16 +65,16 @@ class BitesTemplatePane(TemplatePane):
             A.pack()
             return
 
-        Column = 2 #rst
+        Column = 3 #rst
         CurrentPane = None 
 
         for BiteName in Bites:
-            if Column >= 2:
+            if Column >= 3:
                 Column = 0
                 CurrentPane = tk.Canvas(self.Root, bg="#121212", borderwidth=0, highlightthickness=0)
                 CurrentPane.pack()
             NewBite = BitesWindow(CurrentPane, BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
-            NewBite.grid(column=Column, row=0)
+            NewBite.grid(column=Column, row=0, padx=5)
             Column += 1
             self.AllBites.append(CurrentPane)
 

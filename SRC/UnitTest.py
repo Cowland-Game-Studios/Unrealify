@@ -11,8 +11,12 @@ root = tk.Tk()
 root["bg"] = bg="#2D2D2D"
 
 # create canvas
-myCanvas = ProjectWindow(root, "/Users/mootbing/Desktop/LoneCity/LoneCity")
+myCanvas = ScrollPane(root)
 
 # add to window and show
-myCanvas.pack()
+myCanvas.grid(column=1, row=1)
+myCanvas = ScrollPane(root)
+
+# add to window and show
+myCanvas.grid(column=1, row=2)
 root.mainloop()

@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 import sys
+import datetime
 
 from tkinter import filedialog
 from tkinter import messagebox
@@ -66,7 +67,7 @@ class DashboardPane(TemplatePane):
         if Data["Projects"] is None:
             Data["Projects"] = []
 
-        PathAndPlatform = RootDir + "\t" + str(sys.platform)
+        PathAndPlatform = RootDir + "\t" + str(sys.platform) + "\t" + str(str(datetime.datetime.now()).split(".")[0])
         
         if PathAndPlatform not in Data["Projects"]:
             self.DataParser.Write("Projects", Data["Projects"] + [PathAndPlatform])
@@ -86,14 +87,21 @@ class DashboardPane(TemplatePane):
         Column = 0
         Row = 0
 
-        for Project in self.DataParser.GetAllData()["Projects"]:
-            if Column >= 3:
-                Column = 0
-                Row += 1
-            NewBite = ProjectWindow(self.BrowserPane.Frame, Project.split("\t")[0])
-            self.BrowserPane.Add(NewBite, Padx=3, Pady=3, RowOverride=Row, ColOverride=Column)
-            Column += 1
-            self.AllProjects.append(NewBite)
+        if self.DataParser.GetAllData()["Projects"]:
+            for Project in self.DataParser.GetAllData()["Projects"]:
+                if Project.split("\t")[1] != sys.platform:
+                    continue
+
+                if not os.path.isfile(Project.split("\t")[0] + "/Unrealify/Properties.yaml"):
+                    continue
+
+                if Column >= 3:
+                    Column = 0
+                    Row += 1
+                NewBite = ProjectWindow(self.BrowserPane.Frame, Project.split("\t")[0])
+                self.BrowserPane.Add(NewBite, Padx=3, Pady=3, RowOverride=Row, ColOverride=Column)
+                Column += 1
+                self.AllProjects.append(NewBite)
 
         self.Add(self.ProjectPane, 10, (10, 0))
 

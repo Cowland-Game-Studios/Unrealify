@@ -5,16 +5,14 @@ from Handlers.SettingsHandler import YamlParser
 from Handlers.UIComponents.ScrollPane import ScrollPane
 from Handlers.UI.TemplatePane import TemplatePane
 
+from Handlers.UIComponents.ProjectWindow import ProjectWindow
+
 root = tk.Tk()
-root.geometry("1200x700")
-root["bg"] = "#2D2D2D"
+root["bg"] = bg="#2D2D2D"
 
-BitesPane = tk.Canvas(root, bg="#121212", highlightthickness=0, width=600, height=300)
+# create canvas
+myCanvas = ProjectWindow(root, "/Users/mootbing/Desktop/LoneCity/LoneCity")
 
-BitesTemplatePane(BitesPane, "Misc", YamlParser(r"C:\Users\kingo\Documents\GitHub\UnrealCppImportHelper\SRC\Configuration.yaml"), 600, 300)#.place()#.grid()#.grid(columnspan=1, rowspan=1)
-#ScrollPane(BitesPane, "#121212", 600, 300).grid()
-#root.rowconfigure(1, weight=1)
-
-BitesPane.grid()
-
+# add to window and show
+myCanvas.pack()
 root.mainloop()

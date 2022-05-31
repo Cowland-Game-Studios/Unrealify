@@ -33,8 +33,8 @@ class ScrollPane(tk.Canvas):
         '''Reset the scroll region to encompass the inner frame'''
         self.Canvas.configure(scrollregion=self.Canvas.bbox("all"))
         
-    def Add(self, NewLabel, Padx=0, Pady=0):
-        NewLabel.grid(row=self.row, column=0, padx=Padx, pady=Pady)
+    def Add(self, NewLabel, Padx=0, Pady=0, RowOverride = -1, ColOverride = -1):
+        NewLabel.grid(row=(self.row if RowOverride == -1 else RowOverride), column=(0 if ColOverride == -1 else ColOverride), padx=Padx, pady=Pady)
         self.row += 1
         self.ConfigureHeight(None)
 

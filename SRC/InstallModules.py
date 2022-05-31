@@ -7,7 +7,8 @@ packages = [
     "Events",
     "webbrowser",
     "pyperclip",
-    "PIL"
+    "PIL",
+    "json" #Unreal uses this... yaml better imo
 ]
 
 for package in packages:

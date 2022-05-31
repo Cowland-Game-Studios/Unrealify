@@ -33,10 +33,10 @@ class BitesWindow(tk.Canvas):
             #self.ImagePreviewSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
             self.ImageRescaleSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
             self.ImagePreviewSize = [150, int(self.ImageRescaleSize[1] * 150 / self.ImageRescaleSize[0])]
-            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0], self.ImagePreviewSize[1])), Image.ANTIALIAS)#.crop([0, 0, 150, 100]))
+            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 150, 100]))
             self.ActualImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImageRescaleSize[0], self.ImageRescaleSize[1]), Image.ANTIALIAS))
         else:
-            self.ImagePreviewSize = [Width]
+            self.ImagePreviewSize = [Width + 10]
             self.PreviewImage = None
 
         self.SetUpUI()
@@ -46,12 +46,12 @@ class BitesWindow(tk.Canvas):
             self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
             self.ImageLabel.pack()
         
-        self.TitleLabel = tk.Label(self, text=self.Title, font=("Yu Gothic Bold", 10), foreground="#92DDC8", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
+        self.TitleLabel = tk.Label(self, text=self.Title, font=("Yu Gothic Bold", 14), foreground="#92DDC8", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
         self.TitleLabel.pack()
 
         self.TitleLabel.bind("<Button-1>", lambda x : [self.CreateBiteDetail()])
 
-        self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 7), foreground="#FFF", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
+        self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
         self.DescriptionLabel.pack()
 
         if self.Tags != []: #switch to display all

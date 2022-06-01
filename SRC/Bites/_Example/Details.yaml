@@ -15,3 +15,4 @@ Image:
   Link: Preview.png #Image (same folder) or NONE (all caps) for no preview image
   PreviewSize: 50x50 #Preview resolution in Bites tab
   RescaleSize: 100x100 #Acutal resolution in new Bites window
+ApplyLocation: NONE #Apply location if this is a file,  __ROOT__ for root directory of the project

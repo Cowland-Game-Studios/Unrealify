@@ -12,8 +12,8 @@ def RecurFindAdd(Path, Directory, Value):
         if os.path.isfile(Full):
             if Full.endswith("Details.yaml"):
                 Write = YamlParser(Full)
-                Write.Write("", NewVal)
+                Write.Write(Directory, Value)
         else:
-            RecurFindAdd(Full, ToAdd)
+            RecurFindAdd(Full, Directory, Value)
 
-RecurFindAdd(os.path.dirname(os.path.realpath(__file__)) + "/Bites", "ApplyLocation", "")
+RecurFindAdd(os.path.dirname(os.path.realpath(__file__)) + "/Bites", "ApplyLocation", "NONE")

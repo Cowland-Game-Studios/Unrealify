@@ -1,16 +1,11 @@
-Name: 
-  .gitignore Template
-Description: 
-  A .gitignore template for Unreal Engine projects
-Tags:
-  Github
-CodeSnippetToCopy: 
-  NONE
-WebpageToOpen: 
-  https://github.com/Cowland-Game-Studios/Unreal-Git-Ignore-and-Attributes-Template
-FileToOpen: 
-  .gitignore
-Image: 
+ApplyLocation: NONE
+CodeSnippetToCopy: NONE
+Description: A .gitignore template for Unreal Engine projects
+FileToOpen: .gitignore
+Image:
   Link: NONE
   PreviewSize: 50x50
   RescaleSize: 100x100
+Name: .gitignore Template
+Tags: Github
+WebpageToOpen: https://github.com/Cowland-Game-Studios/Unreal-Git-Ignore-and-Attributes-Template

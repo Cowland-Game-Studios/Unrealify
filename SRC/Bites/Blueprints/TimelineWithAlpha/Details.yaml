@@ -1,19 +1,8 @@
-#Bites template: a new folder is required for each snippet
-Name: 
-  Timeline With Alpha
-Description: 
-  EZ copy and paste of timeline with alpha parameter (1s total)
-Tags:
-  UE5
-CodeSnippetToCopy: 
-  Begin Object Class=/Script/BlueprintGraph.K2Node_Timeline Name="K2Node_Timeline_0"
-  TimelineName="Timeline"
-  TimelineGuid=74E266494D281B48153CA8A999D75F70
-  NodePosX=448
-  NodePosY=240
-  bCanRenameNode=True
-  NodeGuid=4EE8EA7B48DC2858AD11BF938F4C5DF1
-  CustomProperties Pin (PinId=E72C6CA347264A8855957A9960298E97,PinName="Play",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
+ApplyLocation: NONE
+CodeSnippetToCopy: Begin Object Class=/Script/BlueprintGraph.K2Node_Timeline Name="K2Node_Timeline_0"
+  TimelineName="Timeline" TimelineGuid=74E266494D281B48153CA8A999D75F70 NodePosX=448
+  NodePosY=240 bCanRenameNode=True NodeGuid=4EE8EA7B48DC2858AD11BF938F4C5DF1 CustomProperties
+  Pin (PinId=E72C6CA347264A8855957A9960298E97,PinName="Play",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
   CustomProperties Pin (PinId=4E7253CA42ACE249CB0659A3AD556947,PinName="PlayFromStart",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
   CustomProperties Pin (PinId=B376FD954C7E9CB615F09880CC1DC428,PinName="Stop",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
   CustomProperties Pin (PinId=488C04D1422B0C3FAD7A78978F833780,PinName="Reverse",PinType.PinCategory="exec",PinType.PinSubCategory="",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
@@ -25,11 +14,12 @@ CodeSnippetToCopy:
   CustomProperties Pin (PinId=FCCEAF67424D68A6CEB833A7DA24C9C1,PinName="Direction",Direction="EGPD_Output",PinType.PinCategory="byte",PinType.PinSubCategory="",PinType.PinSubCategoryObject=Enum'"/Script/Engine.ETimelineDirection"',PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
   CustomProperties Pin (PinId=ECB7C1D94AC4289E9D8C8F951A652716,PinName="Alpha",Direction="EGPD_Output",PinType.PinCategory="real",PinType.PinSubCategory="float",PinType.PinSubCategoryObject=None,PinType.PinSubCategoryMemberReference=(),PinType.PinValueType=(),PinType.ContainerType=None,PinType.bIsReference=False,PinType.bIsConst=False,PinType.bIsWeakPointer=False,PinType.bIsUObjectWrapper=False,PinType.bSerializeAsSinglePrecisionFloat=False,PersistentGuid=00000000000000000000000000000000,bHidden=False,bNotConnectable=False,bDefaultValueIsReadOnly=False,bDefaultValueIsIgnored=False,bAdvancedView=False,bOrphanedPin=False,)
   End Object
-WebpageToOpen: 
-  NONE
-FileToOpen: 
-  NONE
-Image: 
-  Link: Preview.png #Image (same folder) or NONE (all caps) for no preview image
-  PreviewSize: 90x72 #Preview resolution in Bites tab
-  RescaleSize: 180x144 #Acutal resolution in new Bites window
+Description: EZ copy and paste of timeline with alpha parameter (1s total)
+FileToOpen: NONE
+Image:
+  Link: Preview.png
+  PreviewSize: 90x72
+  RescaleSize: 180x144
+Name: Timeline With Alpha
+Tags: UE5
+WebpageToOpen: NONE

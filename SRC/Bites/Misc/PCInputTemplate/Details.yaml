@@ -1,16 +1,11 @@
-Name: 
-  Input Template (PC Only)
-Description: 
-  An input template for your project settings 
-Tags:
-  Project Settings
-CodeSnippetToCopy: 
-  NONE
-WebpageToOpen: 
-  NONE
-FileToOpen: 
-  PCInput.ini
-Image: 
+ApplyLocation: __ROOT__/Config/DefaultInput.ini
+CodeSnippetToCopy: NONE
+Description: An input template for your project settings
+FileToOpen: PCInput.ini
+Image:
   Link: Input.png
   PreviewSize: 50x50
   RescaleSize: 100x100
+Name: Input Template (PC Only)
+Tags: Project Settings
+WebpageToOpen: NONE

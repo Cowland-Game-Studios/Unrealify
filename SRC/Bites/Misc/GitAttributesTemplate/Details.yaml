@@ -1,16 +1,12 @@
-Name: 
-  .gitattributes Template
-Description: 
-  A .gitattributes template (for Large File Storage) for Unreal Engine projects
-Tags:
-  Github
-CodeSnippetToCopy: 
-  NONE
-WebpageToOpen: 
-  https://github.com/Cowland-Game-Studios/Unreal-Git-Ignore-and-Attributes-Template
-FileToOpen: 
-  .gitattributes 
-Image: 
+ApplyLocation: NONE
+CodeSnippetToCopy: NONE
+Description: A .gitattributes template (for Large File Storage) for Unreal Engine
+  projects
+FileToOpen: .gitattributes
+Image:
   Link: NONE
   PreviewSize: 50x50
   RescaleSize: 100x100
+Name: .gitattributes Template
+Tags: Github
+WebpageToOpen: https://github.com/Cowland-Game-Studios/Unreal-Git-Ignore-and-Attributes-Template

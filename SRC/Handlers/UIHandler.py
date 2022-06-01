@@ -42,6 +42,9 @@ class App():
     self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
     self.Settings = self.SettingsHandler.GetAllData()
 
+    #Reset the Opened
+    YamlParser(App.DirectoryAbove + "/Data/Projects.yaml").Write("Opened", "")
+
     #Startup windows & processes
     self.SetUpSideBar()
     self.__ContinueLastLeft()

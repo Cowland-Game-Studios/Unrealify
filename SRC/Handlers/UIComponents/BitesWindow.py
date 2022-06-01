@@ -26,6 +26,11 @@ class BitesWindow(tk.Canvas):
         self.CodeSnippetToCopy = self.Data["CodeSnippetToCopy"]
         self.WebpageToOpen = self.Data["WebpageToOpen"]
         self.FileToOpen = BitePath + "/" + self.Data["FileToOpen"]
+
+        self.ProjectData = YamlParser(BitesWindow.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
+        self.ProjectPath = self.ProjectData["Opened"]
+        self.ApplyPath = self.Data["ApplyLocation"].replace("__ROOT__", self.ProjectPath)
+
         self.Tags = [x.strip() for x in self.Data["Tags"].split(",")] if self.Data["Tags"] != "NONE" else []
         ImagePath = BitePath + "/" + self.Data["Image"]["Link"]
 
@@ -38,6 +43,7 @@ class BitesWindow(tk.Canvas):
         else:
             self.ImagePreviewSize = [Width + 10, Width + 10]
             self.PreviewImage = ImageTk.PhotoImage(Image.open(BitesWindow.DirectoryAbove + "/Image/Other/BadImage.png").resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 155, 100]))
+            self.ActualImage = None
 
         self.SetUpUI()
 
@@ -71,6 +77,9 @@ class BitesExpanded(tk.Toplevel):
             subprocess.Popen(["open", path])
         else:
             subprocess.Popen(["xdg-open", path])
+
+    def Apply(self):
+        print(f"""{self.ParentBite.FileToOpen} replace to {self.ParentBite.ProjectPath} and the original will go to {self.ParentBite.ProjectPath}/Unrealify/Temp/{self.ParentBite.Data["ApplyLocation"].replace("__ROOT__", "")}""")
     
     def __init__(self, ParentBite):
         super().__init__(ParentBite)
@@ -95,7 +104,7 @@ class BitesExpanded(tk.Toplevel):
         self.DescriptionLabel = tk.Label(self, text=self.ParentBite.Description, font=("Yu Gothic", 10), foreground="#FFF", bg="#121212", wraplengt=380)
         self.DescriptionLabel.pack()
 
-        if self.ParentBite.PreviewImage:
+        if self.ParentBite.PreviewImage and self.ParentBite.ActualImage and not self.ParentBite.ApplyPath.endswith("NONE"):
             self.ImageLabel = tk.Label(self, image=self.ParentBite.ActualImage, borderwidth=0, background="#121212")
             self.ImageLabel.pack(pady=5)
 
@@ -104,8 +113,12 @@ class BitesExpanded(tk.Toplevel):
             self.OpenFileButton.pack(pady=5)
         
         if not self.ParentBite.FileToOpen.endswith("NONE"):
-            self.OpenFileButton = tk.Button(master=self, text="Open In File Explorer", bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0, command= lambda: [BitesExpanded.Open(self.ParentBite.FileToOpen)])
+            self.OpenFileButton = tk.Button(master=self, text="Open File", bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0, command= lambda: [BitesExpanded.Open(self.ParentBite.FileToOpen)])
             self.OpenFileButton.pack(pady=5)
+
+            if self.ParentBite.ProjectPath != "" and self.ParentBite.ProjectPath != "NONE" and not self.ParentBite.ApplyPath.endswith("NONE"):
+                self.OpenFileButton = tk.Button(master=self, text=f"""Apply to {self.ParentBite.ProjectData["Projects"][self.ParentBite.ProjectPath]["UPath"]}""", bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0, command= lambda: [self.Apply()])
+                self.OpenFileButton.pack(pady=5)
 
         if self.ParentBite.CodeSnippetToCopy != "NONE" or (not self.ParentBite.FileToOpen.endswith("NONE") and self.ParentBite.PreviewImage is None):
             self.CopyLabel = tk.Text(master=self, bg="#292929", foreground="white", font=("Yu Gothic", 10), borderwidth=0)

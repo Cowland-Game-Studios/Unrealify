@@ -1,4 +1,4 @@
-ApplyLocation: NONE
+ApplyLocation: __ROOT__/Config/DefaultInput.ini
 CodeSnippetToCopy: NONE
 Description: An input template for your project settings
 FileToOpen: PCVRInput.ini

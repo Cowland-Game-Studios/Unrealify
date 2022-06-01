@@ -1,4 +1,4 @@
-ApplyLocation: NONE
+ApplyLocation: __ROOT__
 CodeSnippetToCopy: NONE
 Description: A .gitignore template for Unreal Engine projects
 FileToOpen: .gitignore

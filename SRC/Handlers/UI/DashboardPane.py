@@ -63,6 +63,7 @@ class DashboardPane(TemplatePane):
         Data = self.DataParser.GetAllData()
 
         self.DataParser.Write("LastLeft", str(RootDir))
+        self.DataParser.Write("Opened", str(RootDir))
 
         if Data["Projects"] is None:
             Data["Projects"] = {}

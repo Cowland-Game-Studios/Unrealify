@@ -6,7 +6,11 @@ import platform
 import subprocess
 import webbrowser
 
+import shutil
+
 from Handlers.SettingsHandler import YamlParser
+
+from Handlers.UIComponents.BottomBar import BottomBar
 
 class BitesWindow(tk.Canvas):
     
@@ -79,7 +83,27 @@ class BitesExpanded(tk.Toplevel):
             subprocess.Popen(["xdg-open", path])
 
     def Apply(self):
-        print(f"""{self.ParentBite.FileToOpen} replace to {self.ParentBite.ProjectPath} and the original will go to {self.ParentBite.ProjectPath}/Unrealify/Temp/{self.ParentBite.Data["ApplyLocation"].replace("__ROOT__", "")}""")
+
+        StashPath = ""
+        if os.path.isfile(self.ParentBite.ApplyPath):
+            StashPath = f"{self.ParentBite.ProjectPath}/Unrealify/Temp"
+
+            if self.ParentBite.Data["ApplyLocation"].replace("__ROOT__", "") != "":
+                StashPath += self.ParentBite.Data["ApplyLocation"].replace("__ROOT__", "")
+                StashPath = "/".join(StashPath.split("/")[:-1]) if "." in StashPath.split("/")[-1] else StashPath
+
+            if not os.path.isdir(StashPath):
+                os.makedirs(StashPath)
+            
+            #print(f"Copying {self.ParentBite.ApplyPath} to {StashPath} for backup")
+        
+            shutil.copy2(self.ParentBite.ApplyPath, StashPath)
+
+        shutil.copy2(self.ParentBite.FileToOpen, self.ParentBite.ApplyPath)
+
+        #print(f"Copying {self.ParentBite.FileToOpen} to {self.ParentBite.ApplyPath} for application")
+
+        BottomBar(self, f"Applied!" + f" Old moved to /Unrealify/Temp/ folder" if StashPath != "" else "", Relx=0.3)
     
     def __init__(self, ParentBite):
         super().__init__(ParentBite)

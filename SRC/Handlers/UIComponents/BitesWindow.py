@@ -12,7 +12,7 @@ class BitesWindow(tk.Canvas):
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, BitePath, Width=160, Height=250, bg="#121212"):
+    def __init__(self, Root, BitePath, Width=155, Height=250, bg="#121212"):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=2, highlightthickness=0)
 
         self.BitePath = BitePath
@@ -32,12 +32,12 @@ class BitesWindow(tk.Canvas):
         if (self.Data["Image"]["Link"] != "NONE"):
             #self.ImagePreviewSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
             self.ImageRescaleSize = [int(x) for x in self.Data["Image"]["RescaleSize"].split("x")]
-            self.ImagePreviewSize = [160, int(self.ImageRescaleSize[1] * 160 / self.ImageRescaleSize[0])]
-            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 160, 100]))
+            self.ImagePreviewSize = [155, int(self.ImageRescaleSize[1] * 155 / self.ImageRescaleSize[0])]
+            self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 155, 100]))
             self.ActualImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImageRescaleSize[0], self.ImageRescaleSize[1]), Image.ANTIALIAS))
         else:
-            self.ImagePreviewSize = [Width + 10]
-            self.PreviewImage = None
+            self.ImagePreviewSize = [Width + 10, Width + 10]
+            self.PreviewImage = ImageTk.PhotoImage(Image.open(BitesWindow.DirectoryAbove + "/Image/Other/BadImage.png").resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 155, 100]))
 
         self.SetUpUI()
 
@@ -46,17 +46,18 @@ class BitesWindow(tk.Canvas):
             self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
             self.ImageLabel.pack()
         
-        self.TitleLabel = tk.Label(self, text=self.Title, font=("Yu Gothic Bold", 14), foreground="#92DDC8", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
+        self.TitleLabel = tk.Label(self, text=self.Title, font=("Helvetica", 10), foreground="#FFF", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
         self.TitleLabel.pack()
 
         self.TitleLabel.bind("<Button-1>", lambda x : [self.CreateBiteDetail()])
 
-        self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
-        self.DescriptionLabel.pack()
+        # self.DescriptionLabel = tk.Label(self, text=self.Description, font=("Yu Gothic", 10), foreground="#FFF", bg=self.Background, wraplengt=self.ImagePreviewSize[0])
+        # self.DescriptionLabel.pack()
 
         if self.Tags != []: #switch to display all
             self.TagLabel = tk.Label(self, text=self.Tags[0], font=("Yu Gothic", 7), foreground=self.Background, bg="#92DDC8", wraplengt=self.ImagePreviewSize[0])
-            self.TagLabel.pack(pady=(5, 10))
+            if len(self.ImagePreviewSize) > 1:
+                self.TagLabel.place(relx=1, y=self.ImagePreviewSize[1], anchor="e")
 
     def CreateBiteDetail(self):
         DetailedBite = BitesExpanded(self)

@@ -17,10 +17,10 @@ class BitesTemplatePane(TemplatePane):
 
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
 
-    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background="#262626", Title="Bites"):
+    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background="#2D2D2D", Title="Bites"):
         super().__init__(Root, SettingsHandler, Width, Height, Background=Background)
 
-        tk.Label(self.Root, text="a", font=("Yu Gothic Bold", 1), foreground="#92DDC8", bg=Background, width=Width).pack()
+        tk.Label(self.Root, text="a", font=("Yu Gothic Bold", 1), foreground="#FFF", bg=Background, width=Width).pack()
 
         self.Settings = self.SettingsHandler.GetAllData()
         self.BitesDirectory = BitesDirectory
@@ -43,7 +43,7 @@ class BitesTemplatePane(TemplatePane):
 
         Context = Context.strip().lower()
 
-        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 50), foreground="#92DDC8", bg=self.Background, borderwidth=0)
+        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 50), foreground="#FFF", bg=self.Background, borderwidth=0)
         self.AllBites.append(Pad)
         Pad.pack()
 
@@ -60,7 +60,7 @@ class BitesTemplatePane(TemplatePane):
                 Bites.append(Bite)
 
         if len(Bites) == 0:
-            A = tk.Label(self.Root, text="No bites yet.", font=("Yu Gothic Bold", 15), foreground="#92DDC8", bg=self.Background)
+            A = tk.Label(self.Root, text="No bites yet.", font=("Yu Gothic Bold", 12), foreground="#FFF", bg=self.Background)
             self.AllBites.append(A)
             A.pack()
             return

@@ -117,7 +117,7 @@ class DashboardPane(TemplatePane):
 
         self.BottomPane = tk.Canvas(self.Frame, width=720-142, height=75, bg="#121212", highlightthickness=0)
 
-        self.Pather = tk.Text(self.BottomPane, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 16), borderwidth=0, highlightthickness=0)
+        self.Pather = tk.Text(self.BottomPane, bg="#2D2D2D", foreground="#FFF", font=("Yu Gothic", 12), borderwidth=0, highlightthickness=0)
         self.Pather.place(x=5, y=10, width=505, height=25)
 
         if self.DataParser.GetAllData()["LastLeft"] != "":

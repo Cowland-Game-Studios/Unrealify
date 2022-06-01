@@ -103,7 +103,7 @@ class BitesExpanded(tk.Toplevel):
 
         #print(f"Copying {self.ParentBite.FileToOpen} to {self.ParentBite.ApplyPath} for application")
 
-        BottomBar(self, f"Applied!" + f" Old moved to /Unrealify/Temp/ folder" if StashPath != "" else "", Relx=0.3)
+        BottomBar(self, f"Applied!" + f" Old moved to '/Unrealify/Temp/' folder" if StashPath != "" else "", Relx=0.3)
     
     def __init__(self, ParentBite):
         super().__init__(ParentBite)

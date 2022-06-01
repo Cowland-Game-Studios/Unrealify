@@ -107,6 +107,13 @@ class App():
     if self.IsAnimating:
       return
 
+    Data = YamlParser(App.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
+    
+    Opened = Data["Opened"]
+
+    if Opened != "" and Opened != "NONE":
+      tk.Label(self.SideBar, font=("Yu Gothic", 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg="#92DDC8").place(x=125, y=125, anchor="se")
+
     self.IsAnimating = True
     
     self.CowButton["image"] = self.CowImage

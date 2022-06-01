@@ -104,7 +104,7 @@ class BitesExpanded(tk.Toplevel):
         self.DescriptionLabel = tk.Label(self, text=self.ParentBite.Description, font=("Yu Gothic", 10), foreground="#FFF", bg="#121212", wraplengt=380)
         self.DescriptionLabel.pack()
 
-        if self.ParentBite.PreviewImage and self.ParentBite.ActualImage and not self.ParentBite.ApplyPath.endswith("NONE"):
+        if self.ParentBite.PreviewImage and self.ParentBite.ActualImage:
             self.ImageLabel = tk.Label(self, image=self.ParentBite.ActualImage, borderwidth=0, background="#121212")
             self.ImageLabel.pack(pady=5)
 

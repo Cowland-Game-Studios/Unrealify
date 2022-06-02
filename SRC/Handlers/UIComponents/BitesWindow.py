@@ -111,7 +111,11 @@ class BitesExpanded(tk.Canvas):
     def __init__(self, ParentBite):
         super().__init__(ParentBite.CanvasToOpenOn, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
 
-        #self.geometry("400x300")
+        self.ApplyToProjectImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/ApplyToProject.png").resize((109, 25), Image.ANTIALIAS))
+        self.CopyImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Copy.png").resize((55, 25), Image.ANTIALIAS))
+        self.OpenFileImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/OpenFile.png").resize((75, 25), Image.ANTIALIAS))
+        self.OpenOnWebImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/OpenOnWeb.png").resize((95, 25), Image.ANTIALIAS))
+        self.ReturnImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Return.png").resize((25, 25), Image.ANTIALIAS))
 
         self.ParentBite = ParentBite
         self.TitleLabel = tk.Label(self, text=self.ParentBite.Title, font=(Usefuls.FontAccented, 18), foreground=Usefuls.Mint, bg=Usefuls.LightBlack, wraplengt=380)
@@ -129,26 +133,26 @@ class BitesExpanded(tk.Canvas):
             self.ImageLabel.pack(pady=5)
 
         self.ButtonCanvas = tk.Canvas(self, bg=Usefuls.LightBlack, highlightthickness=0)
-        self.ButtonCanvas.pack()
+        self.ButtonCanvas.pack(pady=5)
 
         if self.ParentBite.WebpageToOpen != "NONE":
-            self.OpenFileButton = tk.Button(master=self.ButtonCanvas, text="Open In Web", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [webbrowser.open(self.ParentBite.WebpageToOpen)])
-            self.OpenFileButton.grid(column=0, row=0, padx=5)
+            self.OpenInWebButton = tk.Button(master=self.ButtonCanvas, image=self.OpenOnWebImage, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [webbrowser.open(self.ParentBite.WebpageToOpen)])
+            self.OpenInWebButton.grid(column=0, row=0, padx=5)
         
         if not self.ParentBite.FileToOpen.endswith("NONE"):
-            self.OpenFileButton = tk.Button(master=self.ButtonCanvas, text="Open File", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [BitesExpanded.Open(self.ParentBite.FileToOpen)])
+            self.OpenFileButton = tk.Button(master=self.ButtonCanvas, image=self.OpenFileImage, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [BitesExpanded.Open(self.ParentBite.FileToOpen)])
             self.OpenFileButton.grid(column=1, row=0, padx=5)
 
             if self.ParentBite.ProjectPath != "" and self.ParentBite.ProjectPath != "NONE" and not self.ParentBite.ApplyPath.endswith("NONE"):
-                self.OpenFileButton = tk.Button(master=self.ButtonCanvas, text=f"""Apply to {self.ParentBite.ProjectData["Projects"][self.ParentBite.ProjectPath]["UPath"]}""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.Apply()])
-                self.OpenFileButton.grid(column=2, row=0, padx=5)
+                self.ApplyButton = tk.Button(master=self.ButtonCanvas, image=self.ApplyToProjectImage, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.Apply()])
+                self.ApplyButton.grid(column=2, row=0, padx=5)
 
         if self.ParentBite.CodeSnippetToCopy != "NONE":
-            self.CopyButton = tk.Button(master=self.ButtonCanvas, text=f"""Copy Code""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [pyperclip.copy( self.ParentBite.CodeSnippetToCopy)])
+            self.CopyButton = tk.Button(master=self.ButtonCanvas, image=self.CopyImage, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [pyperclip.copy( self.ParentBite.CodeSnippetToCopy)])
             self.CopyButton.grid(column=3, row=0, padx=5)
 
-        self.CloseButton = tk.Button(master=self, text=f"""Close Bite""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.destroy()])
-        self.CloseButton.pack(pady=5)
+        self.CloseButton = tk.Button(master=self, image=self.ReturnImage, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.destroy()])
+        self.CloseButton.place(x=5, y=5, anchor="nw")
 
         if self.ParentBite.CodeSnippetToCopy != "NONE" or not self.ParentBite.FileToOpen.endswith("NONE"):
             tk.Label(self, text=("  Copy" if self.ParentBite.CodeSnippetToCopy != "NONE" else "File") + " Preview:", bg=Usefuls.LightBlack, foreground=Usefuls.White, borderwidth=0, font=(Usefuls.Font, 12), justify=tk.LEFT).pack(padx=(0, 475))

@@ -22,7 +22,7 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg=Usefuls.LightGrey, borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=(Usefuls.FontAccented, 10))
+        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg=Usefuls.LightGrey, borderwidth=0, foreground=Usefuls.Mint, bd=0, highlightthickness=0, font=(Usefuls.FontAccented, 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.UpdateTextboxAlignment()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)

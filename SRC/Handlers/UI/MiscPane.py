@@ -27,7 +27,7 @@ class MiscPane(TemplatePane):
 
         self.ToolPane = tk.Canvas(self.Frame, width=720-142, height=50, bg=Usefuls.LightBlack, highlightthickness=0)
 
-        self.BitesBackgroundText = tk.Label(self.BitesPane, text="Tools", font=(Usefuls.FontAccented, 24), bg=Usefuls.LightBlack, foreground="#92DDC8")
+        self.BitesBackgroundText = tk.Label(self.BitesPane, text="Tools", font=(Usefuls.FontAccented, 24), bg=Usefuls.LightBlack, foreground=Usefuls.Mint)
         self.BitesBackgroundText.grid()
 
         self.Add(self.ToolPane)

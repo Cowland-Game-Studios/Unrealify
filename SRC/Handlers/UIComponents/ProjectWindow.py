@@ -48,7 +48,7 @@ class ProjectWindow(tk.Canvas):
         self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
         self.ImageLabel.pack()
 
-        self.VersionLabel = tk.Label(self, text=self.Version, foreground=Usefuls.LightBlack, borderwidth=0, background="#92DDC8")
+        self.VersionLabel = tk.Label(self, text=self.Version, foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
         self.VersionLabel.place(x=175, y=175, anchor="se")
 
         Name = ""
@@ -57,7 +57,7 @@ class ProjectWindow(tk.Canvas):
         else:
             Name = self.ProjectNameRaw
 
-        self.NameLabel =  tk.Label(self, text=Name, foreground="#FFF", borderwidth=0, background=self.Background, wraplengt=175)
+        self.NameLabel =  tk.Label(self, text=Name, foreground=Usefuls.White, borderwidth=0, background=self.Background, wraplengt=175)
         self.NameLabel.pack()
 
         self.NameLabel.bind("<Button-1>", lambda x : [self.Clicked()])

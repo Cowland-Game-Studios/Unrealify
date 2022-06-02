@@ -130,7 +130,7 @@ class SettingsPane(TemplatePane):
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("300x150")
-    root["bg"] = bg="#2D2D2D"
+    root["bg"] = Usefuls.LightGrey
 
     SettingsPane(root, 400, 50).pack()
 

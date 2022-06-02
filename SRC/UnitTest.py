@@ -8,7 +8,6 @@ from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UIComponents.ProjectWindow import ProjectWindow
 
 root = tk.Tk()
-root["bg"] = bg="#2D2D2D"
 
 # create canvas
 myCanvas = ScrollPane(root)

@@ -25,7 +25,7 @@ class Slider(tk.Canvas):
     def SetUpUI(self):
         self.Background = self.create_image(7, 15, image=self.BackgroundImage, anchor="w")
         self.Button = self.create_image((self.Value + abs(self.Bounds[0])) / (abs(self.Bounds[0]) + self.Bounds[1]) * 250 + 7, 7, image=self.DotButtonImage, anchor="n")
-        self.BackgroundOverlay = self.create_rectangle(0, 0, 0, 0, outline="", fill="#92DDC8")
+        self.BackgroundOverlay = self.create_rectangle(0, 0, 0, 0, outline="", fill=Usefuls.Mint)
         self.HitDetector = self.create_rectangle(0, 0, 400, 30, outline="")
         self.tag_bind(self.HitDetector, "<B1-Motion>", lambda x: [self.OnClicked(x)])
         self.tag_bind(self.HitDetector, "<ButtonRelease>", lambda x: [self.OnClicked(x), self.OnChanged()])

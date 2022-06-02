@@ -17,7 +17,7 @@ class IncrementSlider(tk.Canvas):
         self.Slider.place(relx=0, rely=0.75, anchor="w")
         self.Incrementor.place(relx=1, rely=0.975, anchor="se")
         
-        self.Title = self.create_text(0, 5, text=Title, font=(Usefuls.FontAccented, 10), anchor="nw", fill="white")
+        self.Title = self.create_text(0, 5, text=Title, font=(Usefuls.FontAccented, 10), anchor="nw", fill=Usefuls.White)
         
         self.OnChangeFuncRef = OnChangeFuncRef
 

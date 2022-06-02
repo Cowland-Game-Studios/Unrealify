@@ -35,7 +35,7 @@ class PopUp():
         self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 24 if (len(Header) <= 10) else (int(24 - (len(Header) - 10)))) if (int(24 - (len(Header) - 10))) > 10 else 10, foreground=Usefuls.Mint)
         self.HeaderLabel.pack()
         
-        self.DescriptionLabel = tk.Text(master=self.window, bg=Usefuls.LightGrey, foreground="white", font=(Usefuls.Font, 10), borderwidth=0)
+        self.DescriptionLabel = tk.Text(master=self.window, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0)
         self.DescriptionLabel.insert(tk.INSERT, TextToCopy)
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 

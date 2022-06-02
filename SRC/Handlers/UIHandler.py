@@ -67,6 +67,8 @@ class App():
     else:
       self.SetUpDashboardMenu()
 
+    self.IsAnimating = False
+
   def Loop(self):
     self.window.mainloop()
 
@@ -83,29 +85,26 @@ class App():
     self.CowButton.bind("<1>", lambda x: [self.SetUpDashboardMenu()])
     self.CowButton.pack(pady=10)
 
-    self.CPPButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpCPPMenu, OverlayImage=self.CPPImage)
+    self.CPPButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpCPPMenu, OverlayImage=self.CPPImage, AutoPlay=False)
     self.CPPButton.pack(pady=5)
 
-    self.BlueprintButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage)
+    self.BlueprintButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpBlueprintsMenu, OverlayImage=self.BlueprintImage, AutoPlay=False)
     self.BlueprintButton.pack(pady=5)
 
-    self.MiscButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpMiscMenu, OverlayImage=self.MiscImage)
+    self.MiscButton = TransitionalButton.TransitionalButton(self.SideBar, OnClickFuncRef=self.SetUpMiscMenu, OverlayImage=self.MiscImage, AutoPlay=False)
     self.MiscButton.pack(pady=5)
 
-    self.SettingButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage)
+    self.SettingButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BL", OnClickFuncRef=self.SetUpSettingsMenu, OverlayImage=self.SettingImage, AutoPlay=False)
     self.SettingButton.place(x=0, y=self.Height, anchor="sw")
 
-    self.InfoButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BR", OnClickFuncRef=self.SetUpInformationMenu, OverlayImage=self.InfoImage)
+    self.InfoButton = TransitionalButton.TransitionalButton(self.SideBar, Mode="BR", OnClickFuncRef=self.SetUpInformationMenu, OverlayImage=self.InfoImage, AutoPlay=False)
     self.InfoButton.place(x=125, y=self.Height, anchor="se")
 
   def SetNotAnimating(self):
     self.IsAnimating = False
   
   def ResetSideBar(self, SkipAnimations=False):
-
-    if self.IsAnimating:
-      return
-
+    
     Data = YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
     
     Opened = Data["Opened"]
@@ -113,7 +112,7 @@ class App():
     if Opened != "" and Opened != "NONE":
       tk.Label(self.SideBar, font=(Usefuls.Font, 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg=Usefuls.Mint).place(x=125, y=125, anchor="se")
 
-    self.IsAnimating = True
+    #self.IsAnimating = True
     
     self.CowButton["image"] = self.CowImage
 
@@ -153,11 +152,14 @@ class App():
 
   def SetUpCPPMenu(self):
 
-    if self.IsAnimating:
-      return
+    print(self.IsAnimating)
 
-    self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
+    if self.IsAnimating: 
+      return 
+    self.IsAnimating = True
+
     ContentPane = self.SetUpUI()
+    self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     
     self.SettingsHandler.Write("App/LastLeft", "C++")
 
@@ -171,10 +173,11 @@ class App():
   def SetUpBlueprintsMenu(self):
 
     if self.IsAnimating:
-      return
+      return 
+    self.IsAnimating = True
 
-    self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
+    self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     
     self.SettingsHandler.Write("App/LastLeft", "Blueprints")
 
@@ -187,11 +190,13 @@ class App():
 
   def SetUpMiscMenu(self):
 
-    if self.IsAnimating:
-      return
+    if self.IsAnimating: 
+      
+      return 
+    self.IsAnimating = True
 
-    self.MiscButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
+    self.MiscButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
 
     self.SettingsHandler.Write("App/LastLeft", "Misc")
 
@@ -204,11 +209,12 @@ class App():
 
   def SetUpSettingsMenu(self):
 
-    if self.IsAnimating:
-      return
+    if self.IsAnimating: 
+      return 
+    self.IsAnimating = True
 
-    self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
+    self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
 
     self.SettingsHandler.Write("App/LastLeft", "Settings")
 
@@ -221,11 +227,13 @@ class App():
 
   def SetUpInformationMenu(self):
 
-    if self.IsAnimating:
-      return
+    if self.IsAnimating: 
+      
+      return 
+    self.IsAnimating = True
 
-    self.InfoButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
+    self.InfoButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     
     self.SettingsHandler.Write("App/LastLeft", "Info")
 

@@ -5,12 +5,14 @@ import os
 from Handlers.UIComponents.Usefuls import Usefuls
 
 class TransitionalButton(tk.Canvas):
-    def __init__(self, Root, OnClickFuncRef = None, bg=Usefuls.LightGrey, Mode="Side", OverlayImage = None, TwoTapToReverse=False):
+    def __init__(self, Root, OnClickFuncRef = None, bg=Usefuls.LightGrey, Mode="Side", OverlayImage = None, TwoTapToReverse=False, AutoPlay=True):
 
         self.Width = 125 if (Mode == "Side") else 30
         self.Height = 37 if (Mode == "Side") else 30
 
         super().__init__(Root, width=self.Width, height=self.Height, bg=bg, borderwidth=0, highlightthickness=0)
+
+        self.AutoPlay = AutoPlay
 
         self.Mode = Mode
         self.TwoTapToReverse = TwoTapToReverse
@@ -31,13 +33,13 @@ class TransitionalButton(tk.Canvas):
 
         if (self.Cooldown):
             return
-        
-        self.Cooldown = True
 
         if (self.OnClickFuncRef):
             self.OnClickFuncRef()
 
-        self.PlayAnimation(not self.IsHighlighted)
+        if self.AutoPlay:
+            self.Cooldown = True
+            self.PlayAnimation(not self.IsHighlighted)
 
     def SetUpUI(self):
         self.SlideImage = self.create_image(self.Width, 0, image=self.SideBarImage if self.Mode == "Side" else self.BottomBarImageL if self.Mode == "BL" else self.BottomBarImageR, anchor="nw")

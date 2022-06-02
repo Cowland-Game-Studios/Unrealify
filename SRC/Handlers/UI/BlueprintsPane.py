@@ -5,10 +5,9 @@ import os
 from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UI.BitesTemplatePane import BitesTemplatePane
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class BlueprintsPane(TemplatePane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
     def __init__(self, Root, SettingsHandler, width=400, height=50):
         super().__init__(Root, SettingsHandler, width, height)
 
@@ -19,7 +18,7 @@ class BlueprintsPane(TemplatePane):
 
     def SetUpMiscUI(self):
 
-        self.BitesPane = tk.Canvas(self.Frame, width=720-142, height=50, bg="#121212", highlightthickness=0)
+        self.BitesPane = tk.Canvas(self.Frame, width=720-142, height=50, bg=Usefuls.LightBlack, highlightthickness=0)
 
         self.MiscBites = BitesTemplatePane(self.BitesPane, "Blueprints", self.SettingsHandler, Width=720-170-10, Height=512-20)
         self.MiscBites.place()

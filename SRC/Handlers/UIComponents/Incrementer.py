@@ -2,17 +2,16 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class Incrementor(tk.Canvas):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnChangedFuncRef = None, Width=80, Height=21, bg="#2d2d2d"):
-        super().__init__(Root, width=Width, height=Height, bg="#121212", borderwidth=0, highlightthickness=0)
+    def __init__(self, Root, Bounds, StartValue = 0, IncrementValue = 1, OnChangedFuncRef = None, Width=80, Height=21, bg=Usefuls.LightGrey):
+        super().__init__(Root, width=Width, height=Height, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
 
         self.bg = bg
 
-        self.IncrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Increment.png").resize((20, 20), Image.ANTIALIAS))
-        self.DecrementImage = ImageTk.PhotoImage(Image.open(Incrementor.DirectoryAbove + "/Image/Incrementer/Decrement.png").resize((20, 20), Image.ANTIALIAS))
+        self.IncrementImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Incrementer/Increment.png").resize((20, 20), Image.ANTIALIAS))
+        self.DecrementImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Incrementer/Decrement.png").resize((20, 20), Image.ANTIALIAS))
 
         self.OnChangedFuncRef = OnChangedFuncRef
 
@@ -23,7 +22,7 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg="#2D2D2D", borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=("Yu Gothic Bold", 10))
+        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg=Usefuls.LightGrey, borderwidth=0, foreground="#FFF", bd=0, highlightthickness=0, font=(Usefuls.FontAccented, 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.UpdateTextboxAlignment()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
@@ -39,10 +38,10 @@ class Incrementor(tk.Canvas):
             self.after(10, self.TextboxAnimation(Pass - 1, -1))
             return
         if Pass < 0:
-            self.ValueTextbox["font"] = ("Yu Gothic Bold", 10)
+            self.ValueTextbox["font"] = (Usefuls.FontAccented, 10)
             return
         
-        self.ValueTextbox["font"] = ("Yu Gothic Bold", 10 + Pass)
+        self.ValueTextbox["font"] = (Usefuls.FontAccented, 10 + Pass)
 
         self.after(10, lambda: [self.TextboxAnimation(Pass + Add, Add)])
 
@@ -111,7 +110,7 @@ class Incrementor(tk.Canvas):
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("300x150")
-    root["bg"] = bg="#2D2D2D"
+    root["bg"] = bg=Usefuls.LightGrey
 
     def Update(Value):
         IC.ValidateValue(None, Value)

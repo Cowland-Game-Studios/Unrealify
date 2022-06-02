@@ -5,18 +5,15 @@ import os
 import platform
 import subprocess
 import webbrowser
-
 import configparser
-
 import json
 
 from Handlers.SettingsHandler import YamlParser
 
-class ProjectWindow(tk.Canvas):
-    
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
+from Handlers.UIComponents.Usefuls import Usefuls
 
-    def __init__(self, Root, ProjectPath, Dashboard, Width=175, Height=175, bg="#121212"):
+class ProjectWindow(tk.Canvas):
+    def __init__(self, Root, ProjectPath, Dashboard, Width=175, Height=175, bg=Usefuls.LightBlack):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=2, highlightthickness=0)
 
         self.Dashboard = Dashboard
@@ -24,7 +21,7 @@ class ProjectWindow(tk.Canvas):
         self.ProjectPath = ProjectPath
         self.ProjectNameRaw = [x.replace(".uproject", "") for x in os.listdir(ProjectPath) if x.lower().endswith(".uproject")][0]
 
-        self.ImagePath = f"{ProjectWindow.DirectoryAbove}/Image/Other/BadImage.png" 
+        self.ImagePath = f"{Usefuls.DirectoryAbove}/Image/Other/BadImage.png" 
         
         if os.path.isfile(f"{ProjectPath}/{self.ProjectNameRaw}.png"):
             self.ImagePath = f"{ProjectPath}//{self.ProjectNameRaw}.png" 
@@ -48,10 +45,10 @@ class ProjectWindow(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.ImageLabel =  tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
+        self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
         self.ImageLabel.pack()
 
-        self.VersionLabel = tk.Label(self, text=self.Version, foreground="#121212", borderwidth=0, background="#92DDC8")
+        self.VersionLabel = tk.Label(self, text=self.Version, foreground=Usefuls.LightBlack, borderwidth=0, background="#92DDC8")
         self.VersionLabel.place(x=175, y=175, anchor="se")
 
         Name = ""

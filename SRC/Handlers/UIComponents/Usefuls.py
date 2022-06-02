@@ -1,9 +1,12 @@
-class Colors:
-    DarkGrey = "#121212"
-    LightGrey = "#2D2D2D"
-    Mint = "#92DDC8"
-    White = "#FFF"
+import os
 
-class Text:
-    Font = "Helvetica"
-    Accented = "Helvetica"
+class Usefuls:
+    LightBlack = "#121212"
+    LightGrey = "#2D2D2D"
+    LightGray = LightGrey
+    Mint = "#92DDC8"
+    DarkMint = "#5AA17F"
+    White = "#FFF"
+    Font = "Yu Gothic"
+    FontAccented = "Yu Gothic Bold"
+    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])

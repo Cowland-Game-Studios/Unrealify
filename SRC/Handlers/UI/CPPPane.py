@@ -11,12 +11,11 @@ from Handlers.KeyStrokeWrapper import KeyStrokeWrapper
 from Handlers.UIComponents.ToggleSwitch import ToggleSwitch
 from Handlers.UIComponents.BottomBar import BottomBar
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class CPPPane(TemplatePane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    KeyHandler = None 
-    Texts = []
+    KeyHandler = None #make class variable so executes in background
+    Texts = [] #same reason ^
 
     def __init__(self, Root, SettingsHandler, width=400, height=50, AllCPPClasses = None):
         super().__init__(Root, SettingsHandler, width, height)
@@ -47,10 +46,10 @@ class CPPPane(TemplatePane):
     def SaveLog(self):
         FileName = str(datetime.datetime.now()).split(".")[0]
 
-        if not os.path.isdir(CPPPane.DirectoryAbove + "/Outputs"):
-            os.mkdir(CPPPane.DirectoryAbove + "/Outputs")
+        if not os.path.isdir(Usefuls.DirectoryAbove + "/Outputs"):
+            os.mkdir(Usefuls.DirectoryAbove + "/Outputs")
 
-        with open(CPPPane.DirectoryAbove + f"""/Outputs/{FileName}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
+        with open(Usefuls.DirectoryAbove + f"""/Outputs/{FileName}.txt""".replace(" ", "_").replace(":", "_").replace("-", "_"), "w+") as f:
             f.writelines(CPPPane.Texts)
 
         BottomBar(self.Root, f"Saved successfully as {FileName}.txt")
@@ -75,7 +74,7 @@ class CPPPane(TemplatePane):
     def SetUpMiscUI(self):
 
         if (self.Settings["C++"]["Bites"]["Enabled"]):
-            self.BitesPane = tk.Canvas(self.Frame, bg="#121212", highlightthickness=0)
+            self.BitesPane = tk.Canvas(self.Frame, bg=Usefuls.LightBlack, highlightthickness=0)
 
             self.MiscBites = BitesTemplatePane(self.BitesPane, "C++", self.SettingsHandler, Width=720-170-10, Height=512-20)
             self.MiscBites.place(x=10, y=10)#.grid()
@@ -85,31 +84,31 @@ class CPPPane(TemplatePane):
 
 
         if (self.Settings["C++"]["Type"]["Enabled"] and self.AllCPPClasses is not None):
-            self.TrackerPane = tk.Canvas(self.Frame, bg="#121212", highlightthickness=0)
+            self.TrackerPane = tk.Canvas(self.Frame, bg=Usefuls.LightBlack, highlightthickness=0)
 
-            self.TrackerTitleText = tk.Label(self.TrackerPane, text="Code Tracker", font=("Yu Gothic Bold", 24), bg="#121212", foreground="#92DDC8")
+            self.TrackerTitleText = tk.Label(self.TrackerPane, text="Code Tracker", font=(Usefuls.FontAccented, 24), bg=Usefuls.LightBlack, foreground=Usefuls.Mint)
             self.TrackerTitleText.grid()
 
-            self.TrackerBackgroundText = tk.Label(self.TrackerPane, text="Smart keystroke analyzer to predict code and suggest imports", font=("Yu Gothic", 12), bg="#121212", foreground="#FFF")
+            self.TrackerBackgroundText = tk.Label(self.TrackerPane, text="Smart keystroke analyzer to predict code and suggest imports", font=(Usefuls.Font, 12), bg=Usefuls.LightBlack, foreground=Usefuls.White)
             self.TrackerBackgroundText.grid()
 
-            self.TrackerSwitch = ToggleSwitch(self.TrackerPane, CPPPane.KeyHandler.Running, OnAnimDoneRef=lambda x: [self.StartKey(x)], bg="#121212", Width=50)
+            self.TrackerSwitch = ToggleSwitch(self.TrackerPane, CPPPane.KeyHandler.Running, OnAnimDoneRef=lambda x: [self.StartKey(x)], bg=Usefuls.LightBlack, Width=50)
             self.TrackerSwitch.grid()
 
             if (self.Settings["C++"]["Type"]["LogTypeHistory"]):
-                self.TrackHistory = tk.Text(self.TrackerPane, bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, highlightthickness=0, highlightbackground="#292929")
+                self.TrackHistory = tk.Text(self.TrackerPane, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, highlightthickness=0, highlightbackground=Usefuls.LightGrey)
                 self.TrackHistory.bind("<Key>", lambda e: "break")
                 self.TrackHistory.insert(tk.INSERT, f"""{str(datetime.datetime.now()).split(".")[0]}: History Log:\n""")
                 self.RefreshHistoryBoxDisplay()
                 self.TrackHistory.grid()
 
-                self.ButtonCanvas = tk.Canvas(self.TrackerPane, bg="#121212", highlightthickness=0)
+                self.ButtonCanvas = tk.Canvas(self.TrackerPane, bg=Usefuls.LightBlack, highlightthickness=0)
                 self.ButtonCanvas.grid(pady=5)
 
-                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Save As .txt", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.SaveLog, highlightthickness=0)
+                self.SaveHistoryButton = tk.Button(self.ButtonCanvas, text="Save As .txt", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command=self.SaveLog, highlightthickness=0)
                 self.SaveHistoryButton.grid(row=0, column=1, padx=(0, 5))
 
-                self.ClearHistoryButton = tk.Button(self.ButtonCanvas, text="Clear", bg="#292929", foreground="#FFF", font=("Yu Gothic", 10), borderwidth=0, command=self.ClearLog, highlightthickness=0)
+                self.ClearHistoryButton = tk.Button(self.ButtonCanvas, text="Clear", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command=self.ClearLog, highlightthickness=0)
                 self.ClearHistoryButton.grid(row=0, column=2)
 
             self.Add(self.TrackerPane)

@@ -2,17 +2,16 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class Slider(tk.Canvas):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg="#2d2d2d"):
+    def __init__(self, Root, Bounds, StartValue = 0, OnChangeFuncRef = None, SnapTo = [], SnapThreashold = 1, bg=Usefuls.LightGrey):
         self.bg = bg
 
         super().__init__(Root, width=400, height=30, bg=self.bg, borderwidth=0, highlightthickness=0)
 
-        self.BackgroundImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderBackground.png").resize((250, 4), Image.ANTIALIAS))
-        self.DotButtonImage = ImageTk.PhotoImage(Image.open(Slider.DirectoryAbove + "/Image/Slider/SliderButton.png").resize((15, 15), Image.ANTIALIAS))
+        self.BackgroundImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Slider/SliderBackground.png").resize((250, 4), Image.ANTIALIAS))
+        self.DotButtonImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Slider/SliderButton.png").resize((15, 15), Image.ANTIALIAS))
         
         self.OnChangeFuncRef = OnChangeFuncRef
 
@@ -70,7 +69,7 @@ class Slider(tk.Canvas):
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("300x150")
-    root["bg"] = bg="#2D2D2D"
+    root["bg"] = bg=Usefuls.LightGrey
 
     # create canvas
     myCanvas = Slider(root, (-20, 30), 0, SnapTo=[ -10, 5, 10, 15], SnapThreashold=2)

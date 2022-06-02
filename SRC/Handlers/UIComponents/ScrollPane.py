@@ -5,8 +5,10 @@ Thank you for the ScrollPane class.
 
 import tkinter as tk
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class ScrollPane(tk.Canvas):
-    def __init__(self, root, Background = "#FFF", width=400, height=50):
+    def __init__(self, root, Background = Usefuls.White, width=400, height=50):
         tk.Canvas.__init__(self, root, bg=Background, width=width, height=height, borderwidth=0, highlightthickness=0)
         self.Canvas = tk.Canvas(root, bg=Background, width=width, height=height, borderwidth=0, highlightthickness=0)
 
@@ -45,11 +47,11 @@ if __name__ == "__main__":
     root=tk.Tk()
     root.columnconfigure(0, weight = 1)
     root.rowconfigure(1, weight = 1)
-    A = ScrollPane(root, "#121212")
+    A = ScrollPane(root, Usefuls.LightBlack)
 
     for i in range(20):
-        A.Add(Slider(A.Frame, (0, 30), bg="#121212"))
-        A.Add(Incrementor(A.Frame, (0, 30), bg="#121212"))
+        A.Add(Slider(A.Frame, (0, 30), bg=Usefuls.LightBlack))
+        A.Add(Incrementor(A.Frame, (0, 30), bg=Usefuls.LightBlack))
 
     A.grid(row = 1)
     root.mainloop()

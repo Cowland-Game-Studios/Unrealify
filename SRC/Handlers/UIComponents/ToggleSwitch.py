@@ -2,20 +2,19 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class ToggleSwitch(tk.Canvas):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, OnAnimDoneRef = None, Width=67, Height=50, Title="", bg="#2d2d2d"):
+    def __init__(self, Root, StartValue = False, OnToggleFuncRef = None, OnAnimDoneRef = None, Width=67, Height=50, Title="", bg=Usefuls.LightGrey):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=0, highlightthickness=0)
 
-        self.ToggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/ToggledBackground.png").resize((33, 15), Image.ANTIALIAS))
-        self.UntoggledImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/UntoggledBackground.png").resize((33, 15), Image.ANTIALIAS))
-        self.SwitchBallImage = ImageTk.PhotoImage(Image.open(ToggleSwitch.DirectoryAbove + "/Image/Toggle/SwitchBall.png").resize((15, 15), Image.ANTIALIAS))
+        self.ToggledImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Toggle/ToggledBackground.png").resize((33, 15), Image.ANTIALIAS))
+        self.UntoggledImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Toggle/UntoggledBackground.png").resize((33, 15), Image.ANTIALIAS))
+        self.SwitchBallImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Toggle/SwitchBall.png").resize((15, 15), Image.ANTIALIAS))
 
         self.OnToggle = OnToggleFuncRef
         self.OnAnimDoneRef = OnAnimDoneRef
-        self.Title = self.create_text(0, 0, text=Title, font=("Yu Gothic Bold", 10), anchor="nw", fill="white")
+        self.Title = self.create_text(0, 0, text=Title, font=(Usefuls.FontAccented, 10), anchor="nw", fill=Usefuls.White)
 
         self.IsToggled = StartValue
         self.Cooldown = False
@@ -64,7 +63,7 @@ class ToggleSwitch(tk.Canvas):
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root["bg"] = bg="#2D2D2D"
+    root["bg"] = bg=Usefuls.LightGrey
 
     def A(x):
         print("AAAAA")

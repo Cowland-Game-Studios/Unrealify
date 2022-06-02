@@ -8,10 +8,9 @@ from Handlers.SettingsHandler import YamlParser
 from Handlers.UIComponents import IncrementSlider, ToggleSwitch, TransitionalButton
 from Handlers.UI import InfoPane, SettingsPane, MiscPane, BlueprintsPane, CPPPane, DashboardPane
 
-class App():
+from Handlers.UIComponents.Usefuls import Usefuls
 
-  DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-1])
-  
+class App():
   def __init__(self, SplashRef, AllCPPClasses):
 
     self.AllCPPClasses = AllCPPClasses
@@ -24,26 +23,26 @@ class App():
 
     #Setup window
     self.window.geometry(f"{self.Width}x{self.Height}")
-    self.window["bg"] = "#121212"
+    self.window["bg"] = Usefuls.LightBlack
     self.window.title("Unrealify by Cowland Game Studios")
     self.window.resizable(False, False)
     self.window.focus_force()
-    self.window.iconphoto(False, ImageTk.PhotoImage(file = App.DirectoryAbove + "/Image/Logo/Icon.png"))
+    self.window.iconphoto(False, ImageTk.PhotoImage(file = Usefuls.DirectoryAbove + "/Image/Logo/Icon.png"))
 
     #Load images
-    self.CowImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/Logo/Logo.png").resize((100, 100), Image.ANTIALIAS))
-    self.CPPImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Cpp.png").resize((125, 37), Image.ANTIALIAS))
-    self.BlueprintImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
-    self.MiscImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Misc.png").resize((125, 37), Image.ANTIALIAS))
-    self.SettingImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Settings.png").resize((30, 30), Image.ANTIALIAS))
-    self.InfoImage = ImageTk.PhotoImage(Image.open(App.DirectoryAbove + "/Image/SideBar/Info.png").resize((30, 30), Image.ANTIALIAS))
+    self.CowImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Logo/Logo.png").resize((100, 100), Image.ANTIALIAS))
+    self.CPPImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/SideBar/Cpp.png").resize((125, 37), Image.ANTIALIAS))
+    self.BlueprintImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/SideBar/Blueprint.png").resize((125, 37), Image.ANTIALIAS))
+    self.MiscImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/SideBar/Misc.png").resize((125, 37), Image.ANTIALIAS))
+    self.SettingImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/SideBar/Settings.png").resize((30, 30), Image.ANTIALIAS))
+    self.InfoImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/SideBar/Info.png").resize((30, 30), Image.ANTIALIAS))
 
     #Handlers
-    self.SettingsHandler = YamlParser(App.DirectoryAbove + "/Configuration.yaml")
+    self.SettingsHandler = YamlParser(Usefuls.DirectoryAbove + "/Configuration.yaml")
     self.Settings = self.SettingsHandler.GetAllData()
 
     #Reset the Opened
-    YamlParser(App.DirectoryAbove + "/Data/Projects.yaml").Write("Opened", "")
+    YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml").Write("Opened", "")
 
     #Startup windows & processes
     self.SetUpSideBar()
@@ -76,11 +75,11 @@ class App():
     self.window.destroy()
     
   def SetUpSideBar(self):
-    self.SideBar = tk.Frame(width=125, height=self.Height, bg="#2D2D2D")
+    self.SideBar = tk.Frame(width=125, height=self.Height, bg=Usefuls.LightGrey)
     self.SideBar.pack(side=tk.LEFT, fill="y")
 
     #using tklabels because buttons shift down
-    self.CowButton = tk.Label(self.SideBar, image=self.CowImage, relief=tk.FLAT, borderwidth=0, background="#2D2D2D")
+    self.CowButton = tk.Label(self.SideBar, image=self.CowImage, relief=tk.FLAT, borderwidth=0, background=Usefuls.LightGrey)
     self.CowButton.bind("<1>", lambda x: [self.SetUpDashboardMenu()])
     self.CowButton.pack(pady=10)
 
@@ -107,12 +106,12 @@ class App():
     if self.IsAnimating:
       return
 
-    Data = YamlParser(App.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
+    Data = YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
     
     Opened = Data["Opened"]
 
     if Opened != "" and Opened != "NONE":
-      tk.Label(self.SideBar, font=("Yu Gothic", 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg="#92DDC8").place(x=125, y=125, anchor="se")
+      tk.Label(self.SideBar, font=(Usefuls.Font, 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg=Usefuls.Mint).place(x=125, y=125, anchor="se")
 
     self.IsAnimating = True
     
@@ -139,7 +138,7 @@ class App():
     self.ResetSideBar(SkipAnimations)
 
   def __AddPadding(self, Parent, Size = 3):
-    tk.Label(Parent, text="", font=("Yu Gothic", Size), bg="#121212").pack()
+    tk.Label(Parent, text="", font=(Usefuls.Font, Size), bg=Usefuls.LightBlack).pack()
 
   def SetUpDashboardMenu(self):
     ContentPane = self.SetUpUI()
@@ -216,7 +215,7 @@ class App():
   def SetUpUI(self):
     self.Clear()
 
-    ContentPane = tk.Canvas(width=self.Width - 125, height=self.Height, bg="#121212", highlightthickness=0)
+    ContentPane = tk.Canvas(width=self.Width - 125, height=self.Height, bg=Usefuls.LightBlack, highlightthickness=0)
     ContentPane.place(x = 125, y = 0, anchor = "nw")
 
     self.AllWidgets.append(ContentPane)

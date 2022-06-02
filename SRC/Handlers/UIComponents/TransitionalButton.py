@@ -2,11 +2,10 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class TransitionalButton(tk.Canvas):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, OnClickFuncRef = None, bg="#2d2d2d", Mode="Side", OverlayImage = None, TwoTapToReverse=False):
+    def __init__(self, Root, OnClickFuncRef = None, bg=Usefuls.LightGrey, Mode="Side", OverlayImage = None, TwoTapToReverse=False):
 
         self.Width = 125 if (Mode == "Side") else 30
         self.Height = 37 if (Mode == "Side") else 30
@@ -16,9 +15,9 @@ class TransitionalButton(tk.Canvas):
         self.Mode = Mode
         self.TwoTapToReverse = TwoTapToReverse
 
-        self.SideBarImage = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/SideBar.png").resize((125, 37), Image.ANTIALIAS))
-        self.BottomBarImageR = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/BottomBarR.png").resize((30, 30), Image.ANTIALIAS))
-        self.BottomBarImageL = ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/BottomBarL.png").resize((30, 30), Image.ANTIALIAS))
+        self.SideBarImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/TransitionalButton/SideBar.png").resize((125, 37), Image.ANTIALIAS))
+        self.BottomBarImageR = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/TransitionalButton/BottomBarR.png").resize((30, 30), Image.ANTIALIAS))
+        self.BottomBarImageL = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/TransitionalButton/BottomBarL.png").resize((30, 30), Image.ANTIALIAS))
 
         self.OverlayImage = OverlayImage
         self.OnClickFuncRef = OnClickFuncRef
@@ -70,13 +69,13 @@ class TransitionalButton(tk.Canvas):
 if __name__ == "__main__":
     root = tk.Tk()
     root.geometry("300x150")
-    root["bg"] = bg="#2D2D2D"
+    root["bg"] = bg=Usefuls.LightGrey
 
     # create canvas
-    myCanvas = TransitionalButton(root, Mode="Bottom", OverlayImage=ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/Info.png").resize((50, 50), Image.ANTIALIAS)))
+    myCanvas = TransitionalButton(root, Mode="Bottom", OverlayImage=ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/TransitionalButton/Info.png").resize((50, 50), Image.ANTIALIAS)))
     myCanvas.pack()
     
-    myCanvas = TransitionalButton(root, Mode="Side", OverlayImage=ImageTk.PhotoImage(Image.open(TransitionalButton.DirectoryAbove + "/Image/TransitionalButton/CPP.png").resize((125, 37), Image.ANTIALIAS)))
+    myCanvas = TransitionalButton(root, Mode="Side", OverlayImage=ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/TransitionalButton/CPP.png").resize((125, 37), Image.ANTIALIAS)))
     myCanvas.pack()
     # add to window and show
     root.mainloop()

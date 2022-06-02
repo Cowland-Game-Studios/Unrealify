@@ -4,11 +4,10 @@ import os
 
 from Handlers.UIComponents.ScrollPane import ScrollPane
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class TemplatePane(ScrollPane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, SettingsHandler, width=400, height=50, Background="#121212"):
+    def __init__(self, Root, SettingsHandler, width=400, height=50, Background=Usefuls.LightBlack):
         super().__init__(Root, width=width, height=height, Background=Background)
 
         self.Background = Background

@@ -7,6 +7,8 @@ import sys
 from PIL import ImageTk, Image
 import random
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class SplashScreen():
 
     SplashText = [
@@ -20,7 +22,7 @@ class SplashScreen():
     def __init__(self):
         self.window = tk.Tk()
         self.window.geometry("300x300")
-        self.window["bg"] = "#121212"
+        self.window["bg"] = Usefuls.LightBlack
         self.window.title("Unrealify by Cowland Game Studios")
         self.window.resizable(False, False)
         self.window.focus_force()
@@ -37,33 +39,33 @@ class SplashScreen():
 
     def SetUpUI(self) -> None:
 
-        A = tk.Label(text="", font=("Yu Gothic", 10), bg="#121212")
+        A = tk.Label(text="", font=(Usefuls.Font, 10), bg=Usefuls.LightBlack)
         A.pack()
 
         #load images
         CowImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
         SpinnerImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Splash/Spinner.png").resize((20, 20), Image.ANTIALIAS))
 
-        self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0, background="#121212")
+        self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0, background=Usefuls.LightBlack)
         self.IntroImage.image = CowImage
         self.IntroImage.pack()
 
-        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg="#121212", font=("Yu Gothic Bold", 20), foreground="white")
+        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 20), foreground=Usefuls.White)
         self.HeaderLabel.pack()
 
-        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg="#121212", font=("Yu Gothic", 10), foreground="white")
+        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg=Usefuls.LightBlack, font=(Usefuls.Font, 10), foreground=Usefuls.White)
         self.CreditLabel.place(relx=0.5, rely=0.89, anchor="center")
 
-        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg="#121212", font=("Yu Gothic Bold", 7), foreground="white")
+        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 7), foreground=Usefuls.White)
         self.SplashLabel.place(x=1, rely=0.955, anchor="w")
 
-        self.ProgressBarFormatter = tk.Frame(self.window, bg="#5AA17F")
+        self.ProgressBarFormatter = tk.Frame(self.window, bg=Usefuls.DarkMint)
         self.ProgressBarFormatter.place(relx = 0.5, rely = 0.99, width=300, height=5, anchor="center")
 
-        self.ProgressBar = tk.Frame(self.window, bg="#92DDC8")
+        self.ProgressBar = tk.Frame(self.window, bg=Usefuls.Mint)
         self.ProgressBar.place(relx = 0, rely = 0.99, width=10, height=5, anchor="w")
 
-        self.SpinImage = tk.Label(self.window, image=SpinnerImage, borderwidth=0, background="#121212")
+        self.SpinImage = tk.Label(self.window, image=SpinnerImage, borderwidth=0, background=Usefuls.LightBlack)
         self.SpinImage.image = SpinnerImage
         self.SpinImage.place(relx=0.99, rely=0.97, anchor="se")
 

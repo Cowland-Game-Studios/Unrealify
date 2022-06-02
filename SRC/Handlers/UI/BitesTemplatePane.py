@@ -10,17 +10,15 @@ from Handlers.UIComponents.BitesWindow import BitesWindow
 from Handlers.SettingsHandler import YamlParser
 
 from Handlers.UIComponents.ScrollPane import ScrollPane
-
 from Handlers.UI.TemplatePane import TemplatePane
 
+from Handlers.UIComponents.Usefuls import Usefuls
+
 class BitesTemplatePane(TemplatePane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
-    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background="#2D2D2D", Title="Bites"):
+    def __init__(self, Root, BitesDirectory, SettingsHandler, Width=400, Height=50, Background=Usefuls.LightGrey, Title="Bites"):
         super().__init__(Root, SettingsHandler, Width, Height, Background=Background)
 
-        tk.Label(self.Root, text="a", font=("Yu Gothic Bold", 1), foreground="#FFF", bg=Background, width=Width).pack()
+        tk.Label(self.Root, text="a", font=(Usefuls.FontAccented, 1), foreground=Usefuls.White, bg=Background, width=Width).pack()
 
         self.Settings = self.SettingsHandler.GetAllData()
         self.BitesDirectory = BitesDirectory
@@ -29,11 +27,11 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Canvas, bg="#121212", foreground="#FFF", font=("Yu Gothic", 12), borderwidth=0, highlightthickness=0)
+        self.SearchBar = tk.Text(master=self.Canvas, bg=Usefuls.LightBlack, foreground=Usefuls.White, font=(Usefuls.Font, 12), borderwidth=0, highlightthickness=0)
         self.SearchBar.place(x=10, y=10+50, width=200, height=25, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 
-        tk.Label(self.Canvas, text="Bites", font=("Yu Gothic Bold", 24), foreground="#FFF", bg=Background).place(x=10, y=10, anchor="nw")
+        tk.Label(self.Canvas, text="Bites", font=(Usefuls.FontAccented, 24), foreground=Usefuls.White, bg=Background).place(x=10, y=10, anchor="nw")
 
         self.SearchBar.insert(1.0, "Search By Tag/Keyword")
         
@@ -43,16 +41,16 @@ class BitesTemplatePane(TemplatePane):
 
         Context = Context.strip().lower()
 
-        Pad = tk.Label(self.Root, text="", font=("Yu Gothic Bold", 50), foreground="#FFF", bg=self.Background, borderwidth=0)
+        Pad = tk.Label(self.Root, text="", font=(Usefuls.FontAccented, 50), foreground=Usefuls.White, bg=self.Background, borderwidth=0)
         self.AllBites.append(Pad)
         Pad.pack()
 
         Bites = []
-        for Bite in os.listdir(BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory):            
+        for Bite in os.listdir(Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory):            
             if (Bite.startswith("_")):
                 continue
 
-            Data = YamlParser(BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + Bite + "/Details.yaml").GetAllData()
+            Data = YamlParser(Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + Bite + "/Details.yaml").GetAllData()
 
             if Context == "" or \
                 Context in Data["Name"].lower() or \
@@ -60,7 +58,7 @@ class BitesTemplatePane(TemplatePane):
                 Bites.append(Bite)
 
         if len(Bites) == 0:
-            A = tk.Label(self.Root, text="No bites yet.", font=("Yu Gothic Bold", 12), foreground="#FFF", bg=self.Background)
+            A = tk.Label(self.Root, text="No bites yet.", font=(Usefuls.FontAccented, 12), foreground=Usefuls.White, bg=self.Background)
             self.AllBites.append(A)
             A.pack()
             return
@@ -71,9 +69,9 @@ class BitesTemplatePane(TemplatePane):
         for BiteName in Bites:
             if Column >= 3:
                 Column = 0
-                CurrentPane = tk.Canvas(self.Root, bg="#121212", borderwidth=0, highlightthickness=0)
+                CurrentPane = tk.Canvas(self.Root, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
                 CurrentPane.pack()
-            NewBite = BitesWindow(CurrentPane, BitesTemplatePane.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
+            NewBite = BitesWindow(CurrentPane, Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
             NewBite.grid(column=Column, row=0, padx=5)
             Column += 1
             self.AllBites.append(CurrentPane)

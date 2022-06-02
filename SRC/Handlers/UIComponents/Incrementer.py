@@ -22,7 +22,7 @@ class Incrementor(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg=Usefuls.LightGrey, borderwidth=0, foreground=Usefuls.Mint, bd=0, highlightthickness=0, font=(Usefuls.FontAccented, 10))
+        self.ValueTextbox = tk.Text(self, relief=tk.FLAT, bg=Usefuls.LightGrey, borderwidth=0, foreground=Usefuls.Mint, bd=0, highlightthickness=0, font=(Usefuls.FontLargest, 10))
         self.ValueTextbox.bind("<Return>", self.ValidateValue)
         self.UpdateTextboxAlignment()
         self.ValueTextbox.place(relx=0.5, rely=0.65, anchor="center", width=50, height=25)
@@ -38,10 +38,10 @@ class Incrementor(tk.Canvas):
             self.after(10, self.TextboxAnimation(Pass - 1, -1))
             return
         if Pass < 0:
-            self.ValueTextbox["font"] = (Usefuls.FontAccented, 10)
+            self.ValueTextbox["font"] = (Usefuls.FontLargest, 10)
             return
         
-        self.ValueTextbox["font"] = (Usefuls.FontAccented, 10 + Pass)
+        self.ValueTextbox["font"] = (Usefuls.FontLargest, 10 + Pass)
 
         self.after(10, lambda: [self.TextboxAnimation(Pass + Add, Add)])
 

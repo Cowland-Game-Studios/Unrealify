@@ -11,5 +11,6 @@ class Usefuls:
 
     Font = "@Yu Gothic UI"
     FontAccented = "@Yu Gothic"
+    FontLargest = "@Yu Gothic Bold"
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])

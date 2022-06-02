@@ -71,7 +71,7 @@ class BitesTemplatePane(TemplatePane):
                 Column = 0
                 CurrentPane = tk.Canvas(self.Root, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
                 CurrentPane.pack()
-            NewBite = BitesWindow(CurrentPane, Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName)
+            NewBite = BitesWindow(CurrentPane, Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName, self.Canvas)
             NewBite.grid(column=Column, row=0, padx=5)
             Column += 1
             self.AllBites.append(CurrentPane)

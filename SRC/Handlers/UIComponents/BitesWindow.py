@@ -16,7 +16,7 @@ from Handlers.UIComponents.Usefuls import Usefuls
 from Handlers.UIComponents.BottomBar import BottomBar
 
 class BitesWindow(tk.Canvas):
-    def __init__(self, Root, BitePath, Width=155, Height=250, bg=Usefuls.LightBlack):
+    def __init__(self, Root, BitePath, CanvasToOpenOn, Width=155, Height=250, bg=Usefuls.LightBlack):
         super().__init__(Root, width=Width, height=Height, bg=bg, borderwidth=2, highlightthickness=0)
 
         self.BitePath = BitePath
@@ -24,6 +24,8 @@ class BitesWindow(tk.Canvas):
         self.Data = YamlParser(BitePath + "/Details.yaml").GetAllData()
 
         self.Background = bg
+
+        self.CanvasToOpenOn = CanvasToOpenOn
 
         self.Title = self.Data["Name"]
         self.Description = self.Data["Description"]
@@ -71,6 +73,7 @@ class BitesWindow(tk.Canvas):
 
     def CreateBiteDetail(self):
         DetailedBite = BitesExpanded(self)
+        DetailedBite.place(x=0, y=0, width=720-142, height=512)
 
 class BitesExpanded(tk.Canvas):
 
@@ -106,14 +109,11 @@ class BitesExpanded(tk.Canvas):
         BottomBar(self, f"Applied!" + f" Old moved to '/Unrealify/Temp/' folder" if StashPath != "" else "", Relx=0.3)
     
     def __init__(self, ParentBite):
-        super().__init__(ParentBite)
+        super().__init__(ParentBite.CanvasToOpenOn, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
 
         #self.geometry("400x300")
 
         self.ParentBite = ParentBite
-
-        self["bg"] = Usefuls.LightBlack
-
         self.TitleLabel = tk.Label(self, text=self.ParentBite.Title, font=(Usefuls.FontAccented, 18), foreground=Usefuls.Mint, bg=Usefuls.LightBlack, wraplengt=380)
         self.TitleLabel.pack()
 
@@ -143,11 +143,15 @@ class BitesExpanded(tk.Canvas):
                 self.OpenFileButton = tk.Button(master=self.ButtonCanvas, text=f"""Apply to {self.ParentBite.ProjectData["Projects"][self.ParentBite.ProjectPath]["UPath"]}""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.Apply()])
                 self.OpenFileButton.grid(column=2, row=0, padx=5)
 
-        # if self.ParentBite.CodeSnippetToCopy != "NONE" or (not self.ParentBite.FileToOpen.endswith("NONE") and self.ParentBite.PreviewImage is None):
-        #     self.CopyLabel = tk.Text(master=self, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0)
-        #     self.CopyLabel.insert(tk.INSERT, self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "NONE" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines()))
-        #     self.CopyLabel.pack(pady=(5, 0))
-
         if self.ParentBite.CodeSnippetToCopy != "NONE":
             self.CopyButton = tk.Button(master=self.ButtonCanvas, text=f"""Copy Code""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [pyperclip.copy( self.ParentBite.CodeSnippetToCopy)])
             self.CopyButton.grid(column=3, row=0, padx=5)
+
+        self.CloseButton = tk.Button(master=self, text=f"""Close Bite""", bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, command= lambda: [self.destroy()])
+        self.CloseButton.pack(pady=5)
+
+        if self.ParentBite.CodeSnippetToCopy != "NONE" or not self.ParentBite.FileToOpen.endswith("NONE"):
+            tk.Label(self, text=("  Copy" if self.ParentBite.CodeSnippetToCopy != "NONE" else "File") + " Preview:", bg=Usefuls.LightBlack, foreground=Usefuls.White, borderwidth=0, font=(Usefuls.Font, 12), justify=tk.LEFT).pack(padx=(0, 475))
+            self.CopyLabel = tk.Text(master=self, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0)
+            self.CopyLabel.insert(tk.INSERT, self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "NONE" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines()))
+            self.CopyLabel.pack(pady=(5, 0))

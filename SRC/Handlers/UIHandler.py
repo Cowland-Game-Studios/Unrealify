@@ -152,6 +152,10 @@ class App():
     )
 
   def SetUpCPPMenu(self):
+
+    if self.IsAnimating:
+      return
+
     self.CPPButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
     
@@ -165,6 +169,10 @@ class App():
     )
   
   def SetUpBlueprintsMenu(self):
+
+    if self.IsAnimating:
+      return
+
     self.BlueprintButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
     
@@ -178,6 +186,10 @@ class App():
     )
 
   def SetUpMiscMenu(self):
+
+    if self.IsAnimating:
+      return
+
     self.MiscButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
 
@@ -191,6 +203,10 @@ class App():
     )
 
   def SetUpSettingsMenu(self):
+
+    if self.IsAnimating:
+      return
+
     self.SettingButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
 
@@ -204,6 +220,10 @@ class App():
     )
 
   def SetUpInformationMenu(self):
+
+    if self.IsAnimating:
+      return
+
     self.InfoButton.PlayAnimation(True, CallbackFuncRef=self.SetNotAnimating)
     ContentPane = self.SetUpUI()
     

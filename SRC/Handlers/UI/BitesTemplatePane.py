@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 import os
 import time
+import webbrowser
 
 #Buttons... etc
 from Handlers.UIComponents.IncrementSlider import IncrementSlider
@@ -27,13 +28,16 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Canvas, bg=Usefuls.DarkWhite, foreground=Usefuls.White, font=(Usefuls.Font, 12), borderwidth=0, highlightthickness=0)
-        self.SearchBar.place(x=10, y=10+50, width=250, height=25, anchor="nw")
+        self.SearchBar = tk.Text(master=self.Canvas, bg=Usefuls.DarkWhite, foreground=Usefuls.White, font=(Usefuls.Font, 15), borderwidth=0, highlightthickness=0)
+        self.SearchBar.place(x=10, y=60, width=250, height=25, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 
-        tk.Label(self.Canvas, text="Bites", font=(Usefuls.FontAccented, 24), foreground=Usefuls.White, bg=Background).place(x=10, y=10, anchor="nw")
-
         self.SearchBar.insert(1.0, "Search By Tag/Keyword")
+
+        self.SearchOnStackButton = tk.Button(self.Canvas, text="Search On Stack", bg=Usefuls.DarkWhite, foreground=Usefuls.White, font=(Usefuls.Font, 15), borderwidth=0, highlightthickness=0, command=lambda: [webbrowser.open(f"""https://stackoverflow.com/search?q={self.SearchBar.get("1.0", tk.END)}""")])
+        self.SearchOnStackButton.place(relx=1, y=60, anchor="ne")
+
+        tk.Label(self.Canvas, text="Bites", font=(Usefuls.FontAccented, 24), foreground=Usefuls.White, bg=Background).place(x=10, y=10, anchor="nw")
         
         self.SetUpBitesUI()
 
@@ -43,7 +47,7 @@ class BitesTemplatePane(TemplatePane):
 
         Pad = tk.Label(self.Root, text="", font=(Usefuls.FontAccented, 50), foreground=Usefuls.White, bg=self.Background, borderwidth=0)
         self.AllBites.append(Pad)
-        Pad.pack()
+        Pad.pack(pady=10)
 
         Bites = []
         for Bite in os.listdir(Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory):            

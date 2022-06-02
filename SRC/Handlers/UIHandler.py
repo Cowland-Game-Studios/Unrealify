@@ -140,6 +140,10 @@ class App():
     tk.Label(Parent, text="", font=(Usefuls.Font, Size), bg=Usefuls.LightBlack).pack()
 
   def SetUpDashboardMenu(self):
+    if self.IsAnimating: 
+      return 
+    self.IsAnimating = True
+
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
 
@@ -151,8 +155,6 @@ class App():
     )
 
   def SetUpCPPMenu(self):
-
-    print(self.IsAnimating)
 
     if self.IsAnimating: 
       return 

@@ -32,22 +32,22 @@ class PopUp():
         self.window.title(f"Unrealify - {Header}")
         self.window.resizable(False, False)
 
-        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 24 if (len(Header) <= 10) else (int(24 - (len(Header) - 10)))) if (int(24 - (len(Header) - 10))) > 10 else 10, foreground=Usefuls.Mint)
+        self.HeaderLabel = tk.Label(master=self.window, text=Header.capitalize(), bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 24 if (len(Header) <= 10) else (int(24 - (len(Header) - 10)))) if (int(24 - (len(Header) - 10))) > 10 else 10, foreground=Usefuls.Mint, borderwidth=0, highlightthickness=0)
         self.HeaderLabel.pack()
         
-        self.DescriptionLabel = tk.Text(master=self.window, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0)
+        self.DescriptionLabel = tk.Text(master=self.window, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0, highlightthickness=0)
         self.DescriptionLabel.insert(tk.INSERT, TextToCopy)
         self.DescriptionLabel.place(x=10, y=50, width=220 if (CanCopy) else 280, height=50)
 
         if (CanCopy):
-            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg=Usefuls.LightGrey, foreground=Usefuls.White, borderwidth=0)
+            self.CopyButton = tk.Button(master=self.window, text="Copy", command=lambda: [pyperclip.copy(TextToCopy)], bg=Usefuls.LightGrey, foreground=Usefuls.White, borderwidth=0, highlightthickness=0)
             self.CopyButton.place(x=290, rely=0.5, width=50, height=50, anchor="e")
         
         LinkButtonText = "Show In Browser"
         if (Link == "__CLOSE__"):
             LinkButtonText = "Close"
 
-        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg=Usefuls.LightGrey, foreground=Usefuls.White, borderwidth=0)
+        self.LinkButton = tk.Button(master=self.window, text=LinkButtonText, command=lambda: [self.OpenLink(Link)], bg=Usefuls.LightGrey, foreground=Usefuls.White, borderwidth=0, highlightthickness=0)
         self.LinkButton.place(relx=0.5, rely=1, width=300, height=25, anchor="s")
 
 if __name__ == "__main__":

@@ -53,10 +53,13 @@ try:
 
     Splash.Loop()
 except Exception as e:
-  from Handlers import PopUpHandler
   if type(e) == ModuleNotFoundError:
+    print(e)
     import InstallModules
+  from Handlers import PopUpHandler
+  
+  if type(e) == ModuleNotFoundError:
     PopUpHandler.PopUp("Installed Needed Dependencies", "__CLOSE__", "All required dependencies should have been installed, restart application to start Unrealify", False)
-    exit()
-  import traceback
-  PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)
+  else:
+    import traceback
+    PopUpHandler.PopUp("ERROR", "__CLOSE__", str(traceback.format_exc()), True)

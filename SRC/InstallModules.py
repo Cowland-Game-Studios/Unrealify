@@ -5,10 +5,11 @@ packages = [
     "bs4", 
     "pynput",
     "Events",
-    "webbrowser",
+    "requests",
+    #"webbrowser",
     "pyperclip",
-    "PIL",
-    "json" #Unreal uses this... yaml better imo
+    "pillow"
+    #"json" #Unreal uses this... yaml better imo
 ]
 
 for package in packages:

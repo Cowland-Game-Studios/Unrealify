@@ -11,7 +11,7 @@ from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UIComponents.ScrollPane import ScrollPane
 from Handlers.UIComponents.BottomBar import BottomBar
 
-from Handlers.UIComponents import Usefuls
+from Handlers.UIComponents.Usefuls import Usefuls
 
 from Handlers.UIComponents.ProjectWindow import ProjectWindow
 

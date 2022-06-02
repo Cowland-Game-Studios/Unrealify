@@ -50,13 +50,13 @@ class SplashScreen():
         self.IntroImage.image = CowImage
         self.IntroImage.pack()
 
-        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 20), foreground=Usefuls.White)
+        self.HeaderLabel = tk.Label(master=self.window, text="Unrealify", bg=Usefuls.LightBlack, font=(Usefuls.FontLargest, 20), foreground=Usefuls.White)
         self.HeaderLabel.pack()
 
-        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg=Usefuls.LightBlack, font=(Usefuls.Font, 10), foreground=Usefuls.White)
+        self.CreditLabel = tk.Label(master=self.window, text="by Cowland Game Studios", bg=Usefuls.LightBlack, font=(Usefuls.FontLargest, 10), foreground=Usefuls.White)
         self.CreditLabel.place(relx=0.5, rely=0.89, anchor="center")
 
-        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg=Usefuls.LightBlack, font=(Usefuls.FontAccented, 7), foreground=Usefuls.White)
+        self.SplashLabel = tk.Label(master=self.window, text=random.choice(SplashScreen.SplashText), bg=Usefuls.LightBlack, font=(Usefuls.FontLargest, 7), foreground=Usefuls.White)
         self.SplashLabel.place(x=1, rely=0.955, anchor="w")
 
         self.ProgressBarFormatter = tk.Frame(self.window, bg=Usefuls.DarkMint)

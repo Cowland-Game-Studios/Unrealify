@@ -4,13 +4,15 @@ import tkinter as tk
 from Handlers.UIComponents.Usefuls import Usefuls
 
 class BottomBar(tk.Canvas):
-    def __init__(self, Root, Text, bg=Usefuls.Mint, fg=Usefuls.White, Height=25, Relx=0.45):
+    def __init__(self, Root, Text, bg=Usefuls.Mint, fg=Usefuls.White, Height=25, Relx=0.45, Rely=1):
         super().__init__(Root, bg=bg, borderwidth=0, highlightthickness=0, width=800-125)
 
         self.DisplayText = tk.Label(self, text=Text, font=(Usefuls.FontAccented, int(Height/2)), bg=Usefuls.Mint, foreground=Usefuls.White)
         self.DisplayText.place(relx=Relx, y=0, anchor="n")
 
-        self.place(x=0, rely=1, anchor="sw", height=Height, width=800-125)
+        self.Rely = Rely
+
+        self.place(x=0, rely=Rely, anchor="sw", height=Height, width=800-125)
 
         self.PlayAnimation()
 
@@ -25,7 +27,7 @@ class BottomBar(tk.Canvas):
             self.after(1500, self.PlayAnimation(1, True))
             return
 
-        self.place(x=0, rely=1.1 - 0.1 * Lerp)
+        self.place(x=0, rely=(self.Rely + 0.1) - 0.1 * Lerp)
 
         self.after(10, lambda: [self.PlayAnimation(Lerp + 0.025 if not Reverse else Lerp - 0.025, Reverse)])
 

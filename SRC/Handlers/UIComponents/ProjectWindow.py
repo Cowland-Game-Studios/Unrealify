@@ -52,13 +52,13 @@ class ProjectWindow(tk.Canvas):
         self.VersionLabel = tk.Label(self, text=self.Version, foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
         self.VersionLabel.place(x=175, y=175, anchor="se")
 
-        Name = ""
+        self.Name = ""
         if self.ProjectDetails.has_option("/Script/EngineSettings.GeneralProjectSettings", "ProjectName"):
-            Name = self.ProjectDetails.get("/Script/EngineSettings.GeneralProjectSettings", "ProjectName")
+            self.Name = self.ProjectDetails.get("/Script/EngineSettings.GeneralProjectSettings", "ProjectName")
         else:
-            Name = self.ProjectNameRaw
+            self.Name = self.ProjectNameRaw
 
-        self.NameLabel = tk.Label(self, text=Name, foreground=Usefuls.White, borderwidth=0, background=self.Background, wraplengt=175)
+        self.NameLabel = tk.Label(self, text=self.Name, foreground=Usefuls.White, borderwidth=0, background=self.Background, wraplengt=175)
         self.NameLabel.pack()
 
         self.NameLabel.bind("<Button-1>", lambda x : [self.Clicked()])
@@ -76,15 +76,36 @@ class ProjectExpanded(tk.Canvas):
         print(Data)
         print(Directory)
 
+        self.Data = Data
+
         self.TempWindow = ProjectWindow(None, Directory, None, Data["UPath"])
 
         self.ProjectImage = ImageTk.PhotoImage(Image.open(self.TempWindow.ImagePath).resize((275, 275)), Image.ANTIALIAS)
+        self.CloseImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Return.png").resize((25, 25)), Image.ANTIALIAS)
 
         self.SetUpUI()
 
     def SetUpUI(self):
         self.ImageLabel = tk.Label(self, image=self.ProjectImage, borderwidth=3, background=Usefuls.LightGrey)
-        self.ImageLabel.place(x=10, y=10+25, width=275, height=275)
+        self.ImageLabel.place(x=10, y=45, width=275, height=275)
 
         self.VersionLabel = tk.Label(self, text=self.TempWindow.Version, font=(Usefuls.FontAccented, 12), foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
-        self.VersionLabel.place(x=275 + 10, y=275 + 10+25, anchor="se")
+        self.VersionLabel.place(x=275 + 10, y=275 + 45, anchor="se")
+
+        self.CloseButton = tk.Label(self, image=self.CloseImage, borderwidth=0, highlightthickness=0)
+        self.CloseButton.place(x=10, y=10)
+        self.CloseButton.bind("<Button-1>", lambda x: [self.destroy()])
+
+        self.TitleLabel = tk.Label(self, text=self.TempWindow.Name, bg=Usefuls.LightBlack, fg=Usefuls.Mint, font=(Usefuls.FontLargest, 24))
+        self.TitleLabel.pack(pady=(5,0))
+
+        #self.TextCanvas = tk.Canvas(self, bg=Usefuls.LightBlack).place(x=275 + 10 + 10, y=45)
+
+        tk.Label(self, text="Last Modified ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=40)
+        tk.Label(self, text="5/12/22 12:33pm", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 14)).place(x=275 + 10 + 10, y=45 + 20)
+
+        tk.Label(self, text="Project Size ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=45 + 30 + 35)
+        tk.Label(self, text="165.23GB", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=275 + 10 + 10, y=45 + 30 + 20 + 40)
+
+        tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=45 + 60 + 75)
+        tk.Label(self, text="Windows (64), Mac, Linux, Oculus Quest 2 ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=275 + 10 + 10, y=45 + 60 + 20 + 80)

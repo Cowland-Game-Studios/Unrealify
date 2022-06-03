@@ -70,42 +70,47 @@ class ProjectWindow(tk.Canvas):
         self.Dashboard.OpenProject()
 
 class ProjectExpanded(tk.Canvas):
-    def __init__(self, CanvasToOpenOn, Data, Directory):
+    def __init__(self, CanvasToOpenOn, Data, Directory, DataParser):
         super().__init__(CanvasToOpenOn, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
 
         print(Data)
         print(Directory)
 
         self.Data = Data
+        self.DataParser = DataParser
 
         self.TempWindow = ProjectWindow(None, Directory, None, Data["UPath"])
 
-        self.ProjectImage = ImageTk.PhotoImage(Image.open(self.TempWindow.ImagePath).resize((275, 275)), Image.ANTIALIAS)
+        self.ProjectImage = ImageTk.PhotoImage(Image.open(self.TempWindow.ImagePath).resize((250, 250)), Image.ANTIALIAS)
         self.CloseImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Return.png").resize((25, 25)), Image.ANTIALIAS)
 
         self.SetUpUI()
 
     def SetUpUI(self):
         self.ImageLabel = tk.Label(self, image=self.ProjectImage, borderwidth=3, background=Usefuls.LightGrey)
-        self.ImageLabel.place(x=10, y=45, width=275, height=275)
+        self.ImageLabel.place(x=10, y=45, width=250, height=250)
 
         self.VersionLabel = tk.Label(self, text=self.TempWindow.Version, font=(Usefuls.FontAccented, 12), foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
-        self.VersionLabel.place(x=275 + 10, y=275 + 45, anchor="se")
+        self.VersionLabel.place(x=250 + 10, y=250 + 45, anchor="se")
 
         self.CloseButton = tk.Label(self, image=self.CloseImage, borderwidth=0, highlightthickness=0)
         self.CloseButton.place(x=10, y=10)
-        self.CloseButton.bind("<Button-1>", lambda x: [self.destroy()])
+        self.CloseButton.bind("<Button-1>", lambda x: [self.CloseProject()])
 
         self.TitleLabel = tk.Label(self, text=self.TempWindow.Name, bg=Usefuls.LightBlack, fg=Usefuls.Mint, font=(Usefuls.FontLargest, 24))
         self.TitleLabel.pack(pady=(5,0))
 
-        #self.TextCanvas = tk.Canvas(self, bg=Usefuls.LightBlack).place(x=275 + 10 + 10, y=45)
+        #self.TextCanvas = tk.Canvas(self, bg=Usefuls.LightBlack).place(x=250 + 10 + 10, y=45)
 
-        tk.Label(self, text="Last Modified ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=40)
-        tk.Label(self, text="5/12/22 12:33pm", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 14)).place(x=275 + 10 + 10, y=45 + 20)
+        tk.Label(self, text="Last Modified ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=40)
+        tk.Label(self, text="5/12/22 12:33pm", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 14)).place(x=250 + 10 + 10, y=45 + 20)
 
-        tk.Label(self, text="Project Size ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=45 + 30 + 35)
-        tk.Label(self, text="165.23GB", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=275 + 10 + 10, y=45 + 30 + 20 + 40)
+        tk.Label(self, text="Project Size ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=45 + 30 + 35)
+        tk.Label(self, text="165.23GB", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=250 + 10 + 10, y=45 + 30 + 20 + 40)
 
-        tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=275 + 10 + 10, y=45 + 60 + 75)
-        tk.Label(self, text="Windows (64), Mac, Linux, Oculus Quest 2 ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=275 + 10 + 10, y=45 + 60 + 20 + 80)
+        tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=45 + 60 + 75)
+        tk.Label(self, text="Windows (64), Mac, Linux, Oculus Quest 2 ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=250 + 10 + 10, y=45 + 60 + 20 + 80)
+
+    def CloseProject(self):
+        self.DataParser.Write("Opened", "")
+        self.destroy()

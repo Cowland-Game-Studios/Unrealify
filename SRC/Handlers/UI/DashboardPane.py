@@ -30,7 +30,7 @@ class DashboardPane(TemplatePane):
 
         self.SetUpMiscUI()
 
-    def OpenProject(self):
+    def OpenProject(self, SkipBottomBar = False):
 
         if not self.Pather:
             return
@@ -74,9 +74,10 @@ class DashboardPane(TemplatePane):
         else:
             self.DataParser.Write(f"Projects:::{RootDir}:::LastModif", str(str(datetime.datetime.now().timestamp())), ":::")
 
-        BottomBar(self.Root, ".uproject file found!")
+        if not SkipBottomBar:
+            BottomBar(self.Root, ".uproject file found!")
 
-        ProjectPane = ProjectExpanded(self.Canvas, Data["Projects"][RootDir], RootDir, )
+        ProjectPane = ProjectExpanded(self.Canvas, Data["Projects"][RootDir], RootDir, self.DataParser)
         ProjectPane.place(x=0, y=0, width=720-142, height=512)
 
     def SetUpMiscUI(self):
@@ -123,9 +124,14 @@ class DashboardPane(TemplatePane):
         self.Pather = tk.Text(self.BottomPane, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 12), borderwidth=0, highlightthickness=0)
         self.Pather.place(x=5, y=10, width=505, height=25)
 
-        if self.DataParser.GetAllData()["LastLeft"] != "":
+        if self.DataParser.GetAllData()["Opened"] != "":
+            Opened = self.DataParser.GetAllData()["Opened"]
+            self.Pather.insert("1.0", Opened + "/" + self.DataParser.GetAllData()["Projects"][Opened]["UPath"])
+            self.OpenProject(True)
+        elif self.DataParser.GetAllData()["LastLeft"] != "":
             Left = self.DataParser.GetAllData()["LastLeft"]
             self.Pather.insert("1.0", Left + "/" + self.DataParser.GetAllData()["Projects"][Left]["UPath"])
+        
         self.Pather.bind("<Return>", lambda x: "break")
 
         def SetFile():

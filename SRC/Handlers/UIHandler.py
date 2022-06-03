@@ -77,6 +77,9 @@ class App():
     self.window.destroy()
     
   def SetUpSideBar(self):
+
+    self.ProjectOpened = None
+
     self.SideBar = tk.Frame(width=125, height=self.Height, bg=Usefuls.LightGrey)
     self.SideBar.pack(side=tk.LEFT, fill="y")
 
@@ -108,9 +111,14 @@ class App():
     Data = YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml").GetAllData()
     
     Opened = Data["Opened"]
+    
+    if self.ProjectOpened:
+      self.ProjectOpened.destroy()
 
     if Opened != "" and Opened != "NONE":
-      tk.Label(self.SideBar, font=(Usefuls.Font, 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg=Usefuls.Mint).place(x=125, y=125, anchor="se")
+      self.ProjectOpened = tk.Label(self.SideBar, font=(Usefuls.Font, 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg=Usefuls.Mint)
+      self.ProjectOpened.place(x=125, y=125, anchor="se")
+      
 
     #self.IsAnimating = True
     
@@ -193,7 +201,6 @@ class App():
   def SetUpMiscMenu(self):
 
     if self.IsAnimating: 
-      
       return 
     self.IsAnimating = True
 

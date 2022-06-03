@@ -1,0 +1,18 @@
+#Bites template: a new folder is required for each snippet
+Name: 
+  Name
+Description: 
+  Short description of the code snippet
+Tags:
+  UE5 #relevent tags, UE5.X for being made in UE5.X, UE4.X for being made in UE4.X, or NONE for no tag, use tags for versions only- for now, use only 1 tag per bite
+CodeSnippetToCopy: 
+  //bites template #Blueprint nodes in text or NONE (all caps) for no snippet
+WebpageToOpen: 
+  https://youtube.com #URL here or NONE (all caps) for no link
+FileToOpen: 
+  SomeText.txt #A file (same folder) or NONE (all caps) for no file to open
+Image: 
+  Link: Preview.png #Image (same folder) or NONE (all caps) for no preview image
+  PreviewSize: 50x50 #Preview resolution in Bites tab
+  RescaleSize: 100x100 #Acutal resolution in new Bites window
+ApplyLocation: __ROOT__ #Apply location if this is a file,  __ROOT__ for root directory of the project

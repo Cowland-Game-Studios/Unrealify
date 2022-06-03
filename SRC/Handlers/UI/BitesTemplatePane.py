@@ -30,7 +30,7 @@ class BitesTemplatePane(TemplatePane):
 
         self.AllBites = []
 
-        self.SearchBar = tk.Text(master=self.Canvas, bg=Usefuls.DarkWhite, foreground=Usefuls.White, font=(Usefuls.Font, 15), borderwidth=0, highlightthickness=0)
+        self.SearchBar = tk.Text(master=self.Canvas, bg=Usefuls.DarkWhite, foreground=Usefuls.White, font=(Usefuls.Font, 12), borderwidth=0, highlightthickness=0)
         self.SearchBar.place(x=10, y=60, width=250, height=25, anchor="nw")
         self.SearchBar.bind("<KeyRelease>", lambda x: [self.FilterFeed()])
 
@@ -65,7 +65,7 @@ class BitesTemplatePane(TemplatePane):
                 Bites.append(Bite)
 
         if len(Bites) == 0:
-            A = tk.Label(self.Root, text="No bites yet.", font=(Usefuls.FontAccented, 12), foreground=Usefuls.White, bg=self.Background)
+            A = tk.Label(self.Root, text="No bites yet.", font=(Usefuls.FontLargest, 24), foreground=Usefuls.White, bg=self.Background)
             self.AllBites.append(A)
             A.pack()
             return
@@ -76,8 +76,8 @@ class BitesTemplatePane(TemplatePane):
         for BiteName in Bites:
             if Column >= 3:
                 Column = 0
-                CurrentPane = tk.Canvas(self.Root, bg=Usefuls.LightBlack, borderwidth=0, highlightthickness=0)
-                CurrentPane.pack()
+                CurrentPane = tk.Canvas(self.Root, bg=Usefuls.LightGrey, borderwidth=0, highlightthickness=0)
+                CurrentPane.pack(pady=5)
             NewBite = BitesWindow(CurrentPane, Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + BiteName, self.Canvas)
             NewBite.grid(column=Column, row=0, padx=5)
             Column += 1

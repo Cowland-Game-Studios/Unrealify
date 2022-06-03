@@ -13,20 +13,17 @@ from Handlers.UIComponents.BottomBar import BottomBar
 
 from Handlers.UIComponents.Usefuls import Usefuls
 
-from Handlers.UIComponents.ProjectWindow import ProjectWindow
+from Handlers.UIComponents.ProjectWindow import ProjectWindow, ProjectExpanded
 
 from Handlers.SettingsHandler import YamlParser
 
 class DashboardPane(TemplatePane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
     def __init__(self, Root, SettingsHandler, width=400, height=50, bg = Usefuls.LightGrey):
         super().__init__(Root, SettingsHandler, width, height)
 
         self.Root = Root
         self.Settings = SettingsHandler.GetAllData()
-        self.DataParser = YamlParser(DashboardPane.DirectoryAbove + "/Data/Projects.yaml")
+        self.DataParser = YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml")
         self.Background = bg
 
         self.AllProjects = []
@@ -60,7 +57,7 @@ class DashboardPane(TemplatePane):
                 os.mkdir(RootDir + "/Unrealify")
 
             with open(RootDir + "/Unrealify/Properties.yaml", "w+") as w:
-                w.write("\n".join(open(DashboardPane.DirectoryAbove + "/Data/UnrealifyProjectTemplate.yaml", "r").readlines()))
+                w.write("\n".join(open(Usefuls.DirectoryAbove + "/Data/UnrealifyProjectTemplate.yaml", "r").readlines()))
         
         Data = self.DataParser.GetAllData()
 
@@ -78,6 +75,9 @@ class DashboardPane(TemplatePane):
             self.DataParser.Write(f"Projects:::{RootDir}:::LastModif", str(str(datetime.datetime.now().timestamp())), ":::")
 
         BottomBar(self.Root, ".uproject file found!")
+
+        ProjectPane = ProjectExpanded(self.Canvas, Data["Projects"][RootDir], RootDir, )
+        ProjectPane.place(x=0, y=0, width=720-142, height=512)
 
     def SetUpMiscUI(self):
 
@@ -111,7 +111,7 @@ class DashboardPane(TemplatePane):
                 if Column >= 3:
                     Column = 0
                     Row += 1
-                NewBite = ProjectWindow(self.BrowserPane.Frame, ProjectPath, self)
+                NewBite = ProjectWindow(self.BrowserPane.Frame, ProjectPath, self, Project["UPath"])
                 self.BrowserPane.Add(NewBite, Padx=3, Pady=3, RowOverride=Row, ColOverride=Column)
                 Column += 1
                 self.AllProjects.append(NewBite)
@@ -129,7 +129,7 @@ class DashboardPane(TemplatePane):
         self.Pather.bind("<Return>", lambda x: "break")
 
         def SetFile():
-            File = filedialog.askopenfilename(initialdir = DashboardPane.DirectoryAbove,
+            File = filedialog.askopenfilename(initialdir = Usefuls.DirectoryAbove,
             title = "Select Unreal Project",
             filetypes = (("Unreal Project",
                 "*.uproject"),

@@ -8,9 +8,6 @@ from Handlers.UI.TemplatePane import TemplatePane
 from Handlers.UIComponents.Usefuls import Usefuls
 
 class InfoPane(TemplatePane):
-
-    DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
-
     def __init__(self, Root, SettingsHandler, width=400, height=50):
         super().__init__(Root, SettingsHandler, width, height)
 
@@ -32,13 +29,13 @@ class InfoPane(TemplatePane):
         self.InfoIcon = tk.Label( self.Root, image=self.LogoDark, borderwidth=0, background=Usefuls.LightBlack)
         self.InfoIcon.place(relx=0.5, y=20, anchor="n")
 
-        self.Title = tk.Label( self.Root, text="Unrealify", font=(Usefuls.FontAccented, 40), bg=Usefuls.LightBlack, foreground=Usefuls.White)
+        self.Title = tk.Label( self.Root, text="Unrealify", font=(Usefuls.FontLargest, 40), bg=Usefuls.LightBlack, foreground=Usefuls.White)
         self.Title.place(relx=0.5, rely=0.51, anchor="center")
 
         self.Version = tk.Label(self.Root, text=self.Settings["App"]["Version"], font=(Usefuls.FontAccented, 12), bg=Usefuls.LightBlack, foreground=Usefuls.White)
         self.Version.place(relx=0.725, rely=0.505, anchor="n")
 
-        self.Sub1 = tk.Label( self.Root, text="Streamline", font=(Usefuls.FontAccented, 12), bg=Usefuls.LightBlack, foreground=Usefuls.White)
+        self.Sub1 = tk.Label( self.Root, text="Streamline", font=(Usefuls.FontLargest, 12), bg=Usefuls.LightBlack, foreground=Usefuls.White)
         self.Sub1.place(relx=0.375, rely=0.56, anchor="n")
 
         self.Sub2 = tk.Label( self.Root, text="your UE5 experiance", font=(Usefuls.Font, 12), bg=Usefuls.LightBlack, foreground=Usefuls.White)

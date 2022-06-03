@@ -47,7 +47,7 @@ class BitesWindow(tk.Canvas):
             self.PreviewImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 155, 100]))
             self.ActualImage = ImageTk.PhotoImage(Image.open(ImagePath).resize((self.ImageRescaleSize[0], self.ImageRescaleSize[1]), Image.ANTIALIAS))
         else:
-            self.ImagePreviewSize = [Width + 10, Width + 10]
+            self.ImagePreviewSize = [Width, Width]
             self.PreviewImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Other/BadImage.png").resize((self.ImagePreviewSize[0] + 10, self.ImagePreviewSize[1] + 10)), Image.ANTIALIAS)#.crop([0, 0, 155, 100]))
             self.ActualImage = None
 
@@ -69,7 +69,7 @@ class BitesWindow(tk.Canvas):
         if self.Tags != []: #switch to display all
             self.TagLabel = tk.Label(self, text=self.Tags[0], font=(Usefuls.Font, 7), foreground=self.Background, bg=Usefuls.Mint, wraplengt=self.ImagePreviewSize[0])
             if len(self.ImagePreviewSize) > 1:
-                self.TagLabel.place(relx=1, y=self.ImagePreviewSize[1], anchor="e")
+                self.TagLabel.place(relx=1, y=self.ImagePreviewSize[1] + 1, anchor="e")
 
     def CreateBiteDetail(self):
         DetailedBite = BitesExpanded(self)
@@ -153,7 +153,7 @@ class BitesExpanded(tk.Canvas):
         if self.ParentBite.CodeSnippetToCopy != "NONE":
             self.CopyButton = tk.Label(master=self.ButtonCanvas, image=self.CopyImage, highlightthickness=0, borderwidth=0)
             self.CopyButton.grid(column=3, row=0, padx=5)
-            self.CopyButton.bind("<Button-1>", lambda x: [pyperclip.copy( self.ParentBite.CodeSnippetToCopy)])
+            self.CopyButton.bind("<Button-1>", lambda x: [pyperclip.copy(self.ParentBite.CodeSnippetToCopy), BottomBar(self, f"Copied!", Rely=0.96)])
 
         self.CloseButton = tk.Label(master=self, image=self.ReturnImage, highlightthickness=0, borderwidth=0)
         self.CloseButton.place(x=5, y=5, anchor="nw")

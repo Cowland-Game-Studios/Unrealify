@@ -36,8 +36,9 @@ class BitesTemplatePane(TemplatePane):
 
         self.SearchBar.insert(1.0, "Search By Tag/Keyword")
 
-        self.SearchOnStackButton = tk.Button(self.Canvas, relief=tk.FLAT, image=self.StackImage, font=(Usefuls.Font, 15), borderwidth=0, highlightthickness=0, bg=Usefuls.LightBlack, fg=Usefuls.LightBlack, command = lambda : [webbrowser.open(f"""https://stackoverflow.com/search?q={self.SearchBar.get("1.0", tk.END)}""")]) 
+        self.SearchOnStackButton = tk.Label(self.Canvas, relief=tk.FLAT, image=self.StackImage, highlightthickness=0, borderwidth=0)
         self.SearchOnStackButton.place(x=250, y=60, anchor="nw")
+        self.SearchOnStackButton.bind("<Button-1>", lambda x: [webbrowser.open(f"""https://stackoverflow.com/search?q={self.SearchBar.get("1.0", tk.END)}""")])
 
         tk.Label(self.Canvas, text="Bites", font=(Usefuls.FontAccented, 25), foreground=Usefuls.White, bg=Background).place(x=10, y=10, anchor="nw")
         

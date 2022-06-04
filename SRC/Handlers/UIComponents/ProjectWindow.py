@@ -82,7 +82,7 @@ class ProjectExpanded(tk.Canvas):
         self.TempWindow = ProjectWindow(None, Directory, None, Data["UPath"])
 
         self.ProjectImage = ImageTk.PhotoImage(Image.open(self.TempWindow.ImagePath).resize((250, 250)), Image.ANTIALIAS)
-        self.CloseImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Return.png").resize((25, 25)), Image.ANTIALIAS)
+        self.CloseImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/CloseProject.png").resize((100, 25)), Image.ANTIALIAS)
 
         self.SetUpUI()
 
@@ -94,7 +94,7 @@ class ProjectExpanded(tk.Canvas):
         self.VersionLabel.place(x=250 + 10, y=250 + 45, anchor="se")
 
         self.CloseButton = tk.Label(self, image=self.CloseImage, borderwidth=0, highlightthickness=0)
-        self.CloseButton.place(x=10, y=10)
+        self.CloseButton.place(x=10, y=10, anchor="nw")
         self.CloseButton.bind("<Button-1>", lambda x: [self.CloseProject()])
 
         self.TitleLabel = tk.Label(self, text=self.TempWindow.Name, bg=Usefuls.LightBlack, fg=Usefuls.Mint, font=(Usefuls.FontLargest, 24))

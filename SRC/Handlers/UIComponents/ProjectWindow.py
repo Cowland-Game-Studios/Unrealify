@@ -2,6 +2,7 @@ import tkinter as tk
 from PIL import ImageTk, Image
 
 import os
+import datetime
 import platform
 import subprocess
 import webbrowser
@@ -77,6 +78,7 @@ class ProjectExpanded(tk.Canvas):
         print(Directory)
 
         self.Data = Data
+        self.Directory = Directory
         self.DataParser = DataParser
 
         self.TempWindow = ProjectWindow(None, Directory, None, Data["UPath"])
@@ -90,26 +92,42 @@ class ProjectExpanded(tk.Canvas):
         self.ImageLabel = tk.Label(self, image=self.ProjectImage, borderwidth=3, background=Usefuls.LightGrey)
         self.ImageLabel.place(x=10, y=45, width=250, height=250)
 
-        self.VersionLabel = tk.Label(self, text=self.TempWindow.Version, font=(Usefuls.FontAccented, 12), foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
+        self.VersionLabel = tk.Label(self, text=self.TempWindow.Version, font=(Usefuls.FontLargest, 12), foreground=Usefuls.LightBlack, borderwidth=0, background=Usefuls.Mint)
         self.VersionLabel.place(x=250 + 10, y=250 + 45, anchor="se")
 
         self.CloseButton = tk.Label(self, image=self.CloseImage, borderwidth=0, highlightthickness=0)
         self.CloseButton.place(x=10, y=10, anchor="nw")
         self.CloseButton.bind("<Button-1>", lambda x: [self.CloseProject()])
 
-        self.TitleLabel = tk.Label(self, text=self.TempWindow.Name, bg=Usefuls.LightBlack, fg=Usefuls.Mint, font=(Usefuls.FontLargest, 24))
+        self.TitleLabel = tk.Label(self, text=self.TempWindow.Name, bg=Usefuls.LightBlack, fg=Usefuls.Mint, font=(Usefuls.Font, 20))
         self.TitleLabel.pack(pady=(5,0))
 
-        #self.TextCanvas = tk.Canvas(self, bg=Usefuls.LightBlack).place(x=250 + 10 + 10, y=45)
+        #ty 
+        #https://www.geeksforgeeks.org/how-to-get-size-of-folder-using-python/
+        #https://stackoverflow.com/questions/39327032/how-to-get-the-latest-file-in-a-folder
+        Size = 0
+        LastModified = 0
+        for Path, Directory, Files in os.walk(self.Directory):
+            for F in Files:
+                Joined = os.path.join(Path, F)
+                Size += os.path.getsize(Joined)
+                if os.path.getctime(Joined) > LastModified:
+                    LastModified = os.path.getctime(Joined)
 
-        tk.Label(self, text="Last Modified ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=40)
-        tk.Label(self, text="5/12/22 12:33pm", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 14)).place(x=250 + 10 + 10, y=45 + 20)
+        Size = int((Size / (1024 * 1024 * 1024)) * 1000) / 1000
 
-        tk.Label(self, text="Project Size ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=45 + 30 + 35)
-        tk.Label(self, text="165.23GB", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=250 + 10 + 10, y=45 + 30 + 20 + 40)
+        LastModified = datetime.datetime.fromtimestamp(os.path.getmtime(self.Directory)).strftime("%m/%d/%Y %I:%M%p")
+        
+        tk.Label(self, text="Last Modified ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 16)).place(x=250 + 10 + 10, y=40)
+        tk.Label(self, text=LastModified, bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontAccented, 14)).place(x=250 + 10 + 10, y=45 + 25)
 
-        tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 18)).place(x=250 + 10 + 10, y=45 + 60 + 75)
-        tk.Label(self, text="Windows (64), Mac, Linux, Oculus Quest 2 ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontLargest, 14)).place(x=250 + 10 + 10, y=45 + 60 + 20 + 80)
+        tk.Label(self, text="Project Size ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 16)).place(x=250 + 10 + 10, y=45 + 30 + 35)
+        tk.Label(self, text=f"{Size}GB" if Size > 1 else f"{Size * 1000}MB", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontAccented, 14)).place(x=250 + 10 + 10, y=45 + 30 + 20 + 50)
+
+        Platforms = "All" if "TargetPlatforms" not in self.TempWindow.UProjectContent else ", ".join(self.TempWindow.UProjectContent["TargetPlatforms"])
+
+        tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 16)).place(x=250 + 10 + 10, y=45 + 60 + 75)
+        tk.Label(self, text=Platforms, bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontAccented, 14), wraplengt=300, justify="left").place(x=250 + 10 + 10, y=45 + 60 + 20 + 85)
 
     def CloseProject(self):
         self.DataParser.Write("Opened", "")

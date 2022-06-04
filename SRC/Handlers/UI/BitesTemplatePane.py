@@ -22,6 +22,7 @@ class BitesTemplatePane(TemplatePane):
         tk.Label(self.Root, text="a", font=(Usefuls.FontAccented, 1), foreground=Usefuls.White, bg=Background, width=Width).pack()
 
         self.StackImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Search/SearchOnStack.png").resize((25, 25), Image.ANTIALIAS))
+        self.GoogleImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Search/SearchOnGoogle.png").resize((25, 25), Image.ANTIALIAS))
 
         self.Settings = self.SettingsHandler.GetAllData()
         self.BitesDirectory = BitesDirectory
@@ -39,6 +40,10 @@ class BitesTemplatePane(TemplatePane):
         self.SearchOnStackButton = tk.Label(self.Canvas, relief=tk.FLAT, image=self.StackImage, highlightthickness=0, borderwidth=0)
         self.SearchOnStackButton.place(x=250, y=60, anchor="nw")
         self.SearchOnStackButton.bind("<Button-1>", lambda x: [webbrowser.open(f"""https://stackoverflow.com/search?q={self.SearchBar.get("1.0", tk.END)}""")])
+
+        self.SearchOnGoogleButton = tk.Label(self.Canvas, relief=tk.FLAT, image=self.GoogleImage, highlightthickness=0, borderwidth=0)
+        self.SearchOnGoogleButton.place(x=275, y=60, anchor="nw")
+        self.SearchOnGoogleButton.bind("<Button-1>", lambda x: [webbrowser.open(f"""https://www.google.com/search?q={self.SearchBar.get("1.0", tk.END)}""")])
 
         tk.Label(self.Canvas, text="Bites", font=(Usefuls.FontAccented, 25), foreground=Usefuls.White, bg=Background).place(x=10, y=10, anchor="nw")
         

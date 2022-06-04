@@ -67,7 +67,7 @@ class BitesWindow(tk.Canvas):
         # self.DescriptionLabel.pack()
 
         if self.Tags != []: #switch to display all
-            self.TagLabel = tk.Label(self, text=self.Tags[0], font=(Usefuls.Font, 7), foreground=self.Background, bg=Usefuls.Mint, wraplengt=self.ImagePreviewSize[0])
+            self.TagLabel = tk.Label(self, text=self.Tags[0], foreground=self.Background, bg=Usefuls.Mint, wraplengt=self.ImagePreviewSize[0])
             if len(self.ImagePreviewSize) > 1:
                 self.TagLabel.place(relx=1, y=self.ImagePreviewSize[1] + 1, anchor="e")
 
@@ -122,7 +122,7 @@ class BitesExpanded(tk.Canvas):
         self.TitleLabel.pack()
 
         if self.ParentBite.Tags != []:
-            self.TagLabel = tk.Label(self, text=self.ParentBite.Tags[0], font=(Usefuls.Font, 7), foreground=Usefuls.LightBlack, bg=Usefuls.Mint, wraplengt=600)
+            self.TagLabel = tk.Label(self, text=self.ParentBite.Tags[0], foreground=Usefuls.LightBlack, bg=Usefuls.Mint, wraplengt=600)
             self.TagLabel.pack()
 
         self.DescriptionLabel = tk.Label(self, text=self.ParentBite.Description, font=(Usefuls.Font, 10), foreground=Usefuls.White, bg=Usefuls.LightBlack, wraplengt=380)

@@ -148,8 +148,10 @@ class App():
     tk.Label(Parent, text="", font=(Usefuls.Font, Size), bg=Usefuls.LightBlack).pack()
 
   def SetUpDashboardMenu(self):
+
     if self.IsAnimating: 
       return 
+
     self.IsAnimating = True
 
     ContentPane = self.SetUpUI()
@@ -161,6 +163,11 @@ class App():
     self.AllWidgets.append(
       DashboardMenu
     )
+
+    def E(): #need else would bug again
+      self.IsAnimating = False
+
+    self.window.after(100, E)
 
   def SetUpCPPMenu(self):
 

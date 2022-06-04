@@ -85,6 +85,9 @@ class ProjectExpanded(tk.Canvas):
 
         self.ProjectImage = ImageTk.PhotoImage(Image.open(self.TempWindow.ImagePath).resize((250, 250)), Image.ANTIALIAS)
         self.CloseImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/CloseProject.png").resize((100, 25)), Image.ANTIALIAS)
+        self.OpenInUnrealImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInUnreal.png").resize((104, 25)), Image.ANTIALIAS)
+        self.OpenInCPPImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInCPP.png").resize((119, 25)), Image.ANTIALIAS)
+        self.OpenInGitImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInGit.png").resize((101, 25)), Image.ANTIALIAS)
 
         self.SetUpUI()
 
@@ -128,6 +131,30 @@ class ProjectExpanded(tk.Canvas):
 
         tk.Label(self, text="Project Platforms ", bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.Font, 16)).place(x=250 + 10 + 10, y=45 + 60 + 75)
         tk.Label(self, text=Platforms, bg=Usefuls.LightBlack, fg=Usefuls.White, font=(Usefuls.FontAccented, 14), wraplengt=300, justify="left").place(x=250 + 10 + 10, y=45 + 60 + 20 + 85)
+
+        self.ButtonCanvas = tk.Canvas(self, borderwidth=0, highlightthickness=0, bg=Usefuls.LightBlack)
+        self.ButtonCanvas.place(relx=0, rely=0.875, anchor="sw")
+
+        def OpenInUnreal():
+            pass
+        
+        self.OpenInUnrealButton = tk.Label(self.ButtonCanvas, image=self.OpenInUnrealImage, borderwidth=0, highlightthickness=0)
+        self.OpenInUnrealButton.grid(row=0, column=1, padx=(0, 10))
+        self.OpenInUnrealButton.bind("<Button-1>", OpenInUnreal)
+
+        def OpenInCPP():
+            pass
+        
+        self.OpenInCPPButton = tk.Label(self.ButtonCanvas, image=self.OpenInCPPImage, borderwidth=0, highlightthickness=0)
+        self.OpenInCPPButton.grid(row=0, column=2, padx=5)
+        self.OpenInCPPButton.bind("<Button-1>", OpenInCPP)
+
+        def OpenInGit():
+            pass
+        
+        self.OpenInGitButton = tk.Label(self.ButtonCanvas, image=self.OpenInGitImage, borderwidth=0, highlightthickness=0)
+        self.OpenInGitButton.grid(row=0, column=3, padx=5)
+        self.OpenInGitButton.bind("<Button-1>", OpenInGit)
 
     def CloseProject(self):
         self.DataParser.Write("Opened", "")

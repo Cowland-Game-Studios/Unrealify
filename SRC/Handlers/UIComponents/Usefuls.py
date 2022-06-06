@@ -1,4 +1,4 @@
-import os
+import os, platform
 
 class Usefuls:
     LightBlack = "#121212"
@@ -14,3 +14,11 @@ class Usefuls:
     FontLargest = "@Yu Gothic Bold"
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
+
+    def Open(path): #thanks to https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-finder
+        if platform.system() == "Windows":
+            os.startfile(path)
+        elif platform.system() == "Darwin":
+            subprocess.Popen(["open", path])
+        else:
+            subprocess.Popen(["xdg-open", path])

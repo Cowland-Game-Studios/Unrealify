@@ -1,0 +1,11 @@
+ApplyLocation: NONE
+CodeSnippetToCopy: NONE
+Description: Resize images automatically for iOS. Put an image (5000x5000) in the source folder as Target.png, and run the script, and get a customized timestamped folder with your images resized as the output. Copy and paste into your graphics folder... Huzzah!
+FileToOpen: NONE
+Image:
+  Link: Preview.png
+  PreviewSize: 150x150
+  RescaleSize: 150x150
+Name: IOS Icons Generator
+Tags: UE4
+WebpageToOpen: https://github.com/Cowland-Game-Studios/ImageResizerIOSUE4

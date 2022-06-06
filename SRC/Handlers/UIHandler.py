@@ -166,7 +166,7 @@ class App():
     def E(): #need else would bug again
       self.IsAnimating = False
 
-    self.window.after(100, E)
+    self.window.after(1000, E)
 
   def SetUpCPPMenu(self):
 

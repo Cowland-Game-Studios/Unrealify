@@ -145,18 +145,20 @@ class ProjectExpanded(tk.Canvas):
         self.ButtonCanvas.place(x=10, rely=0.65, anchor="sw")
 
         def OpenInUnreal(x):
-            pass
+            BottomBar(self, "Unreal project loading...")
+            Usefuls.Open(f"""{self.Directory}/{self.Data["UPath"]}""")
         
         self.OpenInUnrealButton = tk.Label(self.ButtonCanvas, image=self.OpenInUnrealImage, borderwidth=0, highlightthickness=0)
         self.OpenInUnrealButton.grid(row=0, column=1, padx=(0, 5))
         self.OpenInUnrealButton.bind("<Button-1>", OpenInUnreal)
 
-        def OpenInCPP(x):
-            pass
-        
-        self.OpenInCPPButton = tk.Label(self.ButtonCanvas, image=self.OpenInCPPImage, borderwidth=0, highlightthickness=0)
-        self.OpenInCPPButton.grid(row=0, column=2, padx=(0, 5))
-        self.OpenInCPPButton.bind("<Button-1>", OpenInCPP)
+        if os.path.isfile(f"{self.Directory}/Source/{self.TempWindow.Name}.Target.cs"):
+            def OpenInCPP(x):
+                Usefuls.Open(f"{self.Directory}/Source/{self.TempWindow.Name}.Target.cs")
+            
+            self.OpenInCPPButton = tk.Label(self.ButtonCanvas, image=self.OpenInCPPImage, borderwidth=0, highlightthickness=0)
+            self.OpenInCPPButton.grid(row=0, column=2, padx=(0, 5))
+            self.OpenInCPPButton.bind("<Button-1>", OpenInCPP)
 
         def OpenInGit(Github):
             with open(f"{Github}/config") as f:
@@ -198,11 +200,10 @@ class ProjectExpanded(tk.Canvas):
             DelList = [
                 "/Binaries",
                 "/Intermediate",
-                "/DerivedDataCache",
-                "/Saved"
+                "/DerivedDataCache"
             ]
 
-            Confirm = messagebox.askyesno(title="Confirm Deletion", message="This action will delete the following folders (Please ensure Unreal is closed during the process):\n - Binaries \n - Intermediate \n - Saved (Except /Config) \n - DerivedDataCache\nThis action can not be undone!")
+            Confirm = messagebox.askyesno(title="Confirm Deletion", message="This action will delete the following folders (Please ensure Unreal is closed during the process):\n - Binaries \n - Intermediate \n - DerivedDataCache\nThis action can not be undone!")
 
             if Confirm:
                 for SubDir in DelList:
@@ -210,7 +211,7 @@ class ProjectExpanded(tk.Canvas):
                     if not os.path.isdir(self.Directory + SubDir):
                         continue
 
-                    if SubDir == "/Saved":
+                    if SubDir == "/Saved": #no longer deleting saved folder - remove later
                         for SubSubDir in os.listdir(self.Directory + SubDir):
                             if SubSubDir == "Config":
                                 continue
@@ -231,8 +232,10 @@ class ProjectExpanded(tk.Canvas):
         self.ButtonCanvas3 = tk.Canvas(self, borderwidth=0, highlightthickness=0, bg=Usefuls.LightBlack)
         self.ButtonCanvas3.place(relx=1, rely=0.985, anchor="se")
 
-        def UnlinkFromUnrealify(x):
-            Confirm = messagebox.askyesno(title="Confirm Unlink", message="This will unlink the project from Unrealify, and delete the /Unrealify/ folder. \nThis action can not be undone, you will have to find the project again in the selector to link it.")
+        def UnlinkFromUnrealify(x, Confirm = False):
+
+            if not Confirm:
+                Confirm = messagebox.askyesno(title="Confirm Unlink", message="This will unlink the project from Unrealify, and delete the /Unrealify/ folder. \nThis action can not be undone, you will have to find the project again in the selector to link it.")
 
             if Confirm:
 
@@ -252,7 +255,12 @@ class ProjectExpanded(tk.Canvas):
         self.UnlinkFromUnrealifyButton.bind("<Button-1>", UnlinkFromUnrealify)
 
         def DeleteUnrealProject(x):
-            pass
+            Confirm = messagebox.askyesno(title="Confirm Delete", message=f"This will delete the {self.TempWindow.Name} Unreal Engine project (and its Unrealify associations) off of your PC. Are you sure?")
+
+            if Confirm:
+                UnlinkFromUnrealify(None, True)
+                if os.path.isdir(self.Directory):
+                    shutil.rmtree(self.Directory)
         
         self.DeleteUnrealProject = tk.Label(self.ButtonCanvas3, image=self.DeleteImage, borderwidth=0, highlightthickness=0)
         self.DeleteUnrealProject.grid(row=0, column=2, padx=(0, 5))

@@ -78,14 +78,6 @@ class BitesWindow(tk.Canvas):
 
 class BitesExpanded(tk.Canvas):
 
-    def Open(path): #thanks to https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-finder
-        if platform.system() == "Windows":
-            os.startfile(path)
-        elif platform.system() == "Darwin":
-            subprocess.Popen(["open", path])
-        else:
-            subprocess.Popen(["xdg-open", path])
-
     def Apply(self):
 
         StashPath = ""
@@ -144,7 +136,7 @@ class BitesExpanded(tk.Canvas):
         if not self.ParentBite.FileToOpen.endswith("NONE"):
             self.OpenFileButton = tk.Label(master=self.ButtonCanvas, image=self.OpenFileImage, highlightthickness=0, borderwidth=0)
             self.OpenFileButton.grid(column=1, row=0, padx=5)
-            self.OpenFileButton.bind("<Button-1>", lambda x: [BitesExpanded.Open(self.ParentBite.FileToOpen)])
+            self.OpenFileButton.bind("<Button-1>", lambda x: [Usefuls.Open(self.ParentBite.FileToOpen)])
 
             if self.ParentBite.ProjectPath != "" and self.ParentBite.ProjectPath != "NONE" and not self.ParentBite.ApplyPath.endswith("NONE"):
                 self.ApplyButton = tk.Label(master=self.ButtonCanvas, image=self.ApplyToProjectImage, highlightthickness=0, borderwidth=0)

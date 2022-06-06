@@ -46,14 +46,14 @@ class App():
 
     #Startup windows & processes
     self.SetUpSideBar()
-    self.__ContinueLastLeft()
+    self.ContinueLastLeft()
 
     #Last
     self.window.focus_force()
 
     self.window.protocol("WM_DELETE_WINDOW", self.Destroy)
 
-  def __ContinueLastLeft(self):
+  def ContinueLastLeft(self):
     if (self.Settings["App"]["LastLeft"] == "Blueprints"):
       self.SetUpBlueprintsMenu()
     elif (self.Settings["App"]["LastLeft"] == "C++"):
@@ -118,7 +118,6 @@ class App():
     if Opened != "" and Opened != "NONE":
       self.ProjectOpened = tk.Label(self.SideBar, font=(Usefuls.Font, 7), text=Data["Projects"][Opened]["UPath"].rstrip(".uproject"), bg=Usefuls.Mint)
       self.ProjectOpened.place(x=125, y=125, anchor="se")
-      
 
     #self.IsAnimating = True
     
@@ -157,7 +156,7 @@ class App():
     ContentPane = self.SetUpUI()
     self.SettingsHandler.Write("App/LastLeft", "Dashboard")
 
-    DashboardMenu = DashboardPane.DashboardPane(ContentPane, self.SettingsHandler, 720-142, 512)
+    DashboardMenu = DashboardPane.DashboardPane(ContentPane, self.SettingsHandler, self, 720-142, 512)
     DashboardMenu.place(x=0, y=0)
 
     self.AllWidgets.append(

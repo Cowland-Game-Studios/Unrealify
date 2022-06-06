@@ -18,13 +18,15 @@ from Handlers.UIComponents.ProjectWindow import ProjectWindow, ProjectExpanded
 from Handlers.SettingsHandler import YamlParser
 
 class DashboardPane(TemplatePane):
-    def __init__(self, Root, SettingsHandler, width=400, height=50, bg = Usefuls.LightGrey):
+    def __init__(self, Root, SettingsHandler, UIToRefresh, width=400, height=50, bg = Usefuls.LightGrey):
         super().__init__(Root, SettingsHandler, width, height)
 
         self.Root = Root
         self.Settings = SettingsHandler.GetAllData()
         self.DataParser = YamlParser(Usefuls.DirectoryAbove + "/Data/Projects.yaml")
         self.Background = bg
+
+        self.UIToRefresh = UIToRefresh
 
         self.AllProjects = []
 
@@ -77,7 +79,9 @@ class DashboardPane(TemplatePane):
         if not SkipBottomBar:
             BottomBar(self.Root, ".uproject file found!")
 
-        ProjectPane = ProjectExpanded(self.Canvas, Data["Projects"][RootDir], RootDir, self.DataParser)
+        self.UIToRefresh.ResetSideBar() #to display opened project
+
+        ProjectPane = ProjectExpanded(self.Canvas, Data["Projects"][RootDir], RootDir, self.DataParser, self.UIToRefresh.ContinueLastLeft)
         ProjectPane.place(x=0, y=0, width=720-142, height=512)
 
     def SetUpMiscUI(self):
@@ -85,7 +89,7 @@ class DashboardPane(TemplatePane):
         self.ProjectPane = tk.Canvas(self.Frame, width=720-142, height=512-150, bg=self.Background, highlightthickness=0)
 
         self.BitesBackgroundText = tk.Label(self.ProjectPane, text="Unrealify Projects", font=(Usefuls.FontAccented, 24), bg=self.Background, foreground=Usefuls.White)
-        self.BitesBackgroundText.grid(pady=10)
+        self.BitesBackgroundText.grid(pady=10, padx=(0, 260))
 
         self.BrowserPane = ScrollPane(self.ProjectPane, self.Background, 720-167, 512-150)
         self.BrowserPane.place(y=50)

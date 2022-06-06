@@ -54,13 +54,14 @@ class BitesWindow(tk.Canvas):
         self.SetUpUI()
 
     def SetUpUI(self):
-        if self.PreviewImage:
-            self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
-            self.ImageLabel.pack()
+        self.ImageLabel = tk.Label(self, image=self.PreviewImage, borderwidth=0, background=self.Background)
+        self.ImageLabel.pack()
+            
         
         self.TitleLabel = tk.Label(self, text=self.Title, font=(Usefuls.Font, 10), foreground=Usefuls.White, bg=self.Background, wraplengt=self.ImagePreviewSize[0])
         self.TitleLabel.pack()
 
+        self.ImageLabel.bind("<Button-1>", lambda x : [self.CreateBiteDetail()])
         self.TitleLabel.bind("<Button-1>", lambda x : [self.CreateBiteDetail()])
 
         # self.DescriptionLabel = tk.Label(self, text=self.Description, font=(Usefuls.Font, 10), foreground=Usefuls.White, bg=self.Background, wraplengt=self.ImagePreviewSize[0])

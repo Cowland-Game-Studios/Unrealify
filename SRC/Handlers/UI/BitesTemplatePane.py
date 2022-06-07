@@ -59,7 +59,7 @@ class BitesTemplatePane(TemplatePane):
 
         Bites = []
         for Bite in os.listdir(Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory):            
-            if (Bite.startswith("_")):
+            if (Bite.startswith("_") or Bite.startswith(".")):
                 continue
 
             Data = YamlParser(Usefuls.DirectoryAbove + "/Bites/" + self.BitesDirectory + "/" + Bite + "/Details.yaml").GetAllData()

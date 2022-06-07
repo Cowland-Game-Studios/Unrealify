@@ -1,4 +1,4 @@
-import os, platform, subprocess
+import os, platform, subprocess, sys
 
 class Usefuls:
     LightBlack = "#121212"
@@ -9,11 +9,13 @@ class Usefuls:
     DarkMint = "#5AA17F"
     White = "#FFF"
 
-    Font = "@Yu Gothic UI"
-    FontAccented = "@Yu Gothic"
-    FontLargest = "@Yu Gothic Bold"
+    Font = "@Yu Gothic UI" if platform.system() != "Darwin" else "YuGothic" 
+    FontAccented = "@Yu Gothic" if platform.system() != "Darwin" else Font
+    FontLargest = "@Yu Gothic Bold" if platform.system() != "Darwin" else Font
     
     DirectoryAbove = "/".join(os.path.dirname(os.path.realpath(__file__)).replace("\\", "/").split("/")[:-2])
+    if getattr(sys, 'frozen', False):
+        DirectoryAbove = "/".join(os.path.dirname(sys.executable).replace("\\", "/").split("/")[:-1])
 
     def Open(path): #thanks to https://stackoverflow.com/questions/6631299/python-opening-a-folder-in-explorer-nautilus-finder
         if platform.system() == "Windows":

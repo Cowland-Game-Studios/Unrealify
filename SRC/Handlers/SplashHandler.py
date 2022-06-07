@@ -43,8 +43,8 @@ class SplashScreen():
         A.pack()
 
         #load images
-        CowImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
-        SpinnerImage = ImageTk.PhotoImage(Image.open(SplashScreen.DirectoryAbove + "/Image/Splash/Spinner.png").resize((20, 20), Image.ANTIALIAS))
+        CowImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Logo/Logo_DarkBG.png").resize((200, 200), Image.ANTIALIAS))
+        SpinnerImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/Splash/Spinner.png").resize((20, 20), Image.ANTIALIAS))
 
         self.IntroImage = tk.Label(self.window, image=CowImage, borderwidth=0, background=Usefuls.LightBlack)
         self.IntroImage.image = CowImage

@@ -1,4 +1,4 @@
-import os, platform
+import os, platform, subprocess
 
 class Usefuls:
     LightBlack = "#121212"
@@ -23,13 +23,7 @@ class Usefuls:
         else:
             subprocess.Popen(["xdg-open", path])
 
-    # def ShowFileInExplorer(path):
-    #     if platform.system() == "Windows":
-    #         os.startfile(path)
-    #     elif platform.system() == "Darwin":
-    #         subprocess.Popen(["open", path])
-    #     else:
-    #         subprocess.Popen(["xdg-open", path])
-
-if __name__ == '__main__':
-    Usefuls.Open(r"D:\Unreal Projects\TrainSim\MobileTrainSimulator 5.0\Content\Materials")
+    def ShowFileInExplorer(path):
+        if os.path.isfile(path):
+            path = "/".join(path.replace("\\", "/").split("/")[:-1])
+        Usefuls.Open(path)

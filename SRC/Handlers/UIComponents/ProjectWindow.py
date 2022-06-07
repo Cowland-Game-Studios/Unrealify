@@ -97,6 +97,7 @@ class ProjectExpanded(tk.Canvas):
         self.OpenInUnrealImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInUnreal.png").resize((int(104 * ButtonRenderScale), int(25 * ButtonRenderScale))), Image.ANTIALIAS)
         self.OpenInCPPImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInCPP.png").resize((int(119 * ButtonRenderScale), int(25 * ButtonRenderScale))), Image.ANTIALIAS)
         self.OpenInGitImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInGit.png").resize((int(101 * ButtonRenderScale), int(25 * ButtonRenderScale))), Image.ANTIALIAS)
+        self.OpenInExplorerImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInExplorer.png").resize((int(101 * ButtonRenderScale), int(25 * ButtonRenderScale)), Image.ANTIALIAS))
 
         self.OpenBloatManagerImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/BloatManager.png").resize((int(100 * ButtonRenderScale), int(25 * ButtonRenderScale))), Image.ANTIALIAS)
         self.AutoSortContentsImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/AutoSortContents.png").resize((int(134 * ButtonRenderScale), int(25 * ButtonRenderScale))), Image.ANTIALIAS)
@@ -173,8 +174,12 @@ class ProjectExpanded(tk.Canvas):
 
         if GitHubDir:
             self.OpenInGitButton = tk.Label(self.ButtonCanvas, image=self.OpenInGitImage, borderwidth=0, highlightthickness=0)
-            self.OpenInGitButton.grid(row=0, column=3)
+            self.OpenInGitButton.grid(row=0, column=3, padx=(0, 5))
             self.OpenInGitButton.bind("<Button-1>", lambda x: [OpenInGit(GitHubDir)])
+
+        self.OpenInExplorerButton = tk.Label(master=self.ButtonCanvas, image=self.OpenInExplorerImage, highlightthickness=0, borderwidth=0)
+        self.OpenInExplorerButton.grid(column=4, row=0, padx=(0, 5))
+        self.OpenInExplorerButton.bind("<Button-1>", lambda x: [Usefuls.ShowFileInExplorer(self.Directory)])
 
         self.ButtonCanvas2 = tk.Canvas(self, borderwidth=0, highlightthickness=0, bg=Usefuls.LightBlack)
         self.ButtonCanvas2.place(x=10, rely=0.725, anchor="sw")
@@ -232,6 +237,8 @@ class ProjectExpanded(tk.Canvas):
         self.ButtonCanvas3 = tk.Canvas(self, borderwidth=0, highlightthickness=0, bg=Usefuls.LightBlack)
         self.ButtonCanvas3.place(relx=1, rely=0.985, anchor="se")
 
+
+        #bottom danger row
         def UnlinkFromUnrealify(x, Confirm = False):
 
             if not Confirm:

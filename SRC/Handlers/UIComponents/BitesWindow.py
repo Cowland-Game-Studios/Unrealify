@@ -108,6 +108,7 @@ class BitesExpanded(tk.Canvas):
         self.CopyImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Copy.png").resize((55, 25), Image.ANTIALIAS))
         self.OpenFileImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/OpenFile.png").resize((75, 25), Image.ANTIALIAS))
         self.OpenOnWebImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/OpenOnWeb.png").resize((95, 25), Image.ANTIALIAS))
+        self.OpenInExplorerImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/ProjectMenu/OpenInExplorer.png").resize((101, 25), Image.ANTIALIAS))
         self.ReturnImage = ImageTk.PhotoImage(Image.open(Usefuls.DirectoryAbove + "/Image/BitesMenu/Return.png").resize((25, 25), Image.ANTIALIAS))
 
         self.ParentBite = ParentBite
@@ -138,14 +139,18 @@ class BitesExpanded(tk.Canvas):
             self.OpenFileButton.grid(column=1, row=0, padx=5)
             self.OpenFileButton.bind("<Button-1>", lambda x: [Usefuls.Open(self.ParentBite.FileToOpen)])
 
+            self.OpenInExplorerButton = tk.Label(master=self.ButtonCanvas, image=self.OpenInExplorerImage, highlightthickness=0, borderwidth=0)
+            self.OpenInExplorerButton.grid(column=2, row=0, padx=5)
+            self.OpenInExplorerButton.bind("<Button-1>", lambda x: [Usefuls.ShowFileInExplorer(self.ParentBite.FileToOpen)])
+
             if self.ParentBite.ProjectPath != "" and self.ParentBite.ProjectPath != "NONE" and not self.ParentBite.ApplyPath.endswith("NONE"):
                 self.ApplyButton = tk.Label(master=self.ButtonCanvas, image=self.ApplyToProjectImage, highlightthickness=0, borderwidth=0)
-                self.ApplyButton.grid(column=2, row=0, padx=5)
+                self.ApplyButton.grid(column=3, row=0, padx=5)
                 self.ApplyButton.bind("<Button-1>", lambda x: [self.Apply()])
 
         if self.ParentBite.CodeSnippetToCopy != "NONE":
             self.CopyButton = tk.Label(master=self.ButtonCanvas, image=self.CopyImage, highlightthickness=0, borderwidth=0)
-            self.CopyButton.grid(column=3, row=0, padx=5)
+            self.CopyButton.grid(column=4, row=0, padx=5)
             self.CopyButton.bind("<Button-1>", lambda x: [pyperclip.copy(self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "__FILE__" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines())), BottomBar(self, f"Copied!", Rely=0.96)])
 
         self.CloseButton = tk.Label(master=self, image=self.ReturnImage, highlightthickness=0, borderwidth=0)

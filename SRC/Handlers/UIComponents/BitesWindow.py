@@ -146,7 +146,7 @@ class BitesExpanded(tk.Canvas):
         if self.ParentBite.CodeSnippetToCopy != "NONE":
             self.CopyButton = tk.Label(master=self.ButtonCanvas, image=self.CopyImage, highlightthickness=0, borderwidth=0)
             self.CopyButton.grid(column=3, row=0, padx=5)
-            self.CopyButton.bind("<Button-1>", lambda x: [pyperclip.copy(self.ParentBite.CodeSnippetToCopy), BottomBar(self, f"Copied!", Rely=0.96)])
+            self.CopyButton.bind("<Button-1>", lambda x: [pyperclip.copy(self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "__FILE__" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines())), BottomBar(self, f"Copied!", Rely=0.96)])
 
         self.CloseButton = tk.Label(master=self, image=self.ReturnImage, highlightthickness=0, borderwidth=0)
         self.CloseButton.place(x=5, y=5, anchor="nw")
@@ -155,5 +155,5 @@ class BitesExpanded(tk.Canvas):
         if self.ParentBite.CodeSnippetToCopy != "NONE" or not self.ParentBite.FileToOpen.endswith("NONE"):
             tk.Label(self, text=("  Copy" if self.ParentBite.CodeSnippetToCopy != "NONE" else "File") + " Preview:", bg=Usefuls.LightBlack, foreground=Usefuls.White, borderwidth=0, font=(Usefuls.Font, 12), justify=tk.LEFT).pack(padx=(0, 475))
             self.CopyLabel = tk.Text(master=self, bg=Usefuls.LightGrey, foreground=Usefuls.White, font=(Usefuls.Font, 10), borderwidth=0)
-            self.CopyLabel.insert(tk.INSERT, self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "NONE" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines()))
+            self.CopyLabel.insert(tk.INSERT, self.ParentBite.CodeSnippetToCopy if self.ParentBite.CodeSnippetToCopy != "NONE" and self.ParentBite.CodeSnippetToCopy != "__FILE__" else "\n".join(open(self.ParentBite.FileToOpen, "r").readlines()))
             self.CopyLabel.pack(pady=(5, 0))
